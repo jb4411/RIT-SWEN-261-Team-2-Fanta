@@ -6,7 +6,7 @@ a web micro-framework.
 
 ## Team
 
-- MEMBER1
+- Jesse Burdick-Pless
 - MEMBER2
 - MEMBER3
 - MEMBER4
