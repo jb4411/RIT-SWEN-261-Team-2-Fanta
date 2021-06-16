@@ -9,7 +9,7 @@ a web micro-framework.
 - Jesse Burdick-Pless
 - Jess Zhao
 - Eric Landers
-- MEMBER4
+- Dominic Kavanagh
 
 
 ## Prerequisites
