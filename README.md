@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Jesse Burdick-Pless
-- MEMBER2
+- Jess Zhao
 - MEMBER3
 - MEMBER4
 
