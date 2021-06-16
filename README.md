@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Jesse Burdick-Pless
 - Jess Zhao
-- MEMBER3
+- Eric Landers
 - MEMBER4
 
 
