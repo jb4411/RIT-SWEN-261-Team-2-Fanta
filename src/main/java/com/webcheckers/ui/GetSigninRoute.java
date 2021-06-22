@@ -18,8 +18,7 @@ public class GetSigninRoute {
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /signin} HTTP requests.
      *
-     * @param templateEngine
-     *   the HTML template rendering engine
+     * @param templateEngine the HTML template rendering engine
      */
     public GetSigninRoute(final TemplateEngine templateEngine) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
