@@ -13,11 +13,11 @@ public class Piece {
     }
 
     public Type getType(){
-
+        return null;
     }
 
     public Color getColor(){
-
+        return null;
     }
 
 
