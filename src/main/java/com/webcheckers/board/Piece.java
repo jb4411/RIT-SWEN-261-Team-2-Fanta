@@ -2,9 +2,24 @@ package com.webcheckers.board;
 
 public class Piece {
 
-    public enum Type {
+    private enum Type {
         KING,
         SINGLE
     }
+
+    private enum Color {
+        RED,
+        WHITE
+    }
+
+    public Type getType(){
+
+    }
+
+    public Color getColor(){
+
+    }
+
+
 
 }
