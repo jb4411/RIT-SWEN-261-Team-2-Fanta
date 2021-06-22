@@ -1,4 +1,10 @@
 package com.webcheckers.board;
 
-public abstract class Piece {
+public class Piece {
+
+    public enum Type {
+        KING,
+        SINGLE
+    }
+
 }
