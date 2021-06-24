@@ -17,6 +17,8 @@ public class GetSigninRoute implements Route {
 
     private final TemplateEngine templateEngine;
 
+    private static final String PLAYER_NAME_ATTR = "name";
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /signin} HTTP requests.
      *
@@ -38,6 +40,13 @@ public class GetSigninRoute implements Route {
     public Object handle(Request request, Response response) {
         LOG.finer("GetSigninRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
+
+        System.out.println((String) request.session().attribute(PLAYER_NAME_ATTR));
+        if(request.session().attribute(PLAYER_NAME_ATTR) != null) {
+            response.redirect(WebServer.HOME_URL);
+            return null;
+        }
+
         // render the View
         return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
     }

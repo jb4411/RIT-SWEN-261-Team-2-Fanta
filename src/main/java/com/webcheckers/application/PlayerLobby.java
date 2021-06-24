@@ -16,16 +16,18 @@ public class PlayerLobby {
         this.players = new HashMap<>();
     }
 
-    public synchronized boolean addPlayer(String name) {
-        if(!name.matches("^[a-zA-Z\\s]*$")) {
-            return false;
+    public enum NameStatus {INVALID, VALID, DUPLICATE}
+
+    public synchronized NameStatus addPlayer(String name) {
+        if(!name.matches("[a-zA-Z]+[a-zA-Z\\s]*$")) {
+            return NameStatus.INVALID;
         } else if(players.containsKey(name)) {
-            return false;
+            return NameStatus.DUPLICATE;
         }
 
         Player newPlayer = new Player(name);
         players.put(name, newPlayer);
-        return true;
+        return NameStatus.VALID;
     }
 
     public int getNumPlayers(){
