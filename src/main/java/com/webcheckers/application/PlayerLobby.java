@@ -19,7 +19,7 @@ public class PlayerLobby {
     public enum NameStatus {INVALID, VALID, DUPLICATE}
 
     public synchronized NameStatus addPlayer(String name) {
-        if(!name.matches("^[a-zA-Z\\s]*$")) {
+        if(!name.matches("[a-zA-Z]+[a-zA-Z\\s]*$")) {
             return NameStatus.INVALID;
         } else if(players.containsKey(name)) {
             return NameStatus.DUPLICATE;
