@@ -31,7 +31,7 @@ public class PlayerLobby {
         return NameStatus.VALID;
     }
 
-    public int getNumPlayers(){
+    public int getNumPlayers() {
         return this.players.size();
     }
 
