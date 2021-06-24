@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.LinkedList;
 import com.webcheckers.model.Player;
 
-public class BoardView {
+public class BoardView implements Iterable<Row>{
     private Player player1;
     private Player player2;
     private List<Row> board;
@@ -30,6 +30,11 @@ public class BoardView {
             board.add(new Row());
             valid = !valid;
         }
+    }
+
+    @Override
+    public Iterator<Row> iterator(){
+        return game.getBoard().iterator();
     }
 
 }
