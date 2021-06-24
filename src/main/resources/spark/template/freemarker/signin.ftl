@@ -17,7 +17,7 @@
     <div class="body">
         <#if message??>
             <div id="message" >
-                ${message}
+                <#include "message.ftl" />
             </div>
         </#if>
         <form id="name" action="/signin" method="POST">
