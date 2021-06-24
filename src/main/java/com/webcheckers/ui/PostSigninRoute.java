@@ -42,7 +42,7 @@ public class PostSigninRoute implements Route {
     public Object handle(Request request, Response response){
         LOG.finer("GetSigninRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
-        System.out.println(request.queryParams());
+        System.out.println(request.queryParams("name"));
         return null;
     }
 }
