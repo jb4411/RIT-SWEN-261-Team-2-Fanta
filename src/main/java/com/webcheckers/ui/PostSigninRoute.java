@@ -20,7 +20,6 @@ public class PostSigninRoute implements Route {
     private final TemplateEngine templateEngine;
     private final PlayerLobby lobby;
 
-    private static final String PLAYER_NAME_ATTR = "name";
     private static final String SIGNIN_MESSAGE_ATTR = "message";
     private static final String VIEW_NAME = "signin.ftl";
 
@@ -54,13 +53,12 @@ public class PostSigninRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
         ModelAndView mv;
 
-        System.out.println((String) request.session().attribute(PLAYER_NAME_ATTR));
-        if(request.session().attribute(PLAYER_NAME_ATTR) != null) {
+        if(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR) != null) {
             response.redirect(WebServer.HOME_URL);
             return null;
         }
 
-        String name = request.queryParams(PLAYER_NAME_ATTR);
+        String name = request.queryParams(GetSigninRoute.PLAYER_NAME_ATTR);
         PlayerLobby.NameStatus result = this.lobby.addPlayer(name);
         switch (result) {
             case INVALID:
@@ -74,7 +72,7 @@ public class PostSigninRoute implements Route {
                 return templateEngine.render(mv);
 
             case VALID:
-                request.session().attribute(PLAYER_NAME_ATTR, name);
+                request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
                 response.redirect(WebServer.HOME_URL);
                 return null;
         }
