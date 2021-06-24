@@ -6,4 +6,13 @@ package com.webcheckers.application;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class PlayerLobby {
+
+    public synchronized boolean addPlayer(String name) {
+        if(!name.matches("^[a-zA-Z\\s]*$")) {
+            return false;
+        }
+
+    }
+
+
 }
