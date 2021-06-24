@@ -64,8 +64,7 @@ public class GetHomeRoute implements Route {
     vm.put("message", WELCOME_MSG);
     String name = request.session().attribute("name");
     if(name != null) {
-      Player usr = lobby.getPlayer(name);
-      vm.put(CURRENT_USER_ATTR, usr);
+      vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
     }
 
     // render the View
