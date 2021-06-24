@@ -71,8 +71,8 @@ public class GetHomeRoute implements Route {
       vm.put(CURRENT_PLAYERS_ATTR, lobby.getAllPlayers());
     } else {
       vm.put(CURRENT_USER_ATTR, null);
-      vm.put(NUM_PLAYERS_ATTR, lobby.getNumPlayers());
     }
+    vm.put(NUM_PLAYERS_ATTR, lobby.getNumPlayers());
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

@@ -27,17 +27,14 @@
     -->
 
     <#if currentUser??>
-      <#if players??>
+      <#if numPlayers gt 1>
         Active Players:
         <ul>
-        <#list players as player>
+        <#list currentPlayers as player>
           <#if player != currentUser.name>
-      <!--
             <form id="startGame" action="/game" method="post">
-              <a href="#" onclick="event.preventDefault(); gameCenter.createGame();">${player.name}</a>
+              <a href="#" onclick="event.preventDefault(); gameCenter.createGame();">${player}</a>
             </form>
-            -->
-            <a href="/">${player.name}</a>
           </#if>
         </#list>
         </ul>
@@ -47,8 +44,10 @@
     <#else>
       <#if numPlayers gt 1>
         There are currently ${numPlayers} players logged in.
-      <#else>
+      <#elseif numPlayers == 1>
         There is currently 1 player logged in.
+      <#else>
+        There are currently no players logged in.
       </#if>
     </#if>
 
