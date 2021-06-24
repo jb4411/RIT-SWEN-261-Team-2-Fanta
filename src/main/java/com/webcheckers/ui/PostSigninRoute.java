@@ -1,9 +1,8 @@
 package com.webcheckers.ui;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.util.Message;
+import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,15 +18,26 @@ public class PostSigninRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSigninRoute.class.getName());
 
     private final TemplateEngine templateEngine;
+    private final PlayerLobby lobby;
+
+    private static final String PLAYER_NAME_ATTR = "name";
+    private static final String SIGNIN_MESSAGE_ATTR = "message";
+    private static final String VIEW_NAME = "signin.ftl";
+
+    private static final String INVALID_NAME_MESSAGE = "The name you entered is invalid. Please enter a name " +
+            "containing only letters and spaces.";
+    private static final String DUPLICATE_NAME_MESSAGE = "The name you entered is already in use. " +
+            "Please enter a different name.";
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code POST /signin} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public PostSigninRoute(TemplateEngine templateEngine) {
+    public PostSigninRoute(TemplateEngine templateEngine, PlayerLobby lobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         LOG.config("PostSigninRoute is initialized.");
+        this.lobby = lobby;
     }
 
 
@@ -42,7 +52,31 @@ public class PostSigninRoute implements Route {
     public Object handle(Request request, Response response){
         LOG.finer("GetSigninRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
-        System.out.println(request.queryParams("name"));
+        ModelAndView mv;
+
+        if(request.session().attribute(PLAYER_NAME_ATTR) != null) {
+            response.redirect(WebServer.HOME_URL);
+            return null;
+        }
+
+        String name = request.queryParams(PLAYER_NAME_ATTR);
+        PlayerLobby.NameStatus result = this.lobby.addPlayer(name);
+        switch (result) {
+            case INVALID:
+                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(INVALID_NAME_MESSAGE));
+                mv = new ModelAndView(vm, VIEW_NAME);
+                return templateEngine.render(mv);
+
+            case DUPLICATE:
+                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(DUPLICATE_NAME_MESSAGE));
+                mv = new ModelAndView(vm, VIEW_NAME);
+                return templateEngine.render(mv);
+
+            case VALID:
+                request.session().attribute(PLAYER_NAME_ATTR, name);
+                response.redirect(WebServer.HOME_URL);
+                return null;
+        }
         return null;
     }
 }

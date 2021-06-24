@@ -15,6 +15,11 @@
     <#include "nav-bar.ftl" />
 
     <div class="body">
+        <#if message??>
+            <div id="message" >
+                ${message}
+            </div>
+        </#if>
         <form id="name" action="/signin" method="POST">
             <label for="name">Enter a name:</label><br>
             <input type="text" id="name" name="name" ><br>
