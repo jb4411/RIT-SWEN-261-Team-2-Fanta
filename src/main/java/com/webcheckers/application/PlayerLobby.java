@@ -13,7 +13,7 @@ public class PlayerLobby {
     private final HashMap<String, Player> players;
 
     public PlayerLobby() {
-        players = new HashMap<>();
+        this.players = new HashMap<>();
     }
 
     public synchronized boolean addPlayer(String name) {
@@ -26,6 +26,14 @@ public class PlayerLobby {
         Player newPlayer = new Player(name);
         players.put(name, newPlayer);
         return true;
+    }
+
+    public int getNumPlayers(){
+        return this.players.size();
+    }
+
+    public Player getPlayer(String name){
+        return players.get(name);
     }
 
 
