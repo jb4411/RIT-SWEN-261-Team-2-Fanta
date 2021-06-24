@@ -9,9 +9,14 @@ import java.util.logging.Logger;
  */
 public class GameCenter {
     private static final Logger LOG = Logger.getLogger(GameCenter.class.getName());
-    private PlayerLobby playerLobby;
+    private PlayerLobby lobby;
 
     public GameCenter(PlayerLobby playerLobby) {
-        this.playerLobby = playerLobby;
+        this.lobby = playerLobby;
     }
+
+    public void addPlayer(String username, String sessionID){
+        this.lobby.addPlayer(username, sessionID);
+    }
+
 }
