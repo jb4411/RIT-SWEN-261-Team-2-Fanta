@@ -24,6 +24,7 @@ public class GetHomeRoute implements Route {
 
   private static final String CURRENT_USER_ATTR = "currentUser";
   private static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
+  private static final String NUM_PLAYERS_ATTR = "numPlayers";
 
   private final TemplateEngine templateEngine;
   private final GameCenter gameCenter;
@@ -64,9 +65,13 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
     String name = request.session().attribute("name");
+
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
       vm.put(CURRENT_PLAYERS_ATTR, lobby.getAllPlayers());
+    } else {
+      vm.put(CURRENT_USER_ATTR, null);
+      vm.put(NUM_PLAYERS_ATTR, lobby.getNumPlayers());
     }
 
     // render the View

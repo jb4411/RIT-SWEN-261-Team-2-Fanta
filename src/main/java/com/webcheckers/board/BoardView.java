@@ -34,7 +34,8 @@ public class BoardView implements Iterable<Row>{
 
     @Override
     public Iterator<Row> iterator(){
-        return board.getBoard().iterator();
+        //return board.getBoard().iterator();
+        return null;
     }
 
 }
