@@ -1,4 +1,9 @@
 package com.webcheckers.model;
+/**
+ * Player class: holds all player information.
+ *
+ * @author Eric Landers esl7511@rit.edu
+ */
 
 public class Player{
     private String name;
