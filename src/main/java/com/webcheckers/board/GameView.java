@@ -1,5 +1,7 @@
 package com.webcheckers.board;
 
+import com.webcheckers.model.Player;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
