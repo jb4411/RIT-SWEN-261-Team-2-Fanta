@@ -54,6 +54,7 @@ public class PostSigninRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
         ModelAndView mv;
 
+        System.out.println((String) request.session().attribute(PLAYER_NAME_ATTR));
         if(request.session().attribute(PLAYER_NAME_ATTR) != null) {
             response.redirect(WebServer.HOME_URL);
             return null;
