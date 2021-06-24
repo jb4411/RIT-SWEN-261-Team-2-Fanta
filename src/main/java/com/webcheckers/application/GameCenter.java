@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  */
 public class GameCenter {
     private static final Logger LOG = Logger.getLogger(GameCenter.class.getName());
-    private PlayerLobby lobby;
+    private final PlayerLobby lobby;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.lobby = playerLobby;
