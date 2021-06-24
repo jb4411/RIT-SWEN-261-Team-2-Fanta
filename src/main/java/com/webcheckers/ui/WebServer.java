@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
 import spark.TemplateEngine;
 
 
@@ -137,8 +139,13 @@ public class WebServer {
     //// Create separate Route classes to handle each route; this keeps your
     //// code clean; using small classes.
 
+    final PlayerLobby playerLobby = new PlayerLobby();
+    final GameCenter gameCenter = new GameCenter(playerLobby);
+
     // Shows the Checkers game Home page.
     get(HOME_URL, new GetHomeRoute(templateEngine));
+
+    // Shows the Checkers game signin page.
     get(SIGNIN_URL, new GetSigninRoute(templateEngine));
     post(SIGNIN_URL, new PostSigninRoute(templateEngine));
 
