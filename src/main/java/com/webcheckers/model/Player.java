@@ -7,26 +7,21 @@ package com.webcheckers.model;
 
 public class Player{
     private String name;
-    private String sessionID;
 
-    public Player(String name, String sessionID){
+    public Player(String name){
         this.name = name;
-        this.sessionID = sessionID;
     }
 
     public String getName(){
         return name;
     }
 
-    public String getSessionID(){
-        return sessionID;
-    }
     @Override
     public boolean equals(Object object){
         if(object == this){
             return true;
         }
-        if(!(obj instanceof Player)){
+        if(!(object instanceof Player)){
             return false;
         }
         final Player that = (Player) object;
