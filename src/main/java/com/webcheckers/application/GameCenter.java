@@ -1,6 +1,7 @@
 package com.webcheckers.application;
 
 public class GameCenter {
+
     private PlayerLobby lobby;
 
     public GameCenter(PlayerLobby lobby){

@@ -15,9 +15,10 @@
     <#include "nav-bar.ftl" />
 
     <div class="body">
-        <form action="/signin" method="POST">
+        <form id="name" action="/signin" method="POST">
             <label for="name">Enter a name:</label><br>
             <input type="text" id="name" name="name" ><br>
+            <input type="submit" value="Submit">
         </form>
     </div>
 
