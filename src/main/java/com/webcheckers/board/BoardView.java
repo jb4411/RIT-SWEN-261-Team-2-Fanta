@@ -31,4 +31,5 @@ public class BoardView {
             valid = !valid;
         }
     }
+
 }
