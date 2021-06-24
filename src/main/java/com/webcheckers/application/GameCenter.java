@@ -16,7 +16,7 @@ public class GameCenter {
     }
 
     public void addPlayer(String username, String sessionID){
-        this.lobby.addPlayer(username, sessionID);
+        this.lobby.addPlayer(username);
     }
 
 }
