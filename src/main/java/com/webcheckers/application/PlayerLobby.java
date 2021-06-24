@@ -3,6 +3,7 @@ package com.webcheckers.application;
 import com.webcheckers.model.Player;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Holds all currently logged in players and is used to add more players as they log in.
@@ -36,6 +37,10 @@ public class PlayerLobby {
 
     public Player getPlayer(String name){
         return players.get(name);
+    }
+
+    public Set<String> getAllPlayers() {
+        return players.keySet();
     }
 
 

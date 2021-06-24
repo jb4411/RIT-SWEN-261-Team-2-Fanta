@@ -23,6 +23,7 @@ public class GetHomeRoute implements Route {
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
   private static final String CURRENT_USER_ATTR = "currentUser";
+  private static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
 
   private final TemplateEngine templateEngine;
   private final GameCenter gameCenter;
@@ -65,6 +66,7 @@ public class GetHomeRoute implements Route {
     String name = request.session().attribute("name");
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
+      vm.put(CURRENT_PLAYERS_ATTR, lobby.getAllPlayers());
     }
 
     // render the View
