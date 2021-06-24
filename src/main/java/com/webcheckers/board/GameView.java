@@ -10,8 +10,8 @@ public class GameView implements Iterable<Row>{
 
     private BoardView game;
 
-    public GameView(Player player1, PLayer player2){
-        this.game = new GameView(player1, player2);
+    public GameView(Player player1, Player player2){
+        this.game = new BoardView(player1, player2);
     }
 
     @Override
