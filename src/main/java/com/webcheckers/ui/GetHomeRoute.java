@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.*;
 
 import com.webcheckers.util.Message;
@@ -22,6 +25,8 @@ public class GetHomeRoute implements Route {
   private static final String CURRENT_USER_ATTR = "currentUser";
 
   private final TemplateEngine templateEngine;
+  private final GameCenter gameCenter;
+  private final PlayerLobby lobby;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -29,8 +34,10 @@ public class GetHomeRoute implements Route {
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetHomeRoute(final TemplateEngine templateEngine) {
+  public GetHomeRoute(final TemplateEngine templateEngine, GameCenter gameCenter, PlayerLobby lobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
+    this.gameCenter = gameCenter;
+    this.lobby = lobby;
     //
     LOG.config("GetHomeRoute is initialized.");
   }
@@ -55,6 +62,11 @@ public class GetHomeRoute implements Route {
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
+    String name = request.session().attribute("name");
+    if(name != null) {
+      Player usr = lobby.getPlayer(name);
+      vm.put(CURRENT_USER_ATTR, usr);
+    }
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

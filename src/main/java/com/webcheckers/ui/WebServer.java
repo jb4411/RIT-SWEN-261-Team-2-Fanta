@@ -143,7 +143,7 @@ public class WebServer {
     final GameCenter gameCenter = new GameCenter(playerLobby);
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new GetHomeRoute(templateEngine));
+    get(HOME_URL, new GetHomeRoute(templateEngine, gameCenter, playerLobby));
 
     // Shows the Checkers game signin page.
     get(SIGNIN_URL, new GetSigninRoute(templateEngine));
