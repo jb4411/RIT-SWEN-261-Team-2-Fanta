@@ -2,15 +2,18 @@ package com.webcheckers.board;
 
 import java.util.Iterator;
 
-public class BoardView {
+import javax.swing.text.PlainDocument;
 
-    /**
-     * Not currently implemented
-     * Creates a Java Iterator of the Rows within the board.
-     * @return Java Iterator of the Rows within the board.
-     */
-    public Iterator<Row>iterator(){
-        return null;
+public class BoardView implements Iterable<Row>{
+
+    private GameView game;
+
+    public BoardView(Player player1, PLayer player2){
+        this.game = new GameView(player1, player2);
     }
 
+    @Override
+    public Iterator<Row> iterator(){
+        return game.getBoard().iterator();
+    }
 }
