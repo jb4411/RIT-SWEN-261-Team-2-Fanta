@@ -7,6 +7,20 @@ package com.webcheckers.model;
 
 public class Player{
     private String name;
+    private Color color;
+
+    public enum Color {
+        RED,
+        WHITE
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public Player(String name){
         this.name = name;

@@ -8,13 +8,13 @@ import java.util.LinkedList;
 import com.webcheckers.model.Player;
 
 public class BoardView implements Iterable<Row>{
-    private Player player1;
-    private Player player2;
+    private Player red;
+    private Player white;
     private List<Row> board;
 
-    public BoardView(Player player1, Player player2){
-        this.player1 = player1;
-        this.player2 = player2;
+    public BoardView(Player red, Player white){
+        this.red = red;
+        this.white = white;
         this.board = new LinkedList<>();
         initBoard();
     }
