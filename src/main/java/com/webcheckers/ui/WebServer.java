@@ -57,6 +57,7 @@ public class WebServer {
   public static final String HOME_URL = "/";
   public static final String SIGNIN_URL = "/signin";
   public static final String GAME_URL = "/game";
+  public static final String VALIDATE_MOVE_URL = "/validateMove";
 
   //
   // Attributes
@@ -152,6 +153,9 @@ public class WebServer {
 
     // Shows the Checkers game page.
     get(GAME_URL, new GetGameRoute(templateEngine, gameCenter));
+
+    // Validate player moves
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine));
 
     //
     LOG.config("WebServer is initialized.");

@@ -32,6 +32,7 @@ public class PostSigninRoute implements Route {
      * Create the Spark Route (UI controller) to handle all {@code POST /signin} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
+     * @param lobby the lobby of active players
      */
     public PostSigninRoute(TemplateEngine templateEngine, PlayerLobby lobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
