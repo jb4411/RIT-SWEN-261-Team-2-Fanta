@@ -33,9 +33,6 @@
         <#list currentPlayers as player>
           <#if player != currentUser.name>
               <a href="/game?red=${currentUser.name}&white=${player}">${player}</a>
-              <!-- <form id="startGame" action="/game" method="GET">
-             <a href="/game" data-value="currentUser.name" id="playerName">${player}</a>
-            </form>-->
           </#if>
         </#list>
         </ul>

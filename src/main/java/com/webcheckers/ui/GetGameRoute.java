@@ -16,7 +16,8 @@ public class GetGameRoute implements Route {
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
-    private static final String PLAYER_NAMES_ATTR = "playerName";
+    private static final String RED_PLAYER_ATTR = "red";
+    private static final String WHITE_PLAYER_ATTR = "white";
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
@@ -44,8 +45,10 @@ public class GetGameRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        String name = request.queryParams(GetSigninRoute.PLAYER_NAME_ATTR);
-        System.out.println(request.queryParams());
+        System.out.println("Red: " + request.queryParams(RED_PLAYER_ATTR));
+        System.out.println("White: " + request.queryParams(WHITE_PLAYER_ATTR));
+
+
         return null;
     }
 }
