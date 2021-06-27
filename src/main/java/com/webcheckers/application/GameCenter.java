@@ -16,6 +16,19 @@ public class GameCenter {
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
 
+    public enum GameStatus {
+        IN_GAME,
+        NULL_PLAYER,
+        SAME_PLAYER,
+        CREATED
+    }
+
+    /**
+     * Get the opponent of the player whose name is passed in, if an opponent exists.
+     *
+     * @param name the name of the current player
+     * @return the current player's opponent, if an opponent exists
+     */
     public Player getOpponent(String name) {
         CheckersGame game = getGame(name);
         if(game != null) {
@@ -29,28 +42,42 @@ public class GameCenter {
         return null;
     }
 
+    /**
+     * Get the active player lobby.
+     *
+     * @return the player lobby
+     */
     public PlayerLobby getLobby() {
         return lobby;
     }
 
+    /**
+     * Get the game the player whose name is passed in is currently playing, if they are in a game.
+     *
+     * @param name the name of the current player
+     * @return the game the current player is in, if one exists
+     */
     public CheckersGame getGame(String name) {
         return inGame.get(lobby.getPlayer(name));
     }
 
-    public enum GameStatus {
-        IN_GAME,
-        NULL_PLAYER,
-        SAME_PLAYER,
-        CREATED
-    }
-
+    /**
+     * Create a new GameCenter.
+     *
+     * @param playerLobby the lobby of active players
+     */
     public GameCenter(PlayerLobby playerLobby) {
         this.inGame = new HashMap<>();
         this.lobby = playerLobby;
     }
 
-    public void addPlayer(String username, String sessionID){
-        this.lobby.addPlayer(username);
+    /**
+     * Add a player to the player lobby.
+     *
+     * @param name the name of the player
+     */
+    public void addPlayer(String name){
+        this.lobby.addPlayer(name);
     }
 
     /**
