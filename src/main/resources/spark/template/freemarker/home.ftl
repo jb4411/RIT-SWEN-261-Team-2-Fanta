@@ -32,9 +32,10 @@
         <ul>
         <#list currentPlayers as player>
           <#if player != currentUser.name>
-            <form id="startGame" action="/game" method="post">
-              <a href="/game" data-value="${player}">${player}</a>
-            </form>
+              <a href="/game?red=${currentUser.name}&white=${player}">${player}</a>
+              <!-- <form id="startGame" action="/game" method="GET">
+             <a href="/game" data-value="currentUser.name" id="playerName">${player}</a>
+            </form>-->
           </#if>
         </#list>
         </ul>
