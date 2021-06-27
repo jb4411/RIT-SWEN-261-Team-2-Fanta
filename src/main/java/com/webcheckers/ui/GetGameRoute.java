@@ -71,13 +71,13 @@ public class GetGameRoute implements Route {
             switch (gameCenter.createGame(redPlayerName, whitePlayerName)) {
                 case IN_GAME:
                     response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.IN_GAME);
-                    break;
+                    return null;
                 case SAME_PLAYER:
                     response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.SAME_PLAYER);
-                    break;
+                    return null;
                 case NULL_PLAYER:
                     response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.NULL_PLAYER);
-                    break;
+                    return null;
                 case CREATED:
                     response.redirect(WebServer.GAME_URL);
                     break;

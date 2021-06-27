@@ -21,9 +21,9 @@ public class GameCenter {
         if(game != null) {
             Player red = game.redPlayer();
             if(red.getName().equals(name)) {
-                return red;
-            } else {
                 return game.whitePlayer();
+            } else {
+                return red;
             }
         }
         return null;

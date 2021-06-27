@@ -73,6 +73,7 @@ public class PostSigninRoute implements Route {
 
             case VALID:
                 request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
+                LOG.info(name + " has signed in.");
                 response.redirect(WebServer.HOME_URL);
                 return null;
         }
