@@ -45,8 +45,23 @@ public class GetGameRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        System.out.println("Red: " + request.queryParams(RED_PLAYER_ATTR));
-        System.out.println("White: " + request.queryParams(WHITE_PLAYER_ATTR));
+        String redPlayerName = request.queryParams(RED_PLAYER_ATTR);
+        String whitePlayerName = request.queryParams(WHITE_PLAYER_ATTR);
+        LOG.info( redPlayerName + " is trying to start a game with " + whitePlayerName);
+
+        switch (gameCenter.createGame(redPlayerName, whitePlayerName)) {
+            case IN_GAME:
+                response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.IN_GAME);
+                break;
+            case SAME_PLAYER:
+                response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.SAME_PLAYER);
+                break;
+            case NULL_PLAYER:
+                response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.NULL_PLAYER);
+                break;
+            case CREATED:
+                break;
+        }
 
 
         return null;

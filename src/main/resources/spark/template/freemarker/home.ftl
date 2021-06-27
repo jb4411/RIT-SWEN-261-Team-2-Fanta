@@ -32,7 +32,7 @@
         <ul>
         <#list currentPlayers as player>
           <#if player != currentUser.name>
-              <a href="/game?red=${currentUser.name}&white=${player}">${player}</a>
+              <a href="/game?red=${currentUser.name}&white=${player}">${player}</a> <br>
           </#if>
         </#list>
         </ul>

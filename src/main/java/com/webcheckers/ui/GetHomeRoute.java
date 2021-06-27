@@ -21,6 +21,9 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message IN_GAME_ERROR_MSG = Message.info("Sorry, the selected player is already in a game.");
+  private static final Message SAME_PLAYER_ERROR_MSG = Message.info("Sorry, you cannot start a game against yourself.");
+  private static final Message NULL_PLAYER_ERROR_MSG = Message.info("Sorry, the selected player does not exist.");
 
   private static final String CURRENT_USER_ATTR = "currentUser";
   private static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
@@ -66,6 +69,22 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
     String name = request.session().attribute("name");
+    if(!request.queryParams().isEmpty()) {
+      String errorMessage;
+      switch (request.queryParams("error")) {
+        case "IN_GAME":
+          vm.put("message", IN_GAME_ERROR_MSG);
+          break;
+
+        case "SAME_PLAYER":
+          vm.put("message", SAME_PLAYER_ERROR_MSG);
+          break;
+
+        case "NULL_PLAYER":
+          vm.put("message", NULL_PLAYER_ERROR_MSG);
+          break;
+      }
+    }
 
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
