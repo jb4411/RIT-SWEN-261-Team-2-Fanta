@@ -29,7 +29,7 @@ public class PlayerLobby {
      * @return the status of the player creation
      */
     public synchronized NameStatus addPlayer(String name) {
-        if(!name.matches("[a-zA-Z]+[a-zA-Z\\s]*$")) {
+        if(!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9\\s]*$")) {
             return NameStatus.INVALID;
         } else if(players.containsKey(name)) {
             return NameStatus.DUPLICATE;
