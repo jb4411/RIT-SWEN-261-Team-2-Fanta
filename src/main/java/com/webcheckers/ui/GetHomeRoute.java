@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.Player;
 import spark.*;
 
 import com.webcheckers.util.Message;
