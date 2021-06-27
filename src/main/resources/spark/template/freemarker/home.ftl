@@ -33,7 +33,7 @@
         <#list currentPlayers as player>
           <#if player != currentUser.name>
             <form id="startGame" action="/game" method="post">
-              <a href="/game" onclick="event.preventDefault(); gameCenter.createGame();">${player}</a>
+              <a href="/game" data-value="${player}">${player}</a>
             </form>
           </#if>
         </#list>
