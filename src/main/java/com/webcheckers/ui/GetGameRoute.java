@@ -13,6 +13,11 @@ import java.util.logging.Logger;
 
 import static com.webcheckers.ui.WebServer.HOME_URL;
 
+/**
+ * The UI Controller to GET the Game page.
+ *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ */
 public class GetGameRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
@@ -29,6 +34,7 @@ public class GetGameRoute implements Route {
     private static final String ACTIVE_COLOR_ATTR = "activeColor";
     private static final String BOARD_ATTR = "board";
     private static final String MESSAGE_ATTR = "message";
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
      *
