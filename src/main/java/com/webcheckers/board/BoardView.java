@@ -2,24 +2,27 @@ package com.webcheckers.board;
 
 import com.webcheckers.model.Player;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.LinkedList;
+import java.util.*;
+
 import com.webcheckers.model.Player;
 
 public class BoardView implements Iterable<Row>{
     private Player red;
     private Player white;
-    private List<Row> board;
+    private Space[][] board;
+
+    private static final int NUM_ROWS = 8;
+    private static final int NUM_COLS = 8;
+
 
     public BoardView(Player red, Player white){
         this.red = red;
         this.white = white;
-        this.board = new LinkedList<>();
+        this.board = new Space[NUM_ROWS][NUM_COLS];
         initBoard();
     }
 
-    public List<Row> getBoard(){
+    public Space[][] getBoard(){
         return board;
     }
 
@@ -27,15 +30,18 @@ public class BoardView implements Iterable<Row>{
         boolean valid = true;
 
         for(int i=0; i<8; i++){
-            board.add(new Row());
+            //board.add(new Row());
             valid = !valid;
         }
     }
 
     @Override
     public Iterator<Row> iterator(){
-        //return board.getBoard().iterator();
-        return null;
+        Collection<Row> lst = new LinkedList<>();
+        for(int row = 0; row < NUM_ROWS; row++) {
+            lst.add(new Row(row, Arrays.asList(board[row])));
+        }
+        return lst.iterator();
     }
 
 }

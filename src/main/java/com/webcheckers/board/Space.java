@@ -20,7 +20,7 @@ public class Space {
         if (getPiece() != null){
             return false;
         }
-        else return true;
+        return true;
     }
     /**
      * Not currently implemented
