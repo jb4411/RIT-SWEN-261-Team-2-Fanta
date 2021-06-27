@@ -16,6 +16,7 @@ import com.webcheckers.util.Message;
  * The UI Controller to GET the Home page.
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
