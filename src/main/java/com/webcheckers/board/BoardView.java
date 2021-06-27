@@ -67,9 +67,9 @@ public class BoardView implements Iterable<Row>{
             for(int col = 0; col < NUM_COLS; col++) {
                 if((row + col) % 2 == 1) {
                     if(row <= 2) {
-                        board[row][col] = new Space(col, new Single(Piece.Type.SINGLE, Piece.Color.WHITE), true);
+                        board[row][col] = new Space(col, new Single(Piece.Color.WHITE), true);
                     } else if(row >= 5) {
-                        board[row][col] = new Space(col, new Single(Piece.Type.SINGLE, Piece.Color.RED), true);
+                        board[row][col] = new Space(col, new Single(Piece.Color.RED), true);
                     } else {
                         board[row][col] = new Space(col, null, true);
                     }
