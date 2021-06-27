@@ -5,10 +5,10 @@ public class Space {
     private Piece piece;
     private boolean valid;
 
-    public Space(int cellIdx) {
+    public Space(int cellIdx, Piece piece, boolean valid) {
         this.cellIdx = cellIdx;
-        this.piece = null;
-        this.valid = (cellIdx % 2) == 0;
+        this.piece = piece;
+        this.valid = valid;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Space {
      * @return the piece if there is a piece, otherwise null.
      */
     public Piece getPiece(){
-        return null;
+        return piece;
     }
 
 
