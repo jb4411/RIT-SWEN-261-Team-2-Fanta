@@ -86,6 +86,11 @@ public class GetHomeRoute implements Route {
       }
     }
 
+    if(gameCenter.inGame(name)) {
+      response.redirect(WebServer.GAME_URL);
+      return null;
+    }
+
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
       vm.put(CURRENT_PLAYERS_ATTR, lobby.getAllPlayers());

@@ -101,7 +101,11 @@ public class GetGameRoute implements Route {
         vm.put(RED_PLAYER_ATTR, game.redPlayer());
         vm.put(WHITE_PLAYER_ATTR, game.whitePlayer());
         vm.put(ACTIVE_COLOR_ATTR, current.getColor());
-        vm.put(BOARD_ATTR, game.getBoard());
+        if(current.getColor() == Player.Color.RED) {
+            vm.put(BOARD_ATTR, game.getBoard(false));
+        } else {
+            vm.put(BOARD_ATTR, game.getBoard(true));
+        }
         vm.put("title", name + " VS " + opponent.getName());
 
         // render the View

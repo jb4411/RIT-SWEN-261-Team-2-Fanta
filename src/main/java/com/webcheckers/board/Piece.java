@@ -1,6 +1,9 @@
 package com.webcheckers.board;
 
 public abstract class Piece {
+    private Type rank;
+    private Color color;
+
     public enum Type {
         KING,
         SINGLE
@@ -11,8 +14,7 @@ public abstract class Piece {
         WHITE
     }
 
-    private Type rank;
-    private Color color;
+    public abstract Piece getCopy();
 
     public Piece(Type rank, Color color){
         this.rank = rank;

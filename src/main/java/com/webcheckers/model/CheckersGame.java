@@ -8,8 +8,12 @@ public class CheckersGame {
     private Mode mode;
     private BoardView board;
 
-    public Object getBoard() {
-        return board;
+    public BoardView getBoard(boolean flip){
+        if(!flip) {
+            return board;
+        } else {
+            return new BoardView(board, true);
+        }
     }
 
     public enum Mode {

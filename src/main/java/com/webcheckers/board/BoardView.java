@@ -22,8 +22,17 @@ public class BoardView implements Iterable<Row>{
         initBoard();
     }
 
-    public Space[][] getBoard(){
-        return board;
+    public BoardView(BoardView board, boolean flip) {
+        this.board = new Space[NUM_ROWS][NUM_COLS];
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                this.board[row][col] = new Space(board.getRow(NUM_ROWS - row - 1)[NUM_COLS - col - 1]);
+            }
+        }
+    }
+
+    private Space[] getRow(int rowIdx) {
+        return board[rowIdx];
     }
 
     public void initBoard() {

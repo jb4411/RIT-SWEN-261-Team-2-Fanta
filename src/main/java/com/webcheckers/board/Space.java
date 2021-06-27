@@ -11,6 +11,16 @@ public class Space {
         this.valid = valid;
     }
 
+    public Space(Space space) {
+        this.cellIdx = space.getCellIdx();
+        if(space.getPiece() != null) {
+            this.piece = space.getPiece().getCopy();
+        } else {
+            this.piece = null;
+        }
+        this.valid = space.isValid();
+    }
+
     /**
      * Not currently implemented
      * @return The index of this space within the row.
