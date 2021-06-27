@@ -1,5 +1,6 @@
 package com.webcheckers.board;
 
+
 public class King extends Piece {
     @Override
     public Piece getCopy() {

@@ -2,19 +2,16 @@ package com.webcheckers.model;
 
 import com.webcheckers.board.BoardView;
 
+/**
+ * A class to represent a game of web checkers.
+ *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ */
 public class CheckersGame {
     private Player red;
     private Player white;
     private Mode mode;
     private BoardView board;
-
-    public BoardView getBoard(boolean flip){
-        if(!flip) {
-            return board;
-        } else {
-            return new BoardView(board, true);
-        }
-    }
 
     public enum Mode {
         PLAY,
@@ -22,6 +19,27 @@ public class CheckersGame {
         REPLAY
     }
 
+    /**
+     * Get a copy of the current game board. This copy can be flipped if necessary.
+     *
+     * @param flip whether or not to flip the board
+     * @return a copy of the board
+     */
+    public BoardView getBoard(boolean flip){
+        if(!flip) {
+            return new BoardView(board, false);
+        } else {
+            return new BoardView(board, true);
+        }
+    }
+
+    /**
+     * Create a new game of web checkers.
+     *
+     * @param red the player using red pieces
+     * @param white the player using white pieces
+     * @param mode what mode the game is in
+     */
     public CheckersGame(Player red, Player white, Mode mode) {
         this.red = red;
         red.setColor(Player.Color.RED);
@@ -31,14 +49,29 @@ public class CheckersGame {
         this.board = new BoardView(red, white);
     }
 
+    /**
+     * Return the player using red pieces.
+     *
+     * @return the player using red pieces
+     */
     public Player redPlayer() {
         return red;
     }
 
+    /**
+     * Return the player using white pieces.
+     *
+     * @return the player using white pieces
+     */
     public Player whitePlayer() {
         return white;
     }
 
+    /**
+     * Return the mode the game is in.
+     *
+     * @return the mode the game is in
+     */
     public Mode getMode() {
         return mode;
     }
