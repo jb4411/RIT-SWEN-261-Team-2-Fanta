@@ -35,13 +35,10 @@ public class Space {
      * @return Java Iterator of the Spaces within a single row.
      */
     public boolean isValid(){
-
         if(!this.valid){
-            return this.valid;
-        }
-        else {
-            if(this.piece == null)return true;
-            else return false;
+            return false;
+        } else {
+            return this.piece == null;
         }
     }
     /**
