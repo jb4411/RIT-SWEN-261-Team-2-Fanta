@@ -13,11 +13,11 @@ public class Row implements Iterable<Space> {
     }
 
     /**
-     * Not currently implemented
+     * Getter for the index of the row withint he board.
      * @return The index of this row within the board.
      */
     public int getIndex(){
-        return 0;
+        return index;
     }
 
     /**
