@@ -1,14 +1,22 @@
 package com.webcheckers.board;
 
 public class Space {
-    private int cellIndx;
+    private int cellIdx;
+    private Piece piece;
+    private boolean valid;
+
+    public Space(int cellIdx) {
+        this.cellIdx = cellIdx;
+        this.piece = null;
+        this.valid = (cellIdx % 2) == 0;
+    }
 
     /**
      * Not currently implemented
      * @return The index of this space within the row.
      */
     public int getCellIdx(){
-        return cellIndx;
+        return cellIdx;
     }
 
     /**
@@ -17,10 +25,7 @@ public class Space {
      * @return Java Iterator of the Spaces within a single row.
      */
     public boolean isValid(){
-        if (getPiece() != null){
-            return false;
-        }
-        return true;
+        return this.valid;
     }
     /**
      * Not currently implemented

@@ -26,7 +26,7 @@ public class Row implements Iterable<Space> {
      * @return Java Iterator of the Spaces within a single row.
      */
     public Iterator<Space>iterator(){
-        return null;
+        return spaces.iterator();
     }
 
 }
