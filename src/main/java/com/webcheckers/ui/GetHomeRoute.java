@@ -69,8 +69,7 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
     String name = request.session().attribute("name");
-    if(!request.queryParams().isEmpty()) {
-      String errorMessage;
+    if(!request.queryParams().isEmpty() && name != null) {
       switch (request.queryParams("error")) {
         case "IN_GAME":
           vm.put("message", Message.info(String.format(IN_GAME_ERROR_MSG, request.queryParams("user"))));
