@@ -24,7 +24,7 @@ public class PostSigninRoute implements Route {
     private static final String VIEW_NAME = "signin.ftl";
 
     private static final String INVALID_NAME_MESSAGE = "The name you entered is invalid. Please enter a name " +
-            "containing only letters and spaces.";
+            "containing only letters, numbers, and spaces.";
     private static final String DUPLICATE_NAME_MESSAGE = "The name you entered is already in use. " +
             "Please enter a different name.";
 
