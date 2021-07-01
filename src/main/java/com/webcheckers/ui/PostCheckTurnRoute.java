@@ -1,11 +1,6 @@
 package com.webcheckers.ui;
 
-import com.google.gson.Gson;
-import com.webcheckers.appl.GameCenter;
-import com.webcheckers.model.Player;
-import com.webcheckers.util.Message;
 import spark.*;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -28,7 +23,7 @@ public class PostCheckTurnRoute implements Route{
      * @return json message
      */
     @Override
-    public Object handle(){
+    public Object handle(Request request, Response response) throws Exception {
         return null;
     }
 }
