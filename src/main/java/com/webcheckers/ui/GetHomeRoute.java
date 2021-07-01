@@ -20,10 +20,10 @@ import com.webcheckers.util.Message;
 public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
-  private static final String IN_GAME_ERROR_MSG = "Sorry, %s is already in a game.";
-  private static final Message SAME_PLAYER_ERROR_MSG = Message.info("Sorry, you cannot start a game against yourself.");
-  private static final Message NULL_PLAYER_ERROR_MSG = Message.info("Sorry, the selected player does not exist.");
+  static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final String IN_GAME_ERROR_MSG = "Sorry, %s is already in a game.";
+  static final Message SAME_PLAYER_ERROR_MSG = Message.info("Sorry, you cannot start a game against yourself.");
+  static final Message NULL_PLAYER_ERROR_MSG = Message.info("Sorry, the selected player does not exist.");
 
   private static final String CURRENT_USER_ATTR = "currentUser";
   private static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
