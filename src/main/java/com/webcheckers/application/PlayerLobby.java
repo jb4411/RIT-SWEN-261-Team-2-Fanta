@@ -15,6 +15,8 @@ public class PlayerLobby {
 
     public enum NameStatus {INVALID, VALID, DUPLICATE}
 
+    static final String LOBBY_STRING_FORMAT = "{Lobby, Number of Players: %d, Active Players: [%s]}";
+
     /**
      * Create a new PlayerLobby to hold active players.
      */
@@ -29,6 +31,9 @@ public class PlayerLobby {
      * @return the status of the player creation
      */
     public synchronized NameStatus addPlayer(String name) {
+        if(name == null) {
+            return NameStatus.INVALID;
+        }
         if(!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9\\s]*$")) {
             return NameStatus.INVALID;
         } else if(players.containsKey(name)) {
@@ -85,6 +90,6 @@ public class PlayerLobby {
             }
         }
 
-        return "{Lobby, Number of Players: " + players.size() + ", Active Players: [" + active_players + "]}";
+        return String.format(LOBBY_STRING_FORMAT, players.size(), active_players);
     }
 }

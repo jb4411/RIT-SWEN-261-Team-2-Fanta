@@ -1,5 +1,8 @@
 package com.webcheckers.util;
 
+import com.webcheckers.model.Player;
+
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -113,4 +116,31 @@ public final class Message {
     return "{Msg " + type + " '" + text + "'}";
   }
 
+  /**
+   * Check if this Message is equal to the object passed in.
+   *
+   * @param object the object this message is being compared to
+   * @return whether or not they are equal
+   */
+  @Override
+  public boolean equals(Object object){
+    if(object == this){
+      return true;
+    }
+    if(!(object instanceof Message)){
+      return false;
+    }
+    final Message other = (Message) object;
+    return this.text.equals(other.text) && this.type.equals(other.type);
+  }
+
+  /**
+   * Return the hashcode of this Message.
+   *
+   * @return this Message's hashcode
+   */
+  @Override
+  public int hashCode(){
+    return Objects.hash(text, type);
+  }
 }
