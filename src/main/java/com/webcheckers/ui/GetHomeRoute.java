@@ -22,12 +22,13 @@ public class GetHomeRoute implements Route {
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
   static final String IN_GAME_ERROR_MSG = "Sorry, %s is already in a game.";
-  static final Message SAME_PLAYER_ERROR_MSG = Message.info("Sorry, you cannot start a game against yourself.");
-  static final Message NULL_PLAYER_ERROR_MSG = Message.info("Sorry, the selected player does not exist.");
+  static final Message SAME_PLAYER_ERROR_MSG = Message.error("Sorry, you cannot start a game against yourself.");
+  static final Message NULL_PLAYER_ERROR_MSG = Message.error("Sorry, the selected player does not exist.");
 
-  private static final String CURRENT_USER_ATTR = "currentUser";
-  private static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
-  private static final String NUM_PLAYERS_ATTR = "numPlayers";
+  static final String CURRENT_USER_ATTR = "currentUser";
+  static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
+  static final String NUM_PLAYERS_ATTR = "numPlayers";
+  static final String MESSAGE_ATTR = "message";
 
   private final TemplateEngine templateEngine;
   private final GameCenter gameCenter;
@@ -67,20 +68,20 @@ public class GetHomeRoute implements Route {
     vm.put("title", "Welcome!");
 
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    vm.put(MESSAGE_ATTR, WELCOME_MSG);
     String name = request.session().attribute("name");
     if(!request.queryParams().isEmpty() && name != null) {
       switch (request.queryParams("error")) {
         case "IN_GAME":
-          vm.put("message", Message.info(String.format(IN_GAME_ERROR_MSG, request.queryParams("user"))));
+          vm.put(MESSAGE_ATTR, Message.error(String.format(IN_GAME_ERROR_MSG, request.queryParams("user"))));
           break;
 
         case "SAME_PLAYER":
-          vm.put("message", SAME_PLAYER_ERROR_MSG);
+          vm.put(MESSAGE_ATTR, SAME_PLAYER_ERROR_MSG);
           break;
 
         case "NULL_PLAYER":
-          vm.put("message", NULL_PLAYER_ERROR_MSG);
+          vm.put(MESSAGE_ATTR, NULL_PLAYER_ERROR_MSG);
           break;
       }
     }
