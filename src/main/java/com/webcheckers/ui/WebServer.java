@@ -62,6 +62,8 @@ public class WebServer {
   public static final String VALIDATE_MOVE_URL = "/validateMove";
   public static final String CHECKTURN_URL = "/checkTurn";
   public static final String SUBMITTURN_URL = "/submitTurn";
+  public static final String BACKUPMOVE_URL = "/backUp";
+
 
   //
   // Attributes

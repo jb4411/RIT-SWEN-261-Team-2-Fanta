@@ -68,5 +68,23 @@ public class PlayerLobby {
         return players.keySet();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public synchronized String toString() {
+        StringBuilder active_players = new StringBuilder("");
+        String player;
+        Object[] playerList = players.keySet().toArray();
+        for (int i = 0; i < players.size(); i++) {
+            player = (String) playerList[i];
+            if (i == players.size()-1) {
+                active_players.append(player);
+            } else {
+                active_players.append(player).append(", ");
+            }
+        }
 
+        return "{Lobby, Number of Players: " + players.size() + ", Active Players: [" + active_players + "]}";
+    }
 }

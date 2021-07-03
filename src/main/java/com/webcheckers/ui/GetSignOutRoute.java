@@ -1,5 +1,10 @@
 package com.webcheckers.ui;
 
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.TemplateEngine;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -25,5 +30,6 @@ public class GetSignOutRoute implements Route {
     public Object handle(Request request, Response response){
         LOG.finer("GetSignOutRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
+        return null;
     }
 }
