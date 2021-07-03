@@ -6,23 +6,27 @@ geometry: margin=1in
 > _The following template provides the headings for your Design
 > Documentation.  As you edit each section make sure you remove these
 > commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
+> and appear in the generated PDF in italics._ DELETE THESE LAST
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: 2208-SWEN-261-01-2-Fanta
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Dominic Kavanagh
+  * Jesse Burdick-Pless
+  * Jess Zhao
+  * Eric Landers
 
 ## Executive Summary
 
-This is a summary of the project.
+WebCheckers is a web-app that simulates checkers played with American rules.
+
+The end goal for the project is allowing players to sign in and challenge others players to a game of checkers. In addition, we plan to add a spectator mode and saved replays to further enhance the player experience.
+
+The application uses Spark and Freemarker for webpage rendering.
+
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+The WebCheckers application allows users to play checkers anytime, anywhere! It provides a simple way for players to challenge each other to a classic game of checkers, right from their web browser!
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -54,11 +58,11 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](domain-model-placeholder.pdf)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+A game of WebCheckers is played by two players on an 8 by 8 checkerboard with light and dark squares. Each player starts with 12 pieces (either red or black), which they control.
+
+On their turn, a player moves one of the piece of their color.
 
 
 ## Architecture and Design
@@ -87,10 +91,13 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](StateChart_WebCheckers.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The user interface consists of the home page, the signin page, and the game page.
+
+The user starts off at the homepage, where they get to the sign in page. Here, they can create a username to sign in. Once the player signs in with a unique username that follows the correct format, they are redirected back to the homne page where they can see the names of other active players. At this point they can either wait to be challenged by another player, or they can challenge an unoccupied player.
+
+Once on the game page, starting with the red player, players take turns making moves. After the current player finishes making moves, their turn ends, and the other players' turn begins. This scyle continues until a player wins the game or a player resigns.
 
 
 ### UI Tier
