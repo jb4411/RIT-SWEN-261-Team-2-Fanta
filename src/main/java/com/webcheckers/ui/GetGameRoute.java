@@ -24,16 +24,16 @@ public class GetGameRoute implements Route {
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
-    private static final String RED_PLAYER_NAME_ATTR = "red";
-    private static final String WHITE_PLAYER_NAME_ATTR = "white";
-    private static final String CURRENT_USER_ATTR = "currentUser";
-    private static final String VIEW_MODE_ATTR = "viewMode";
-    private static final String MODE_OPTIONS_JSON_ATTR = "modeOptionsAsJSON";
-    private static final String RED_PLAYER_ATTR = "redPlayer";
-    private static final String WHITE_PLAYER_ATTR = "whitePlayer";
-    private static final String ACTIVE_COLOR_ATTR = "activeColor";
-    private static final String BOARD_ATTR = "board";
-    private static final String MESSAGE_ATTR = "message";
+    static final String RED_PLAYER_NAME_ATTR = "red";
+    static final String WHITE_PLAYER_NAME_ATTR = "white";
+    static final String CURRENT_USER_ATTR = "currentUser";
+    static final String VIEW_MODE_ATTR = "viewMode";
+    static final String MODE_OPTIONS_JSON_ATTR = "modeOptionsAsJSON";
+    static final String RED_PLAYER_ATTR = "redPlayer";
+    static final String WHITE_PLAYER_ATTR = "whitePlayer";
+    static final String ACTIVE_COLOR_ATTR = "activeColor";
+    static final String BOARD_ATTR = "board";
+    static final String MESSAGE_ATTR = "message";
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
