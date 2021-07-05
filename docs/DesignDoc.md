@@ -20,7 +20,7 @@ geometry: margin=1in
 
 WebCheckers is a web-app that simulates checkers played with American rules.
 
-The end goal for the project is allowing players to sign in and challenge others players to a game of checkers. 
+The goal for the project is to allow players to sign in and challenge others players to a game of checkers. 
 In addition, we plan to add a spectator mode and a method to save replays of past games to further enhance the player 
 experience.
 
@@ -60,7 +60,7 @@ This section describes the features of the application.
 ## Application Domain
 
 A game of WebCheckers is played by two players on an 8 by 8 checkerboard. Each player starts with 12 pieces (either
-red or black), which they control. On their turn, a player moves one of the piece of their color. The user interface
+red or black), which they control. On their turn, a player moves one piece of their color. The user interface
 consists of the home page, the signin page, and the game page. Players start on the home page, from which they can get
 to the signin page. Once a player signs in with a unique username, they will be redirected back to the home page where
 they will now be able to see other active players. At this point they can either wait to be challenged by another
@@ -84,29 +84,29 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
-As a web application, the user interacts with the system using a
-browser.  The client-side of the UI is composed of HTML pages with
-some minimal CSS for styling the page.  There is also some JavaScript
-that has been provided to the team by the architect.
+As a web application, the user interacts with the system through their browser. The client-side of the UI is comprised 
+of HTML pages with some minimal CSS for styling. There is also some JavaScript that has been provided to the team by the
+architect.
 
-The server-side tiers include the UI Tier that is composed of UI Controllers and Views.
-Controllers are built using the Spark framework and View are built using the FreeMarker framework.  The Application and Model tiers are built using plain-old Java objects (POJOs).
-
-Details of the components within these tiers are supplied below.
-
+The server-side tiers include the UI tier that is composed of UI controllers and views. Controllers are built using the 
+Spark framework and the views are built using the FreeMarker engine. The application and model tiers are built using 
+Java objects.
 
 ### Overview of User Interface
 
-This section describes the web interface flow; this is how the user views and interacts
-with the WebCheckers application.
+The user interface consists of the home page, the signin page, and the game page.
+
+The user starts off at the homepage, from which they can get to the signin page. On the signin page they can sign in
+with a valid, unique username.  Once a player signs in, they are redirected back to the home page where they can see the 
+names of other active players. At this point they can either wait to be challenged by another player, or they can 
+challenge an unoccupied player.
+
+Once on the game page, starting with the red player, players take turns making moves. After the current player finishes 
+making a move, their turn ends, and the other player's turn begins. This cycle continues until a player wins the game, 
+or a player resigns.
 
 ![The WebCheckers Web Interface Statechart](StateChart_WebCheckers.png)
 
-The user interface consists of the home page, the signin page, and the game page.
-
-The user starts off at the homepage, where they get to the sign in page. Here, they can create a username to sign in. Once the player signs in with a unique username that follows the correct format, they are redirected back to the homne page where they can see the names of other active players. At this point they can either wait to be challenged by another player, or they can challenge an unoccupied player.
-
-Once on the game page, starting with the red player, players take turns making moves. After the current player finishes making moves, their turn ends, and the other players' turn begins. This scyle continues until a player wins the game or a player resigns.
 
 
 ### UI Tier
