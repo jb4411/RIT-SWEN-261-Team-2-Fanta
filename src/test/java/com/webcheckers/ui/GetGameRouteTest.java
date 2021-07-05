@@ -61,7 +61,7 @@ public class GetGameRouteTest {
      * Test that the Game view will create a new game if none exists.
      */
     @Test
-    public void new_game(){
+    public void new_game()throws Exception{
         // Arrange the test scenario: the playerLobby has two players willing to play.
         playerLobby.addPlayer("player1");
         playerLobby.addPlayer("player2");
