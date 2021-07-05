@@ -71,9 +71,6 @@ cycle continues until a player wins the game or a player resigns.
 
 ![The WebCheckers Domain Model](WebCheckers_Team_2_Domain_Model.png)
 
-
-
-
 ## Architecture and Design
 
 This section describes the application architecture.
