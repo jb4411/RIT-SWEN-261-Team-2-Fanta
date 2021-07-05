@@ -20,13 +20,16 @@ geometry: margin=1in
 
 WebCheckers is a web-app that simulates checkers played with American rules.
 
-The end goal for the project is allowing players to sign in and challenge others players to a game of checkers. In addition, we plan to add a spectator mode and saved replays to further enhance the player experience.
+The end goal for the project is allowing players to sign in and challenge others players to a game of checkers. 
+In addition, we plan to add a spectator mode and a method to save replays of past games to further enhance the player 
+experience.
 
 The application uses Spark and Freemarker for webpage rendering.
 
 
 ### Purpose
-The WebCheckers application allows users to play checkers anytime, anywhere! It provides a simple way for players to challenge each other to a classic game of checkers, right from their web browser!
+The WebCheckers application allows users to play checkers anytime, anywhere. It provides a simple way for players to 
+challenge each other to a classic game of checkers right from the convenience of their web browser.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -56,13 +59,19 @@ This section describes the features of the application.
 
 ## Application Domain
 
-This section describes the application domain.
+A game of WebCheckers is played by two players on an 8 by 8 checkerboard. Each player starts with 12 pieces (either
+red or black), which they control. On their turn, a player moves one of the piece of their color. The user interface
+consists of the home page, the signin page, and the game page. Players start on the home page, from which they can get
+to the signin page. Once a player signs in with a unique username, they will be redirected back to the home page where
+they will now be able to see other active players. At this point they can either wait to be challenged by another
+player, or they can challenge a player. Once they have challenged a player, or have been challenged by another player,
+both players will be redirected to the game page. Once on the game page, starting with the red player, players take
+turns making moves. After the current player makes a move, their turn ends, and the other player's turn begins. This
+cycle continues until a player wins the game or a player resigns.
 
-![The WebCheckers Domain Model](domain-model-placeholder.pdf)
+![The WebCheckers Domain Model](WebCheckers_Team_2_Domain_Model.png)
 
-A game of WebCheckers is played by two players on an 8 by 8 checkerboard with light and dark squares. Each player starts with 12 pieces (either red or black), which they control.
 
-On their turn, a player moves one of the piece of their color.
 
 
 ## Architecture and Design
