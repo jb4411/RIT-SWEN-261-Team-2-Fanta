@@ -13,7 +13,7 @@ geometry: margin=1in
 * Team members
   * Dominic Kavanagh - dsk1354@rit.edu
   * Jesse Burdick-Pless - jb4411@rit.edu
-  * Jess Zhao
+  * Jess Zhao - jlz6146@rit.edu
   * Eric Landers - esl7511@rit.edu
 
 ## Executive Summary
