@@ -74,7 +74,7 @@ public class GetSigninRouteTest {
      * Verifies that attempting to sign-in while already signed-in returns to the home page
      */
     @Test
-    public void previously_sign_in(){
+    public void previously_signed_in(){
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(PLAYER_USED_NAME);
 
         CuT.handle(request, response);
@@ -83,35 +83,33 @@ public class GetSigninRouteTest {
 
     }
 
+
     /**
-     * Test that CuT does not
+     * Test that CuT does not take a null engine parameter in its construction
      */
     @Test
     public void engine_render_fail(){
         when(engine.render(any(ModelAndView.class))).thenReturn(null);
-
         try {
             CuT = new GetSigninRoute(engine);
-
+            fail("Null render, cannot create route.");
         } catch (IllegalArgumentException noArg){
-            //expected
-            fail("Redirect invokes halt exceptions.");
+
         }
-        //verify(response).redirect(WebServer.HOME_URL);
     }
 
     /**
-     *
+     * Test that CuT does not accept a null name
      */
     @Test
-    public void request_fail(){
-        when(request.attributes()).thenReturn(null);
+    public void null_name(){
+        when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(null);
         try {
             CuT.handle(request, response);
+            fail("Null attribute cannot be handled.");
         } catch (IllegalArgumentException noArg){
-            fail("Redirect invokes halt exceptions.");
+
         }
-        //verify(response).redirect(WebServer.HOME_URL);
     }
 
 
