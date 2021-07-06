@@ -20,12 +20,12 @@ public class PostSigninRoute implements Route {
     private final TemplateEngine templateEngine;
     private final PlayerLobby lobby;
 
-    private static final String SIGNIN_MESSAGE_ATTR = "message";
-    private static final String VIEW_NAME = "signin.ftl";
+    static final String SIGNIN_MESSAGE_ATTR = "message";
+    static final String VIEW_NAME = "signin.ftl";
 
-    private static final String INVALID_NAME_MESSAGE = "The name you entered is invalid. Please enter a name " +
+    static final String INVALID_NAME_MESSAGE = "The name you entered is invalid. Please enter a name " +
             "containing only letters, numbers, and spaces.";
-    private static final String DUPLICATE_NAME_MESSAGE = "The name you entered is already in use. " +
+    static final String DUPLICATE_NAME_MESSAGE = "The name you entered is already in use. " +
             "Please enter a different name.";
 
     /**
