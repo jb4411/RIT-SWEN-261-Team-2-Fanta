@@ -12,7 +12,7 @@ geometry: margin=1in
 * Team name: 2208-SWEN-261-01-2-Fanta
 * Team members
   * Dominic Kavanagh
-  * Jesse Burdick-Pless
+  * Jesse Burdick-Pless - jb4411@rit.edu
   * Jess Zhao
   * Eric Landers
 
