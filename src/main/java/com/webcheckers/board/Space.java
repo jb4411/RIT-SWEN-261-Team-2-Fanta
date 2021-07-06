@@ -69,5 +69,10 @@ public class Space {
         return piece;
     }
 
+    @Override
+    public String toString(){
+        String stringVersion = Integer.toString(cellIdx) + Boolean.toString(valid);
+        return stringVersion;
+    }
 
 }
