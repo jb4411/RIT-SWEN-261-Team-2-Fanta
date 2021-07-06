@@ -57,6 +57,27 @@ public class GameCenterTest {
         assertEquals("Player2",game.whitePlayer().getName());
     }
 
+    /**
+     * Test that you can construct a new GameCenter.
+     */
+    @Test
+    public void test_find_opponent() {
+        final GameCenter CuT = new GameCenter(playerLobby);
+        CuT.addPlayer(("Player1"));
+        CuT.addPlayer(("Player2"));
+        CuT.createGame("Player1","Player2");
+
+        CuT.getOpponent("Player1");
+
+        // Opponent exists
+        assertNotNull(CuT.getOpponent("Player1"));
+        // Opponent has correct name
+        assertEquals("Player2", CuT.getOpponent("Player1").getName());
+
+
+
+    }
+
 
 
 
