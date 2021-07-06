@@ -11,10 +11,10 @@ geometry: margin=1in
 ## Team Information
 * Team name: 2208-SWEN-261-01-2-Fanta
 * Team members
-  * Dominic Kavanagh
-  * Jesse Burdick-Pless
-  * Jess Zhao
-  * Eric Landers
+  * Dominic Kavanagh - dsk1354@rit.edu
+  * Jesse Burdick-Pless - jb4411@rit.edu
+  * Jess Zhao - jlz6146@rit.edu
+  * Eric Landers - esl7511@rit.edu
 
 ## Executive Summary
 
