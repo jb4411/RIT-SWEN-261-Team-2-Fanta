@@ -1,5 +1,7 @@
 package com.webcheckers.board;
 
+import com.webcheckers.model.Move;
+
 /**
  * A abstract class to represent a checker piece.
  *
@@ -55,5 +57,21 @@ public abstract class Piece {
     public Color getColor(){
         return color;
     }
+
+    /**
+     * Checks if a move is a valid simple hop.
+     *
+     * @param move the move to be checked
+     * @return whether or not the move is valid
+     */
+    public abstract boolean isHopValid(Move move);
+
+    /**
+     * Checks if a move is a valid jump.
+     *
+     * @param move the move to be checked
+     * @return whether or not the move is valid
+     */
+    public abstract boolean isJumpValid(Move move);
 
 }
