@@ -1,6 +1,9 @@
 package com.webcheckers.board;
 
+import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Position;
+import com.webcheckers.util.Message;
 
 import java.util.*;
 
@@ -16,6 +19,9 @@ public class BoardView implements Iterable<Row>{
 
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLS = 8;
+
+    static final Message NULL_SPACE_MESSAGE = Message.error("You cannot move to an invalid space!");
+    static final Message OPPONENTS_PIECE_MESSAGE = Message.error("You cannot move your opponents pieces!");
 
     /**
      * Creates a new game board.
@@ -47,6 +53,43 @@ public class BoardView implements Iterable<Row>{
                 }
             }
         }
+    }
+
+    /**
+     * Checks if the move passed in is a valid move to make.
+     *
+     * @param move the move to check
+     * @return a message about the validity of the move being checked
+     */
+    public Message checkMove(Move move, Piece.Color currentColor) {
+        Position start = move.getStart();
+        Position end = move.getEnd();
+        Space startSpace = getSpace(start);
+        Space endSpace = getSpace(end);
+
+        if(startSpace == null || endSpace == null) {
+            return NULL_SPACE_MESSAGE;
+        }
+
+        Piece startPiece = startSpace.getPiece();
+        Piece endPiece = endSpace.getPiece();
+
+        if(startPiece.getColor() == currentColor) {
+            return OPPONENTS_PIECE_MESSAGE;
+        }
+    }
+
+    private Space getSpace(Position position) {
+        if(validPosition(position)) {
+            return board[position.getRow()][position.getCell()];
+        }
+        return null;
+    }
+
+    public boolean validPosition(Position position) {
+        boolean validRow = ((position.getRow() < NUM_ROWS) && (position.getRow() >= 0));
+        boolean validCol = ((position.getCell() < NUM_COLS) && (position.getCell() >= 0));
+        return validRow && validCol;
     }
 
     /**

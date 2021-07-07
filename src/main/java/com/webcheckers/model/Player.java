@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import com.webcheckers.board.Piece;
+
 /**
  * Player class: holds all player information.
  *
@@ -8,19 +10,14 @@ package com.webcheckers.model;
  */
 public class Player{
     private String name;
-    private Color color;
-
-    public enum Color {
-        RED,
-        WHITE
-    }
+    private Piece.Color color;
 
     /**
      * Return the color of pieces this player is using.
      *
      * @return the color of pieces this player is using
      */
-    public Color getColor() {
+    public Piece.Color getColor() {
         return color;
     }
 
@@ -29,7 +26,7 @@ public class Player{
      *
      * @param color the color this player should be using
      */
-    public void setColor(Color color) {
+    public void setColor(Piece.Color color) {
         this.color = color;
     }
 

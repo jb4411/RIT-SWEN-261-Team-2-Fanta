@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.board.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import spark.*;
@@ -108,7 +109,7 @@ public class GetGameRoute implements Route {
         vm.put(RED_PLAYER_ATTR, game.redPlayer());
         vm.put(WHITE_PLAYER_ATTR, game.whitePlayer());
         vm.put(ACTIVE_COLOR_ATTR, current.getColor());
-        if(current.getColor() == Player.Color.RED) {
+        if(current.getColor() == Piece.Color.RED) {
             vm.put(BOARD_ATTR, game.getBoard(false));
         } else {
             vm.put(BOARD_ATTR, game.getBoard(true));

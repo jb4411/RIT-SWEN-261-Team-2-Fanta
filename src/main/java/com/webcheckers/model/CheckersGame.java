@@ -1,6 +1,8 @@
 package com.webcheckers.model;
 
 import com.webcheckers.board.BoardView;
+import com.webcheckers.board.Piece;
+import com.webcheckers.util.Message;
 
 import java.util.Objects;
 
@@ -15,7 +17,7 @@ public class CheckersGame {
     private Mode mode;
     private BoardView board;
     private int gameID;
-    private Player.Color currentColor;
+    private Piece.Color currentColor;
 
     public enum Mode {
         PLAY,
@@ -46,13 +48,13 @@ public class CheckersGame {
      */
     public CheckersGame(Player red, Player white, Mode mode) {
         this.red = red;
-        red.setColor(Player.Color.RED);
+        red.setColor(Piece.Color.RED);
         this.white = white;
-        white.setColor(Player.Color.WHITE);
+        white.setColor(Piece.Color.WHITE);
         this.mode = mode;
         this.board = new BoardView(red, white);
         this.gameID = Objects.hash(red, white, mode);
-        this.currentColor = Player.Color.RED;
+        this.currentColor = Piece.Color.RED;
     }
 
     /**
@@ -80,5 +82,19 @@ public class CheckersGame {
      */
     public Mode getMode() {
         return mode;
+    }
+
+    /**
+     * Test if a move is valid.
+     *
+     * @param move the move to be tested
+     * @return a message about the tested move
+     */
+    public Message testMove(Move move) {
+        // flip the board if it is the white player's turn
+        BoardView copy = new BoardView(board, (currentColor == Piece.Color.WHITE));
+        Message message = copy.checkMove(move, currentColor);
+
+        return message;
     }
 }

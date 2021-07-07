@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.webcheckers.board.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,8 @@ public class PlayerTest {
      */
     @Test
     public void colorTest(){
-        CuT.setColor(Player.Color.RED);
-        assertEquals(Player.Color.RED, CuT.getColor());
+        CuT.setColor(Piece.Color.RED);
+        assertEquals(Piece.Color.RED, CuT.getColor());
     }
 
     /**

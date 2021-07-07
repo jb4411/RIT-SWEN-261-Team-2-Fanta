@@ -14,8 +14,15 @@ public class Move{
     private Position start;
     private Position end;
 
-    public Move(){
-
+    /**
+     * Create a new move.
+     *
+     * @param start the starting position of the move
+     * @param end the ending position of the move
+     */
+    public Move(Position start, Position end) {
+        this.start = start;
+        this.end = end;
     }
 
     public Position getStart(){
