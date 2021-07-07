@@ -8,6 +8,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * The UI Controller to GET the SignOut page.
+ *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ */
 public class GetSignOutRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetSigninRoute.class.getName());
     private final TemplateEngine templateEngine;
