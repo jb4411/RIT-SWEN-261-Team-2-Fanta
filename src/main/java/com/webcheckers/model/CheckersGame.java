@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 import com.webcheckers.board.BoardView;
 
+import java.util.Objects;
+
 /**
  * A class to represent a game of web checkers.
  *
@@ -12,6 +14,8 @@ public class CheckersGame {
     private Player white;
     private Mode mode;
     private BoardView board;
+    private int gameID;
+    private Player.Color currentColor;
 
     public enum Mode {
         PLAY,
@@ -47,6 +51,8 @@ public class CheckersGame {
         white.setColor(Player.Color.WHITE);
         this.mode = mode;
         this.board = new BoardView(red, white);
+        this.gameID = Objects.hash(red, white, mode);
+        this.currentColor = Player.Color.RED;
     }
 
     /**

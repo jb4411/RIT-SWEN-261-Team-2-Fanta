@@ -163,7 +163,7 @@ public class WebServer {
     // Sign out
     post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, gameCenter));
     // Validate player moves
-    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine));
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine, gameCenter));
     // Backup player moves
     post(BACKUPMOVE_URL, new PostBackupMoveRoute());
     // Check opponent turn

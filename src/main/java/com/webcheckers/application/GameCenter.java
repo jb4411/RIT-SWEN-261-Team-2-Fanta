@@ -15,6 +15,7 @@ public class GameCenter {
     private static final Logger LOG = Logger.getLogger(GameCenter.class.getName());
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
+    private final HashMap<Integer, CheckersGame> games;
 
     public enum GameStatus {
         IN_GAME,
@@ -62,6 +63,16 @@ public class GameCenter {
     }
 
     /**
+     * Get a game by its unique identifier.
+     *
+     * @param gameID the ID of the game
+     * @return the game if it exists
+     */
+    public CheckersGame getGameByID(int gameID) {
+        return games.get(gameID);
+    }
+
+    /**
      * Create a new GameCenter.
      *
      * @param playerLobby the lobby of active players
@@ -69,6 +80,7 @@ public class GameCenter {
     public GameCenter(PlayerLobby playerLobby) {
         this.inGame = new HashMap<>();
         this.lobby = playerLobby;
+        this.games = new HashMap<>();
     }
 
     /**

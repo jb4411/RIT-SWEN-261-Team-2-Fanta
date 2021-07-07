@@ -1,5 +1,10 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.model.CheckersGame;
+import com.webcheckers.model.Move;
+import com.webcheckers.util.Message;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -15,16 +20,20 @@ import java.util.logging.Logger;
 public class PostValidateMoveRoute implements Route  {
     private static final Logger LOG = Logger.getLogger(PostSigninRoute.class.getName());
 
+    static final String GAME_ID_ATTR = "gameID";
+
     private final TemplateEngine templateEngine;
+    private final GameCenter gameCenter;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code POST /validateMove} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public PostValidateMoveRoute(TemplateEngine templateEngine) {
+    public PostValidateMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter) {
         LOG.finer("PostValidateMoveRoute is invoked.");
         this.templateEngine = templateEngine;
+        this.gameCenter = gameCenter;
     }
 
     /**
@@ -36,6 +45,12 @@ public class PostValidateMoveRoute implements Route  {
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        int gameID = Integer.parseInt(request.queryParams(GAME_ID_ATTR));
+        CheckersGame game = gameCenter.getGameByID(gameID);
+
+        Gson gson = new Gson();
+        Move move = gson.fromJson(request.body(), Move.class);
+
+        return game.testMove(move);
     }
 }
