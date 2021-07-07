@@ -108,6 +108,11 @@ public class GameCenter {
         return GameStatus.CREATED;
     }
 
+    /**
+     * End the game the player is in, and remove both players from the game.
+     *
+     * @param name the name of the player to be removed
+     */
     public synchronized void endGame(String name) {
         Player player = lobby.getPlayer(name);
         Player opponent = getOpponent(name);
@@ -129,6 +134,11 @@ public class GameCenter {
         return inGame.containsKey(lobby.getPlayer(name));
     }
 
+    /**
+     * End an active game if the player is in one, then remove them from the player lobby.
+     *
+     * @param name the name of the player to be removed
+     */
     public synchronized void removePlayer(String name){
         if(inGame(name)) {
             endGame(name);
