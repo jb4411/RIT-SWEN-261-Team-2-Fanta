@@ -13,6 +13,12 @@ import java.util.Set;
 public class PlayerLobby {
     private final HashMap<String, Player> players;
 
+    public void removePlayer(String name) {
+        if(name != null) {
+            players.remove(name);
+        }
+    }
+
     public enum NameStatus {INVALID, VALID, DUPLICATE}
 
     static final String LOBBY_STRING_FORMAT = "{Lobby, Number of Players: %d, Active Players: [%s]}";

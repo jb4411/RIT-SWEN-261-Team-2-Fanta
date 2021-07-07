@@ -108,6 +108,17 @@ public class GameCenter {
         return GameStatus.CREATED;
     }
 
+    public synchronized void endGame(String name) {
+        Player player = lobby.getPlayer(name);
+        Player opponent = getOpponent(name);
+        if(player != null && inGame(name)) {
+            inGame.remove(player);
+            if(opponent != null && inGame(opponent.getName())) {
+                inGame.remove(opponent);
+            }
+        }
+    }
+
     /**
      * Check if a player is already in a game.
      *
@@ -118,4 +129,10 @@ public class GameCenter {
         return inGame.containsKey(lobby.getPlayer(name));
     }
 
+    public synchronized void removePlayer(String name){
+        if(inGame(name)) {
+            endGame(name);
+        }
+        lobby.removePlayer(name);
+    }
 }
