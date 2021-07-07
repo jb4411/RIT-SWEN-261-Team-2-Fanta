@@ -28,8 +28,21 @@ public class GetSignOutRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response){
+        Session session = request.session();
         LOG.finer("GetSignOutRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
-        return null;
+
+        Player player = session.attribute(GetHomeRoute.CURRENT_USER_ATTR);
+        if (player.getName() != null){
+
+            //need to remove player from the game somehow : maybe add a 'removePlayer method to gameCenter?
+
+            response.redirect(WebServer.HOME_URL);
+            return null;
+
+        }
+        /*else{
+            return templateEngine.render(new ModelAndView(vm , ""));
+        }*/
     }
 }
