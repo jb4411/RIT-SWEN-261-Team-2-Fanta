@@ -32,4 +32,13 @@ public class Move{
     public Position getEnd(){
         return end;
     }
+
+    /**
+     * Check if this move is a simple move.
+     *
+     * @return whether or not the move is a simple move
+     */
+    public boolean simpleMove() {
+        return (Math.abs(start.getRow() - end.getRow()) == 1) && (Math.abs(start.getCell() - end.getCell()) == 1);
+    }
 }

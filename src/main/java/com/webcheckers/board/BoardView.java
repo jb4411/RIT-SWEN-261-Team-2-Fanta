@@ -21,7 +21,14 @@ public class BoardView implements Iterable<Row>{
     private static final int NUM_COLS = 8;
 
     static final Message NULL_SPACE_MESSAGE = Message.error("You cannot move to an invalid space!");
+    static final Message NULL_START_PIECE_MESSAGE = Message.error("You must move a checker!");
     static final Message OPPONENTS_PIECE_MESSAGE = Message.error("You cannot move your opponents pieces!");
+    static final Message OCCUPIED_END_SPACE_MESSAGE = Message.error("You cannot to an occupied square!");
+    static final Message FORCED_JUMP_MESSAGE = Message.error("When a jump is possible, you must must jump!");
+    static final Message VALID_MOVE_MESSAGE = Message.info("That move is legal.");
+    static final Message ILLEGAL_MOVE_MESSAGE = Message.error("That piece cannot move like that!");
+
+    static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
     /**
      * Creates a new game board.
@@ -61,7 +68,7 @@ public class BoardView implements Iterable<Row>{
      * @param move the move to check
      * @return a message about the validity of the move being checked
      */
-    public Message checkMove(Move move, Piece.Color currentColor) {
+    public Message checkMove(Move move, Piece.Color playerColor) {
         Position start = move.getStart();
         Position end = move.getEnd();
         Space startSpace = getSpace(start);
@@ -72,11 +79,36 @@ public class BoardView implements Iterable<Row>{
         }
 
         Piece startPiece = startSpace.getPiece();
-        Piece endPiece = endSpace.getPiece();
 
-        if(startPiece.getColor() == currentColor) {
+        if(startPiece == null) {
+            return NULL_START_PIECE_MESSAGE;
+        }
+
+        if(startPiece.getColor() != playerColor) {
             return OPPONENTS_PIECE_MESSAGE;
         }
+
+        if(endSpace.getPiece() != null) {
+            return OCCUPIED_END_SPACE_MESSAGE;
+        }
+
+        if(move.simpleMove()) {
+            if(canJump(playerColor)) {
+                return FORCED_JUMP_MESSAGE;
+            }
+
+            if(move.validMove()) {
+                return VALID_MOVE_MESSAGE;
+            } else {
+                return ILLEGAL_MOVE_MESSAGE;
+            }
+        }
+
+
+    }
+
+    private boolean canJump(Piece.Color playerColor) {
+        return false;
     }
 
     private Space getSpace(Position position) {
