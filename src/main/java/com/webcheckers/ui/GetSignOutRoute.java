@@ -1,9 +1,7 @@
 package com.webcheckers.ui;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.webcheckers.model.Player;
+import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,5 +42,6 @@ public class GetSignOutRoute implements Route {
         /*else{
             return templateEngine.render(new ModelAndView(vm , ""));
         }*/
+        return null;
     }
 }

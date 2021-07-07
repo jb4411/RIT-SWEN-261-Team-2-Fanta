@@ -1,5 +1,7 @@
 package com.webcheckers.board;
 
+import com.webcheckers.model.Move;
+
 /**
  * A class to represent a king piece.
  *
@@ -23,6 +25,16 @@ public class King extends Piece {
     @Override
     public Piece getCopy() {
         return new King(this.getColor());
+    }
+
+    @Override
+    public boolean isHopValid(Move move) {
+        return false;
+    }
+
+    @Override
+    public boolean isJumpValid(Move move) {
+        return false;
     }
 
 }
