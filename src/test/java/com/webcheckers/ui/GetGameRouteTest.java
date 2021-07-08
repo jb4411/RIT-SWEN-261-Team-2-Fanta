@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.board.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -133,7 +134,7 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttribute(GetGameRoute.VIEW_MODE_ATTR, CheckersGame.Mode.PLAY);
         testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, playerLobby.getPlayer("player1"));
         testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, playerLobby.getPlayer("player2"));
-        testHelper.assertViewModelAttribute(GetGameRoute.ACTIVE_COLOR_ATTR, Player.Color.RED);
+        testHelper.assertViewModelAttribute(GetGameRoute.ACTIVE_COLOR_ATTR, Piece.Color.RED);
 
         //   * test view name
         testHelper.assertViewName("game.ftl");
