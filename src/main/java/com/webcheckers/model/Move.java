@@ -1,7 +1,6 @@
 package com.webcheckers.model;
 
-import com.google.gson.Gson;
-
+import com.webcheckers.board.Piece;
 
 /**
  * A class to represent Move object.
@@ -38,7 +37,11 @@ public class Move{
      *
      * @return whether or not the move is a simple move
      */
-    public boolean simpleMove() {
+    public boolean isSimpleMove() {
         return (Math.abs(start.getRow() - end.getRow()) == 1) && (Math.abs(start.getCell() - end.getCell()) == 1);
+    }
+
+    public boolean isJump() {
+        return false;
     }
 }

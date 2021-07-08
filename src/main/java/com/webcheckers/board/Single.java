@@ -28,7 +28,7 @@ public class Single extends Piece{
     }
 
     @Override
-    public boolean isHopValid(Move move) {
+    public boolean isMoveValid(Move move) {
         return false;
     }
 

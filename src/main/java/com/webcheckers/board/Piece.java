@@ -64,7 +64,7 @@ public abstract class Piece {
      * @param move the move to be checked
      * @return whether or not the move is valid
      */
-    public abstract boolean isHopValid(Move move);
+    public abstract boolean isMoveValid(Move move);
 
     /**
      * Checks if a move is a valid jump.

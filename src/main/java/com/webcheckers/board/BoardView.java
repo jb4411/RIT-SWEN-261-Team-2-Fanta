@@ -27,6 +27,9 @@ public class BoardView implements Iterable<Row>{
     static final Message FORCED_JUMP_MESSAGE = Message.error("When a jump is possible, you must must jump!");
     static final Message VALID_MOVE_MESSAGE = Message.info("That move is legal.");
     static final Message ILLEGAL_MOVE_MESSAGE = Message.error("That piece cannot move like that!");
+    static final Message VALID_JUMP_MESSAGE = Message.info("That jump is legal.");
+    static final Message JUMP_OVER_NOTHING_MESSAGE = Message.error("You cannot jump over an empty square!");
+    static final Message JUMP_OVER_OWN_PIECE_MESSAGE = Message.error("You cannot jump over your own piece!");
 
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
@@ -92,19 +95,38 @@ public class BoardView implements Iterable<Row>{
             return OCCUPIED_END_SPACE_MESSAGE;
         }
 
-        if(move.simpleMove()) {
+        if(move.isSimpleMove()) {
             if(canJump(playerColor)) {
                 return FORCED_JUMP_MESSAGE;
             }
 
-            if(move.validMove()) {
+            if(startPiece.isMoveValid(move)) {
                 return VALID_MOVE_MESSAGE;
             } else {
                 return ILLEGAL_MOVE_MESSAGE;
             }
+        } else if(move.isJump()) {
+            if(startPiece.isJumpValid(move)) {
+                return VALID_JUMP_MESSAGE;
+            } else {
+                Space jumpedSquare = getJumpedSquare(move);
+                Piece jumpedPiece = jumpedSquare.getPiece();
+                if(jumpedPiece == null) {
+                    return JUMP_OVER_NOTHING_MESSAGE;
+                } else if(jumpedPiece.getColor() == playerColor) {
+                    return JUMP_OVER_OWN_PIECE_MESSAGE;
+                }
+            }
         }
+        return INVALID_MOVE_MESSAGE;
+    }
 
-
+    public Space getJumpedSquare(Move move) {
+        Position start = move.getStart();
+        Position end = move.getEnd();
+        int row = (start.getRow() + end.getRow()) / 2;
+        int cell = (start.getCell() + end.getCell()) / 2;
+        return board[row][cell];
     }
 
     private boolean canJump(Piece.Color playerColor) {
