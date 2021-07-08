@@ -33,6 +33,7 @@ public class BoardView implements Iterable<Row>{
 
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
+
     /**
      * Creates a new game board.
      *
@@ -119,6 +120,17 @@ public class BoardView implements Iterable<Row>{
             }
         }
         return INVALID_MOVE_MESSAGE;
+    }
+
+    public void makeMove(Move move) {
+        Position start = move.getStart();
+        Position end = move.getEnd();
+
+        Space startSpace = getSpace(start);
+        Space endSpace = getSpace(end);
+        Piece piece = startSpace.getPiece();
+
+
     }
 
     public Space getJumpedSquare(Move move) {

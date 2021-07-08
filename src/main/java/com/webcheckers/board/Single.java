@@ -29,7 +29,13 @@ public class Single extends Piece{
 
     @Override
     public boolean isMoveValid(Move move) {
-        return false;
+        System.out.println(move.isSimpleMove());
+        System.out.println(move.getStart().getRow());
+        System.out.println(move.getEnd().getRow());
+        System.out.println((move.getStart().getRow() - move.getEnd().getRow()));
+        System.out.println(move.isSimpleMove() && ((move.getStart().getRow() - move.getEnd().getRow()) == 1));
+
+        return move.isSimpleMove() && ((move.getStart().getRow() - move.getEnd().getRow()) == 1);
     }
 
     @Override

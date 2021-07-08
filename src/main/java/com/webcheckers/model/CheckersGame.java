@@ -4,7 +4,9 @@ import com.webcheckers.board.BoardView;
 import com.webcheckers.board.Piece;
 import com.webcheckers.util.Message;
 
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * A class to represent a game of web checkers.
@@ -18,11 +20,19 @@ public class CheckersGame {
     private BoardView board;
     private int gameID;
     private Piece.Color currentColor;
+    private LinkedList<Move> turnMoves;
+
 
     public enum Mode {
         PLAY,
         SPECTATOR,
         REPLAY
+    }
+
+    public enum moveType {
+        NONE,
+        SIMPLE,
+        JUMP
     }
 
     /**
@@ -55,6 +65,7 @@ public class CheckersGame {
         this.board = new BoardView(red, white);
         this.gameID = Objects.hash(red, white, mode);
         this.currentColor = Piece.Color.RED;
+        this.turnMoves = new LinkedList<>();
     }
 
     /**
@@ -102,7 +113,14 @@ public class CheckersGame {
     public Message testMove(Move move) {
         // flip the board if it is the white player's turn
         BoardView copy = new BoardView(board, (currentColor == Piece.Color.WHITE));
+        for (Move turnMove : turnMoves) {
+            copy.makeMove(turnMove);
+        }
+
         Message message = copy.checkMove(move, currentColor);
+        if(message.getType() == Message.Type.INFO) {
+            turnMoves.addLast(move);
+        }
 
         return message;
     }
