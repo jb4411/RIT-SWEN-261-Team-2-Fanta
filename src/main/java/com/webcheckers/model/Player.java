@@ -9,6 +9,7 @@ package com.webcheckers.model;
 public class Player{
     private String name;
     private Color color;
+    private boolean isMyTurn = false;
 
     public enum Color {
         RED,
@@ -49,6 +50,14 @@ public class Player{
      */
     public String getName(){
         return name;
+    }
+
+    public void setMyTurn(boolean isMyTurn){
+        this.isMyTurn = isMyTurn;
+    }
+
+    public boolean checkMyTurn(){
+        return isMyTurn;
     }
 
     /**
