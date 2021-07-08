@@ -39,9 +39,7 @@ public class GetSignOutRoute implements Route {
             return null;
 
         }
-        /*else{
-            return templateEngine.render(new ModelAndView(vm , ""));
-        }*/
+       
         return null;
     }
 }
