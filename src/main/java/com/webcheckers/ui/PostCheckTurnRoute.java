@@ -3,6 +3,10 @@ package com.webcheckers.ui;
 import spark.*;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
+
 /**
  * UI controller to POST INFO or ERROR message for whether or not the opponent has submitted their turn.
  *
@@ -24,6 +28,22 @@ public class PostCheckTurnRoute implements Route{
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        
+        LOG.finer("PostCheckTurnRoute is invoked.");
+        Gson gson = new Gson();
+        final Session httSession = request.session();
+
+        Player player = httSession.attribute(GetHomeRoute.CURRENT_USER_ATTR);
+
+        String json; 
+        if(player.checkMyTurn()){
+            json = gson.toJson(Message.info("true"));
+        }
+        else{
+            json = gson.toJson(Message.info("false"));
+        }
+        return json;
+
+        
     }
 }

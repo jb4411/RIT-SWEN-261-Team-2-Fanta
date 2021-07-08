@@ -11,6 +11,7 @@ import com.webcheckers.board.Piece;
 public class Player{
     private String name;
     private Piece.Color color;
+    private boolean isMyTurn = false;
 
     /**
      * Return the color of pieces this player is using.
@@ -46,6 +47,14 @@ public class Player{
      */
     public String getName(){
         return name;
+    }
+
+    public void setMyTurn(boolean isMyTurn){
+        this.isMyTurn = isMyTurn;
+    }
+
+    public boolean checkMyTurn(){
+        return isMyTurn;
     }
 
     /**
