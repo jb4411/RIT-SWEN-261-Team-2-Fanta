@@ -28,8 +28,12 @@ public class Space {
      *
      * @param space the space to be copied
      */
-    public Space(Space space) {
-        this.cellIdx = space.getCellIdx();
+    public Space(Space space, boolean flip) {
+        if(flip) {
+            this.cellIdx = BoardView.NUM_COLS - space.getCellIdx() - 1;
+        } else {
+            this.cellIdx = space.getCellIdx();
+        }
         if(space.getPiece() != null) {
             this.piece = space.getPiece().getCopy();
         } else {

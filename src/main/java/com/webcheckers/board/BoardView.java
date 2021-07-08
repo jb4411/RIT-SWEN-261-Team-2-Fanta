@@ -24,8 +24,8 @@ public class BoardView implements Iterable<Row>{
         JUMP
     }
 
-    private static final int NUM_ROWS = 8;
-    private static final int NUM_COLS = 8;
+    public static final int NUM_ROWS = 8;
+    public static final int NUM_COLS = 8;
 
     static final Message NULL_SPACE_MESSAGE = Message.error("You cannot move to an invalid space!");
     static final Message NULL_START_PIECE_MESSAGE = Message.error("You must move a checker!");
@@ -64,12 +64,14 @@ public class BoardView implements Iterable<Row>{
      */
     public BoardView(BoardView board, boolean flip) {
         this.board = new Space[NUM_ROWS][NUM_COLS];
+        this.red = board.red;
+        this.white = board.white;
         for(int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
                 if(flip) {
-                    this.board[row][col] = new Space(board.getRow(NUM_ROWS - row - 1)[NUM_COLS - col - 1]);
+                    this.board[row][col] = new Space(board.getRow(NUM_ROWS - row - 1)[NUM_COLS - col - 1], true);
                 } else {
-                    this.board[row][col] = new Space(board.getRow(row)[col]);
+                    this.board[row][col] = new Space(board.getRow(row)[col], false);
                 }
             }
         }
@@ -193,6 +195,10 @@ public class BoardView implements Iterable<Row>{
 
     public void setLastMoveType(MoveType lastMoveType) {
         this.lastMoveType = lastMoveType;
+    }
+
+    public boolean hasPossibleJump() {
+        return false;
     }
 
     /**

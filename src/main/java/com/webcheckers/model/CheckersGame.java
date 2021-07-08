@@ -6,7 +6,6 @@ import com.webcheckers.util.Message;
 
 import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Queue;
 
 /**
  * A class to represent a game of web checkers.
@@ -22,9 +21,10 @@ public class CheckersGame {
     private Piece.Color currentColor;
     private LinkedList<Move> turnMoves;
 
-    static final Message NO_MOVES_TO_BACKUP_MESSAGE = Message.error("You have not made any moves yet!");
+    static final Message NO_MOVES_MADE_MESSAGE = Message.error("You have not made any moves yet!");
     static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
-
+    static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
+    static final Message TURN_SUBMITTED_MESSAGE = Message.info("Turn submitted successfully!");
 
     public enum Mode {
         PLAY,
@@ -124,7 +124,7 @@ public class CheckersGame {
 
     public Message backupMove() {
         if(turnMoves.size() == 0) {
-            return NO_MOVES_TO_BACKUP_MESSAGE;
+            return NO_MOVES_MADE_MESSAGE;
         }
         turnMoves.removeLast();
         if(turnMoves.size() == 0) {
@@ -135,5 +135,30 @@ public class CheckersGame {
             board.setLastMoveType(BoardView.MoveType.JUMP);
         }
         return MOVE_BACKED_UP_MESSAGE;
+    }
+
+    public Message submitTurn() {
+        if(turnMoves.size() == 0) {
+            return NO_MOVES_MADE_MESSAGE;
+        }
+        if(board.hasPossibleJump()) {
+            return JUMP_EXISTS_MESSAGE;
+        }
+
+        for (Move turnMove : turnMoves) {
+            if(currentColor == Piece.Color.WHITE) {
+                board.makeMove(turnMove.inverse());
+            } else {
+                board.makeMove(turnMove);
+            }
+        }
+        if(currentColor == Piece.Color.RED) {
+            currentColor = Piece.Color.WHITE;
+        } else {
+            currentColor = Piece.Color.RED;
+        }
+        turnMoves.clear();
+        board.setLastMoveType(BoardView.MoveType.NONE);
+        return TURN_SUBMITTED_MESSAGE;
     }
 }

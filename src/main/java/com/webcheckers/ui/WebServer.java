@@ -168,6 +168,8 @@ public class WebServer {
     post(BACKUPMOVE_URL, new PostBackupMoveRoute(templateEngine, gameCenter));
     // Check opponent turn
     post(CHECKTURN_URL, new PostCheckTurnRoute());
+    // Submit turn
+    post(SUBMITTURN_URL, new PostSubmitTurnRoute(templateEngine, gameCenter));
     //
     LOG.config("WebServer is initialized.");
   }

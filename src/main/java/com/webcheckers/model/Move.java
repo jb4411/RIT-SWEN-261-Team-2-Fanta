@@ -44,4 +44,8 @@ public class Move{
     public boolean isJump() {
         return false;
     }
+
+    public Move inverse() {
+        return new Move(start.inverse(), end.inverse());
+    }
 }

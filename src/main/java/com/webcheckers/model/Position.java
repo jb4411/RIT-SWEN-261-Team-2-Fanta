@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import com.webcheckers.board.BoardView;
+
 /**
  * A class to represent Position object.
  *
@@ -20,5 +22,9 @@ public class Position{
 
     public int getRow(){
         return row;
+    }
+
+    public Position inverse() {
+        return new Position(BoardView.NUM_ROWS - row - 1, BoardView.NUM_COLS - cell - 1);
     }
 }
