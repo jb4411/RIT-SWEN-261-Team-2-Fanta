@@ -85,6 +85,15 @@ public class CheckersGame {
     }
 
     /**
+     * Return this game's gameID.
+     *
+     * @return the gameID
+     */
+    public int getGameID() {
+        return gameID;
+    }
+
+    /**
      * Test if a move is valid.
      *
      * @param move the move to be tested

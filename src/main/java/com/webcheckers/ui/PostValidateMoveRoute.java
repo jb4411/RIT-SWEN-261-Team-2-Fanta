@@ -45,12 +45,12 @@ public class PostValidateMoveRoute implements Route  {
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        int gameID = Integer.parseInt(request.queryParams(GAME_ID_ATTR));
-        CheckersGame game = gameCenter.getGameByID(gameID);
+        String name = request.session().attribute("name");
+        CheckersGame game = gameCenter.getGame(name);
 
         Gson gson = new Gson();
-        Move move = gson.fromJson(request.body(), Move.class);
+        Move move = gson.fromJson(request.queryParams("actionData"), Move.class);
 
-        return game.testMove(move);
+        return gson.toJson(game.testMove(move));
     }
 }

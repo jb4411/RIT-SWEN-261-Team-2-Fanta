@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import static com.webcheckers.ui.PostValidateMoveRoute.GAME_ID_ATTR;
 import static com.webcheckers.ui.WebServer.HOME_URL;
 
 /**
