@@ -22,6 +22,9 @@ public class CheckersGame {
     private Piece.Color currentColor;
     private LinkedList<Move> turnMoves;
 
+    static final Message NO_MOVES_TO_BACKUP_MESSAGE = Message.error("You have not made any moves yet!");
+    static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
+
 
     public enum Mode {
         PLAY,
@@ -117,5 +120,20 @@ public class CheckersGame {
         }
 
         return message;
+    }
+
+    public Message backupMove() {
+        if(turnMoves.size() == 0) {
+            return NO_MOVES_TO_BACKUP_MESSAGE;
+        }
+        turnMoves.removeLast();
+        if(turnMoves.size() == 0) {
+            board.setLastMoveType(BoardView.MoveType.NONE);
+        } else if(turnMoves.getLast().isSimpleMove()) {
+            board.setLastMoveType(BoardView.MoveType.SIMPLE);
+        } else {
+            board.setLastMoveType(BoardView.MoveType.JUMP);
+        }
+        return MOVE_BACKED_UP_MESSAGE;
     }
 }

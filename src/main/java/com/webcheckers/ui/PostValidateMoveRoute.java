@@ -31,7 +31,7 @@ public class PostValidateMoveRoute implements Route  {
      * @param templateEngine the HTML template rendering engine
      */
     public PostValidateMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter) {
-        LOG.finer("PostValidateMoveRoute is invoked.");
+        LOG.finer("PostValidateMoveRoute is initialized.");
         this.templateEngine = templateEngine;
         this.gameCenter = gameCenter;
     }

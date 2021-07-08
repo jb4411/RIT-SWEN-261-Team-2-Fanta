@@ -62,7 +62,7 @@ public class WebServer {
   public static final String VALIDATE_MOVE_URL = "/validateMove";
   public static final String CHECKTURN_URL = "/checkTurn";
   public static final String SUBMITTURN_URL = "/submitTurn";
-  public static final String BACKUPMOVE_URL = "/backUp";
+  public static final String BACKUPMOVE_URL = "/backupMove";
 
 
   //
@@ -165,7 +165,7 @@ public class WebServer {
     // Validate player moves
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine, gameCenter));
     // Backup player moves
-    post(BACKUPMOVE_URL, new PostBackupMoveRoute());
+    post(BACKUPMOVE_URL, new PostBackupMoveRoute(templateEngine, gameCenter));
     // Check opponent turn
     post(CHECKTURN_URL, new PostCheckTurnRoute());
     //

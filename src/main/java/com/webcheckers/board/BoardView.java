@@ -18,7 +18,7 @@ public class BoardView implements Iterable<Row>{
     private Space[][] board;
     private MoveType lastMoveType = MoveType.NONE;
 
-    private enum MoveType {
+    public enum MoveType {
         NONE,
         SIMPLE,
         JUMP
@@ -40,7 +40,6 @@ public class BoardView implements Iterable<Row>{
     static final Message DOUBLE_MOVE_MESSAGE = Message.error("You cannot move twice in one turn!");
     static final Message MOVE_AFTER_JUMPING_MESSAGE = Message.error("You cannot move after jumping!");
     static final Message JUMP_AFTER_MOVING_MESSAGE = Message.error("You cannot jump after moving!");
-
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
 
@@ -190,6 +189,10 @@ public class BoardView implements Iterable<Row>{
         boolean validRow = ((position.getRow() < NUM_ROWS) && (position.getRow() >= 0));
         boolean validCol = ((position.getCell() < NUM_COLS) && (position.getCell() >= 0));
         return validRow && validCol;
+    }
+
+    public void setLastMoveType(MoveType lastMoveType) {
+        this.lastMoveType = lastMoveType;
     }
 
     /**
