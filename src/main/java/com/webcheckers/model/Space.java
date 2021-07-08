@@ -88,4 +88,18 @@ public class Space {
         return stringVersion;
     }
 
+    /**
+     * Checks if two spaces are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether they are equal or not
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Space)) return false;
+        final Space o = (Space) obj;
+        return this.cellIdx == o.cellIdx && this.valid == o.valid && this.piece.equals(o.piece);
+    }
+
 }

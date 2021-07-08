@@ -72,4 +72,18 @@ public abstract class Piece {
      */
     public abstract boolean isJumpValid(Move move);
 
+    /**
+     * Checks if two spaces are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether they are equal or not
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Piece)) return false;
+        final Piece o = (Piece) obj;
+        return this.rank == o.rank && this.color == o.color;
+    }
+
 }

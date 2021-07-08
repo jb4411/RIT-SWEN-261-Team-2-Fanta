@@ -35,13 +35,11 @@ public class SpaceTest {
     }
 
     // the two piece objects won't compare. seeking help on this test
-    /**@Test void ctor_SpaceParamWithPiece(){
+    @Test void ctor_SpaceParamWithPiece(){
         Space space = new Space(cellIdx, testPiece, true);
-        Space CuT = new Space(space);
+        Space CuT = new Space(space, false);
         assertEquals(CuT.getPiece(), space.getPiece());
     }
-    */
-
 
     @Test
     public void isValidtest(){
