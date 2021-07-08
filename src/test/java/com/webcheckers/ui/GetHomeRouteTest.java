@@ -205,4 +205,49 @@ public class GetHomeRouteTest {
         testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.NULL_PLAYER_ERROR_MSG);
     }
 
+    /**
+     * Test that CuT shows the Home view when the error query parameter is invalid.
+     */
+    @Test
+    public void invalid_error_query_parameter() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        // Arrange the test scenario: The player is logged in and the request
+        //     * URL contains "NULL_PLAYER" as an error parameter
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(false);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams("error")).thenReturn("bad parameter");
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.WELCOME_MSG);
+    }
+
+    /**
+     * Test that CuT shows the Home view when the error query parameter is invalid.
+     */
+    @Test
+    public void error_query_parameter_but_null_name() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        // Arrange the test scenario: The player is logged in and the request
+        //     * URL contains "NULL_PLAYER" as an error parameter
+        when(session.attribute("name")).thenReturn(null);
+        when(gameCenter.inGame("player")).thenReturn(false);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams("error")).thenReturn("IN_GAME");
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.WELCOME_MSG);
+    }
 }

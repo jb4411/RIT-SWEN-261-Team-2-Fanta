@@ -49,7 +49,6 @@ public class PostCheckTurnRoute implements Route{
         else{
             json = gson.toJson(Message.info("false"));
         }
-        System.out.println("uwu");
         return json;
     }
 }
