@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Piece;
@@ -103,9 +104,14 @@ public class GetGameRoute implements Route {
         PlayerLobby lobby = gameCenter.getLobby();
         Player current = lobby.getPlayer(name);
 
+        Gson gson = new Gson();
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        modeOptions.put("isGameOver", game.isGameOver());
+        modeOptions.put("gameOverMessage", game.gameOverMessage());
+        vm.put(MODE_OPTIONS_JSON_ATTR, gson.toJson(modeOptions));
+
         vm.put(CURRENT_USER_ATTR, current);
         vm.put(VIEW_MODE_ATTR, game.getMode());
-        //vm.put(MODE_OPTIONS_JSON__ATTR, ) //not used in sprint 1
         vm.put(RED_PLAYER_ATTR, game.redPlayer());
         vm.put(WHITE_PLAYER_ATTR, game.whitePlayer());
         vm.put(ACTIVE_COLOR_ATTR, current.getColor());
