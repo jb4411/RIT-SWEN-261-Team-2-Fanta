@@ -44,6 +44,10 @@ public class CheckersGame {
         }
     }
 
+    public Piece.Color getCurrentColor() {
+        return currentColor;
+    }
+
     /**
      * Create a new game of web checkers.
      *

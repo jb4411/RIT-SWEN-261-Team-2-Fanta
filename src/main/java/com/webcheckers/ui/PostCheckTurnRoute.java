@@ -1,5 +1,8 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.model.CheckersGame;
+import com.webcheckers.model.Move;
 import spark.*;
 import java.util.logging.Logger;
 
@@ -14,8 +17,10 @@ import com.webcheckers.util.Message;
  */
 public class PostCheckTurnRoute implements Route{
     private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());
+    private final GameCenter gameCenter;
 
-    public PostCheckTurnRoute(){
+    public PostCheckTurnRoute(GameCenter gameCenter){
+        this.gameCenter = gameCenter;
         LOG.config("PostCheckTurnRoute is initialized.");
     }
 
@@ -28,22 +33,18 @@ public class PostCheckTurnRoute implements Route{
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        
         LOG.finer("PostCheckTurnRoute is invoked.");
         Gson gson = new Gson();
         final Session httSession = request.session();
-
         Player player = httSession.attribute(GetHomeRoute.CURRENT_USER_ATTR);
 
         String json; 
-        if(player.checkMyTurn()){
+        if(player.getColor() == gameCenter.getGame(player.getName()).getCurrentColor()){
             json = gson.toJson(Message.info("true"));
         }
         else{
             json = gson.toJson(Message.info("false"));
         }
         return json;
-
-        
     }
 }
