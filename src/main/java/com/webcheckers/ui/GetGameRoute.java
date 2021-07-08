@@ -114,7 +114,11 @@ public class GetGameRoute implements Route {
         vm.put(VIEW_MODE_ATTR, game.getMode());
         vm.put(RED_PLAYER_ATTR, game.redPlayer());
         vm.put(WHITE_PLAYER_ATTR, game.whitePlayer());
-        vm.put(ACTIVE_COLOR_ATTR, current.getColor());
+        if(game.getCurrentColor() == Piece.Color.RED) {
+            vm.put(ACTIVE_COLOR_ATTR, "RED");
+        } else {
+            vm.put(ACTIVE_COLOR_ATTR, "WHITE");
+        }
         if(current.getColor() == Piece.Color.RED) {
             vm.put(BOARD_ATTR, game.getBoard(false));
         } else {
