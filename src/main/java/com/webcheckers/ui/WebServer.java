@@ -167,7 +167,7 @@ public class WebServer {
     // Backup player moves
     post(BACKUPMOVE_URL, new PostBackupMoveRoute(templateEngine, gameCenter));
     // Check opponent turn
-    post(CHECKTURN_URL, new PostCheckTurnRoute());
+    post(CHECKTURN_URL, new PostCheckTurnRoute(gameCenter));
     // Submit turn
     post(SUBMITTURN_URL, new PostSubmitTurnRoute(templateEngine, gameCenter));
     //

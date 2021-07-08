@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.board.BoardView;
-
 /**
  * A class to represent Position object.
  *

@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.board.Piece;
-
 /**
  * A class to represent Move object.
  *

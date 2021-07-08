@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.webcheckers.board.Piece;
-import com.webcheckers.board.Single;
-import com.webcheckers.board.Space;
-import com.webcheckers.board.Piece.Color;
+import com.webcheckers.model.Piece.Color;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -38,13 +35,11 @@ public class SpaceTest {
     }
 
     // the two piece objects won't compare. seeking help on this test
-    /**@Test void ctor_SpaceParamWithPiece(){
+    @Test void ctor_SpaceParamWithPiece(){
         Space space = new Space(cellIdx, testPiece, true);
-        Space CuT = new Space(space);
+        Space CuT = new Space(space, false);
         assertEquals(CuT.getPiece(), space.getPiece());
     }
-    */
-
 
     @Test
     public void isValidtest(){

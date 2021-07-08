@@ -1,8 +1,5 @@
-package com.webcheckers.board;
+package com.webcheckers.model;
 
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Position;
 import com.webcheckers.util.Message;
 
 import java.util.*;

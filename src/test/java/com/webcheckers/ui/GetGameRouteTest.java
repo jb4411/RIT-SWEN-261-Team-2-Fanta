@@ -1,7 +1,7 @@
 package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.board.Piece;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,9 +31,9 @@ public class GetGameRouteTest {
 
     //friendly
     private PlayerLobby playerLobby;
-    private GameCenter gameCenter;
 
     //mock
+    private GameCenter gameCenter;
     private Request request;
     private Session session;
     private Response response;
@@ -109,10 +112,24 @@ public class GetGameRouteTest {
         // Arrange the test scenario: the playerLobby has two players willing to play.
         playerLobby.addPlayer("player1");
         playerLobby.addPlayer("player2");
+        Player player1 = playerLobby.getPlayer("player1");
+        player1.setColor(Piece.Color.RED);
+        Player player2 = playerLobby.getPlayer("player2");
 
         when(session.attribute("name")).thenReturn("player1");
         when(request.session().attribute(GetGameRoute.RED_PLAYER_NAME_ATTR)).thenReturn("player1");
         when(request.session().attribute(GetGameRoute.RED_PLAYER_NAME_ATTR)).thenReturn("player2");
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(gameCenter.createGame(any(), any())).thenReturn(GameCenter.GameStatus.CREATED);
+        when(gameCenter.getOpponent(any())).thenReturn(player2);
+        when(gameCenter.getLobby()).thenReturn(playerLobby);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(any())).thenReturn(game);
+        when(game.getMode()).thenReturn(CheckersGame.Mode.PLAY);
+        when(game.redPlayer()).thenReturn(player1);
+        when(game.whitePlayer()).thenReturn(player2);
 
 
         // To analyze what the Route created in the View-Model map you need
@@ -130,11 +147,12 @@ public class GetGameRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
         //   * model contains all necessary View-Model data
-        testHelper.assertViewModelAttribute(GetGameRoute.CURRENT_USER_ATTR, playerLobby.getPlayer("player1"));
+        testHelper.assertViewModelAttribute(GetGameRoute.CURRENT_USER_ATTR, player1);
         testHelper.assertViewModelAttribute(GetGameRoute.VIEW_MODE_ATTR, CheckersGame.Mode.PLAY);
-        testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, playerLobby.getPlayer("player1"));
-        testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, playerLobby.getPlayer("player2"));
+        testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, player1);
+        testHelper.assertViewModelAttribute(GetGameRoute.WHITE_PLAYER_ATTR, player2);
         testHelper.assertViewModelAttribute(GetGameRoute.ACTIVE_COLOR_ATTR, Piece.Color.RED);
+        verify(response).redirect(WebServer.GAME_URL);
 
         //   * test view name
         testHelper.assertViewName("game.ftl");

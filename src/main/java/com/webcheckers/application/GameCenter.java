@@ -1,6 +1,7 @@
 package com.webcheckers.application;
 
 import com.webcheckers.model.CheckersGame;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
 import java.util.HashMap;
