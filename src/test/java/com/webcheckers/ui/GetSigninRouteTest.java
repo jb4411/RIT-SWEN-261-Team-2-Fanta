@@ -91,10 +91,10 @@ public class GetSigninRouteTest {
     public void engine_render_fail(){
         when(engine.render(any(ModelAndView.class))).thenReturn(null);
         try {
-            CuT = new GetSigninRoute(engine);
+            CuT = new GetSigninRoute(null);
             fail("Null render, cannot create route.");
-        } catch (IllegalArgumentException noArg){
-
+        } catch (NullPointerException noArg){
+            //expected
         }
     }
 
