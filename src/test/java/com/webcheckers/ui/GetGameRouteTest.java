@@ -47,10 +47,10 @@ public class GetGameRouteTest {
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
+        gameCenter = mock(GameCenter.class);
 
         // create a unique CuT for each test
         playerLobby = new PlayerLobby();
-        gameCenter = new GameCenter(playerLobby);
         CuT = new GetGameRoute(engine, gameCenter);
 
     }
