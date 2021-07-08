@@ -18,6 +18,7 @@ public class CheckersGame {
     private int gameID;
     private Piece.Color currentColor;
     private LinkedList<Move> turnMoves;
+    private boolean isGameOver;
 
     static final Message NO_MOVES_MADE_MESSAGE = Message.error("You have not made any moves yet!");
     static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
@@ -48,6 +49,13 @@ public class CheckersGame {
         return currentColor;
     }
 
+    public Message gameOverMessage() {
+        if(!isGameOver) {
+            return null;
+        }
+        return null;
+    }
+
     /**
      * Create a new game of web checkers.
      *
@@ -65,6 +73,11 @@ public class CheckersGame {
         this.gameID = Objects.hash(red, white, mode);
         this.currentColor = Piece.Color.RED;
         this.turnMoves = new LinkedList<>();
+        this.isGameOver = false;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
     }
 
     /**
