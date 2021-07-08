@@ -29,12 +29,6 @@ public class CheckersGame {
         REPLAY
     }
 
-    public enum moveType {
-        NONE,
-        SIMPLE,
-        JUMP
-    }
-
     /**
      * Get a copy of the current game board. This copy can be flipped if necessary.
      *

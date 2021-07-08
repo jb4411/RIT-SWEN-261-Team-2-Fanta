@@ -69,6 +69,15 @@ public class Space {
         return piece;
     }
 
+    /**
+     * Set the piece on this space.
+     *
+     * @param piece the piece to be on this space
+     */
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
     @Override
     public String toString(){
         String stringVersion = Integer.toString(cellIdx) + Boolean.toString(valid);

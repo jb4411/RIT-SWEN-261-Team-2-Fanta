@@ -16,6 +16,13 @@ public class BoardView implements Iterable<Row>{
     private Player red;
     private Player white;
     private Space[][] board;
+    private MoveType lastMoveType = MoveType.NONE;
+
+    private enum MoveType {
+        NONE,
+        SIMPLE,
+        JUMP
+    }
 
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLS = 8;
@@ -30,6 +37,9 @@ public class BoardView implements Iterable<Row>{
     static final Message VALID_JUMP_MESSAGE = Message.info("That jump is legal.");
     static final Message JUMP_OVER_NOTHING_MESSAGE = Message.error("You cannot jump over an empty square!");
     static final Message JUMP_OVER_OWN_PIECE_MESSAGE = Message.error("You cannot jump over your own piece!");
+    static final Message DOUBLE_MOVE_MESSAGE = Message.error("You cannot move twice in one turn!");
+    static final Message MOVE_AFTER_JUMPING_MESSAGE = Message.error("You cannot move after jumping!");
+    static final Message JUMP_AFTER_MOVING_MESSAGE = Message.error("You cannot jump after moving!");
 
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
@@ -97,6 +107,12 @@ public class BoardView implements Iterable<Row>{
         }
 
         if(move.isSimpleMove()) {
+            if(lastMoveType == MoveType.SIMPLE) {
+                return DOUBLE_MOVE_MESSAGE;
+            } else if(lastMoveType == MoveType.JUMP) {
+                return MOVE_AFTER_JUMPING_MESSAGE;
+            }
+
             if(canJump(playerColor)) {
                 return FORCED_JUMP_MESSAGE;
             }
@@ -107,6 +123,10 @@ public class BoardView implements Iterable<Row>{
                 return ILLEGAL_MOVE_MESSAGE;
             }
         } else if(move.isJump()) {
+            if(lastMoveType == MoveType.SIMPLE) {
+                return JUMP_AFTER_MOVING_MESSAGE;
+            }
+
             if(startPiece.isJumpValid(move)) {
                 return VALID_JUMP_MESSAGE;
             } else {
@@ -128,9 +148,23 @@ public class BoardView implements Iterable<Row>{
 
         Space startSpace = getSpace(start);
         Space endSpace = getSpace(end);
+        assert startSpace != null;
+        assert endSpace != null;
         Piece piece = startSpace.getPiece();
 
+        startSpace.setPiece(null);
+        if(piece.getType() == Piece.Type.SINGLE && end.getRow() == 0) {
+            endSpace.setPiece(new King(piece.getColor()));
+        } else {
+            endSpace.setPiece(piece);
+        }
 
+        if(move.isJump()) {
+            getJumpedSquare(move).setPiece(null);
+            lastMoveType = MoveType.JUMP;
+        } else {
+            lastMoveType = MoveType.SIMPLE;
+        }
     }
 
     public Space getJumpedSquare(Move move) {
