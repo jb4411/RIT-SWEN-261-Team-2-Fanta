@@ -106,9 +106,8 @@ public class GetSigninRouteTest {
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(null);
         try {
             CuT.handle(request, response);
+        } catch (NullPointerException nullArg){
             fail("Null attribute cannot be handled.");
-        } catch (IllegalArgumentException noArg){
-
         }
     }
 
