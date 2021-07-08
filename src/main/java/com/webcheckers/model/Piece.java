@@ -1,6 +1,4 @@
-package com.webcheckers.board;
-
-import com.webcheckers.model.Move;
+package com.webcheckers.model;
 
 /**
  * A abstract class to represent a checker piece.

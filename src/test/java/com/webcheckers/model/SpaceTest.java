@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.webcheckers.board.Piece;
-import com.webcheckers.board.Single;
-import com.webcheckers.board.Space;
-import com.webcheckers.board.Piece.Color;
+import com.webcheckers.model.Piece.Color;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

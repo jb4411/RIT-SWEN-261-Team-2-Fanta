@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.board.BoardView;
-import com.webcheckers.board.Piece;
 import com.webcheckers.util.Message;
 
 import java.util.LinkedList;

@@ -2,7 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.board.Piece;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import spark.*;
@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import static com.webcheckers.ui.PostValidateMoveRoute.GAME_ID_ATTR;
 import static com.webcheckers.ui.WebServer.HOME_URL;
 
 /**

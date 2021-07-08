@@ -1,4 +1,4 @@
-package com.webcheckers.board;
+package com.webcheckers.model;
 
 /**
  * A class to represent a space on the checkerboard.
