@@ -130,6 +130,7 @@ public class GetGameRouteTest {
         when(game.getMode()).thenReturn(CheckersGame.Mode.PLAY);
         when(game.redPlayer()).thenReturn(player1);
         when(game.whitePlayer()).thenReturn(player2);
+        when(game.getCurrentColor()).thenReturn(Piece.Color.RED);
 
 
         // To analyze what the Route created in the View-Model map you need
@@ -151,7 +152,7 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttribute(GetGameRoute.VIEW_MODE_ATTR, CheckersGame.Mode.PLAY);
         testHelper.assertViewModelAttribute(GetGameRoute.RED_PLAYER_ATTR, player1);
         testHelper.assertViewModelAttribute(GetGameRoute.WHITE_PLAYER_ATTR, player2);
-        testHelper.assertViewModelAttribute(GetGameRoute.ACTIVE_COLOR_ATTR, Piece.Color.RED);
+        testHelper.assertViewModelAttribute(GetGameRoute.ACTIVE_COLOR_ATTR, "RED");
         verify(response).redirect(WebServer.GAME_URL);
 
         //   * test view name
