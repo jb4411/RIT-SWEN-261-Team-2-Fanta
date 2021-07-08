@@ -229,7 +229,7 @@ public class GetHomeRouteTest {
     }
 
     /**
-     * Test that CuT shows the Home view when the error query parameter is invalid.
+     * Test that CuT shows the Home view when the error query parameter exists but name is null.
      */
     @Test
     public void error_query_parameter_but_null_name() {
