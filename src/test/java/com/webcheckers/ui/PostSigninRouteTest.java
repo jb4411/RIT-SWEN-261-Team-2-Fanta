@@ -136,6 +136,8 @@ public class PostSigninRouteTest {
     
     @Test
     public void nullHandleCase(){
-        when(request.queryParams(eq(GetSigninRoute.PLAYER_NAME_ATTR))).thenReturn(nullObject);
+        when(request.session().attribute(eq(GetSigninRoute.PLAYER_NAME_ATTR))).thenReturn(notNull);
+        PlayerLobby badLobby = mock(PlayerLobby.class);
+        when(badLobby.addPlayer(anyString())).thenReturn(null);
     }
 }

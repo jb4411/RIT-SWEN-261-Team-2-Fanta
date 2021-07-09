@@ -153,4 +153,13 @@ public class PlayerLobbyTest {
         assertEquals(String.format(PlayerLobby.LOBBY_STRING_FORMAT, 2, "player1, player2"), CuT.toString());
         assertEquals(players, CuT.getAllPlayers());
     }
+
+    /**
+     * Test removing a player.
+     */
+    @Test
+    public void test_remove_player() {
+        CuT.addPlayer("player");
+
+    }
 }
