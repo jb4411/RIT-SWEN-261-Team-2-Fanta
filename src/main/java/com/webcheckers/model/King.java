@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+
 /**
  * A class to represent a king piece.
  *
@@ -25,14 +26,41 @@ public class King extends Piece {
         return new King(this.getColor());
     }
 
+    /**
+     * Checks if a move is a valid simple hop.
+     *
+     * @param move the move to be checked
+     * @return whether or not the move is valid
+     */
     @Override
     public boolean isMoveValid(Move move) {
         return false;
     }
 
+    /**
+     * Checks if a move is a valid jump.
+     *
+     * @param move         the move to be checked
+     * @param jumpedSquare the square jumped over
+     * @return whether or not the move is valid
+     */
     @Override
     public boolean isJumpValid(Move move, Space jumpedSquare) {
         return false;
     }
+
+    /**
+     * Returns whether or not this piece has any possible valid jumps.
+     *
+     * @param board     the current board
+     * @param startRow  the row this piece is on
+     * @param startCell the cell this piece is on
+     * @return whether or not this piece can jump
+     */
+    @Override
+    public boolean hasJump(BoardView board, int startRow, int startCell) {
+        return false;
+    }
+
 
 }

@@ -141,6 +141,7 @@ public class CheckersGame {
         if(turnMoves.size() == 0) {
             return NO_MOVES_MADE_MESSAGE;
         }
+        board.resetJumpData();
         turnMoves.removeLast();
         if(turnMoves.size() == 0) {
             board.setLastMoveType(BoardView.MoveType.NONE);
@@ -156,7 +157,7 @@ public class CheckersGame {
         if(turnMoves.size() == 0) {
             return NO_MOVES_MADE_MESSAGE;
         }
-        if(board.hasPossibleJump()) {
+        if(board.playerHasJump()) {
             return JUMP_EXISTS_MESSAGE;
         }
 
@@ -174,6 +175,7 @@ public class CheckersGame {
         }
         turnMoves.clear();
         board.setLastMoveType(BoardView.MoveType.NONE);
+        board.resetJumpData();
         return TURN_SUBMITTED_MESSAGE;
     }
 }

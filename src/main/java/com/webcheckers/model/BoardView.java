@@ -14,6 +14,8 @@ public class BoardView implements Iterable<Row>{
     private Player white;
     private Space[][] board;
     private MoveType lastMoveType = MoveType.NONE;
+    private boolean checkedJumps = false;
+    private boolean playerHasJump = false;
 
     public enum MoveType {
         NONE,
@@ -104,6 +106,10 @@ public class BoardView implements Iterable<Row>{
             return OCCUPIED_END_SPACE_MESSAGE;
         }
 
+        if(lastMoveType == MoveType.NONE && !checkedJumps) {
+            playerHasJump = playerCanJump(playerColor);
+        }
+
         if(move.isSimpleMove()) {
             if(lastMoveType == MoveType.SIMPLE) {
                 return DOUBLE_MOVE_MESSAGE;
@@ -111,7 +117,7 @@ public class BoardView implements Iterable<Row>{
                 return MOVE_AFTER_JUMPING_MESSAGE;
             }
 
-            if(canJump(playerColor)) {
+            if(playerHasJump) {
                 return FORCED_JUMP_MESSAGE;
             }
 
@@ -162,6 +168,7 @@ public class BoardView implements Iterable<Row>{
         if(move.isJump()) {
             getJumpedSquare(move).setPiece(null);
             lastMoveType = MoveType.JUMP;
+            playerHasJump = endSpace.getPiece().hasJump(this, end.getRow(), end.getCell());
         } else {
             lastMoveType = MoveType.SIMPLE;
         }
@@ -175,7 +182,18 @@ public class BoardView implements Iterable<Row>{
         return board[row][cell];
     }
 
-    private boolean canJump(Piece.Color playerColor) {
+    private boolean playerCanJump(Piece.Color playerColor) {
+        Piece piece;
+        int rowIdx = 0;
+        for(Space[] row : board) {
+            for(Space space : row) {
+                piece = space.getPiece();
+                if((piece != null) && (piece.getColor() == playerColor) && piece.hasJump(this, rowIdx, space.getCellIdx())) {
+                    return true;
+                }
+            }
+            rowIdx++;
+        }
         return false;
     }
 
@@ -196,8 +214,13 @@ public class BoardView implements Iterable<Row>{
         this.lastMoveType = lastMoveType;
     }
 
-    public boolean hasPossibleJump() {
-        return false;
+    public void resetJumpData() {
+        this.playerHasJump = false;
+        this.checkedJumps = false;
+    }
+
+    public boolean playerHasJump() {
+        return playerHasJump;
     }
 
     /**
