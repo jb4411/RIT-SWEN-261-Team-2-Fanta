@@ -27,17 +27,12 @@ public class Single extends Piece{
 
     @Override
     public boolean isMoveValid(Move move) {
-        System.out.println(move.isSimpleMove());
-        System.out.println(move.getStart().getRow());
-        System.out.println(move.getEnd().getRow());
-        System.out.println((move.getStart().getRow() - move.getEnd().getRow()));
-        System.out.println(move.isSimpleMove() && ((move.getStart().getRow() - move.getEnd().getRow()) == 1));
-
         return move.isSimpleMove() && ((move.getStart().getRow() - move.getEnd().getRow()) == 1);
     }
 
     @Override
-    public boolean isJumpValid(Move move) {
-        return false;
+    public boolean isJumpValid(Move move, Space jumpedSquare) {
+        boolean captured = (jumpedSquare.getPiece() != null) && (jumpedSquare.getPiece().getColor() != this.getColor());
+        return move.isJump() && ((move.getStart().getRow() - move.getEnd().getRow()) == 2) && captured;
     }
 }

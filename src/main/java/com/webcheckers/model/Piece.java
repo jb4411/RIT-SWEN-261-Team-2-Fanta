@@ -70,7 +70,7 @@ public abstract class Piece {
      * @param move the move to be checked
      * @return whether or not the move is valid
      */
-    public abstract boolean isJumpValid(Move move);
+    public abstract boolean isJumpValid(Move move, Space jumpedSquare);
 
     /**
      * Checks if two spaces are equal.

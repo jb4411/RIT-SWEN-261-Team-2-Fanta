@@ -40,7 +40,7 @@ public class Move{
     }
 
     public boolean isJump() {
-        return false;
+        return (Math.abs(start.getRow() - end.getRow()) == 2) && (Math.abs(start.getCell() - end.getCell()) == 2);
     }
 
     public Move inverse() {

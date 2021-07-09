@@ -31,7 +31,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isJumpValid(Move move) {
+    public boolean isJumpValid(Move move, Space jumpedSquare) {
         return false;
     }
 

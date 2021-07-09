@@ -125,10 +125,10 @@ public class BoardView implements Iterable<Row>{
                 return JUMP_AFTER_MOVING_MESSAGE;
             }
 
-            if(startPiece.isJumpValid(move)) {
+            Space jumpedSquare = getJumpedSquare(move);
+            if(startPiece.isJumpValid(move, jumpedSquare)) {
                 return VALID_JUMP_MESSAGE;
             } else {
-                Space jumpedSquare = getJumpedSquare(move);
                 Piece jumpedPiece = jumpedSquare.getPiece();
                 if(jumpedPiece == null) {
                     return JUMP_OVER_NOTHING_MESSAGE;
