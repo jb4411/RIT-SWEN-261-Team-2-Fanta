@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.List;
+
 /**
  * A abstract class to represent a checker piece.
  *
@@ -68,9 +70,21 @@ public abstract class Piece {
      * Checks if a move is a valid jump.
      *
      * @param move the move to be checked
+     * @param jumpedSquare the square jumped over
+     * @param endSpace the jump this square ends on
      * @return whether or not the move is valid
      */
-    public abstract boolean isJumpValid(Move move);
+    public abstract boolean isJumpValid(Move move, Space jumpedSquare, Space endSpace);
+
+    /**
+     * Returns whether or not this piece has any possible valid jumps.
+     *
+     * @param startRow the row this piece is on
+     * @param startCell the cell this piece is on
+     * @param board the current board
+     * @return whether or not this piece can jump
+     */
+    public abstract boolean hasJump(BoardView board, int startRow, int startCell);
 
     /**
      * Checks if two spaces are equal.
