@@ -160,6 +160,6 @@ public class PlayerLobbyTest {
     @Test
     public void test_remove_player() {
         CuT.addPlayer("player");
-
+        CuT
     }
 }
