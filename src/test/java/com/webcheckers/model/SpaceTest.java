@@ -18,27 +18,55 @@ import org.junit.jupiter.api.Test;
 public class SpaceTest {
     private Color testColor = Color.WHITE;
     private Piece testPiece = new Single(testColor);
+    private Piece nullPiece = null;
     private int cellIdx = 4;
 
 
-
-    @Test void ctor_valid(){
+    @Test 
+    public void ctor_valid(){
         //checks to make sure constructor main works for valid piece
         Space CuT = new Space(cellIdx, null, true);
         assertEquals(cellIdx + Boolean.toString(true), CuT.toString());
     }
 
-    @Test void ctor_invalid(){
+    @Test 
+    public void ctor_invalid(){
         //checks to make sure constructor main works for invalid piece
         Space CuT = new Space(cellIdx, null, false);
         assertEquals(cellIdx + Boolean.toString(false), CuT.toString());
     }
 
-    @Test void ctor_SpaceParamWithPiece(){
+    @Test 
+    public void ctor_TrueFlip(){
+        //checks to make sure copy constructor flips the space when the flip boolean is true
+        Space space = new Space(cellIdx, testPiece, true);
+        Space CuT = new Space(space, true);
+        //assert the original and copied pieces are equal
+        assertEquals(CuT.getPiece(), space.getPiece());
+        //assert the cellIdx are flipped and equal
+        assertEquals(Integer.toString(BoardView.NUM_COLS - space.getCellIdx() - 1), Integer.toString(CuT.getCellIdx()));
+    }
+
+    @Test 
+    public void ctor_FalseFlip(){
+        //checks to make sure copy constructor doesn't flip when the flip boolean is false
         Space space = new Space(cellIdx, testPiece, true);
         Space CuT = new Space(space, false);
+        //assert the original and copied pieces are equal
         assertEquals(CuT.getPiece(), space.getPiece());
+        //assert the cellIdx are flipped and equal
+        assertEquals(Integer.toString(space.getCellIdx()), Integer.toString(CuT.getCellIdx()));
     }
+
+    @Test
+    public void ctor_withNullPiece(){
+        //checks to make sure copy constructor sets the piece equal to null when a space with a null piece is passed
+        Space space = new Space(cellIdx, nullPiece, true);
+        Space CuT = new Space(space, true);
+        //assert the pieces are equal and null
+        assertEquals(space.getPiece(), CuT.getPiece());
+    }
+    
 
     @Test
     public void isValidtest(){
@@ -47,6 +75,7 @@ public class SpaceTest {
         // assert it is valid
         assertTrue(CuT.isValid());
     }
+
     @Test
     public void falseValidParameter(){
         // invalid because of 'false' passed into constructor
@@ -54,6 +83,7 @@ public class SpaceTest {
         // assert it is not valid
         assertFalse(CuT.isValid());
     }
+
     @Test void testPieceParameter(){
         // invalid because there is a piece on the space (passed through constructor)
         final Space CuT = new Space(cellIdx, testPiece, true);
