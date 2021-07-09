@@ -1,5 +1,6 @@
 package com.webcheckers.application;
 
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -160,6 +161,19 @@ public class PlayerLobbyTest {
     @Test
     public void test_remove_player() {
         CuT.addPlayer("player");
+        CuT.removePlayer("player");
+        assertEquals(numPlayers, CuT.getNumPlayers());
+        assertEquals(lobbyString, CuT.toString());
+        assertEquals(players, CuT.getAllPlayers());
+    }
 
+    /**
+     * Test getting a player.
+     */
+    @Test
+    public void test_get_player() {
+        Player player = new Player("player");
+        CuT.addPlayer("player");
+        assertEquals(player, CuT.getPlayer("player"));
     }
 }
