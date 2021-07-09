@@ -34,7 +34,6 @@ public class SpaceTest {
         assertEquals(cellIdx + Boolean.toString(false), CuT.toString());
     }
 
-    // the two piece objects won't compare. seeking help on this test
     @Test void ctor_SpaceParamWithPiece(){
         Space space = new Space(cellIdx, testPiece, true);
         Space CuT = new Space(space, false);
