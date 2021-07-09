@@ -199,7 +199,7 @@ public class CheckersGame {
             }
             Position endPosition = turnMoves.getLast().getEnd();
             Space endSpace = copy.getSquare(endPosition);
-            if(endSpace.getPiece().hasJump(copy, endPosition.getRow(), endPosition.getCell())) {
+            if(endSpace.getPiece().hasJump(copy, endPosition.getRow(), endPosition.getCell()) && turnMoves.getLast().isJump()) {
                 return JUMP_EXISTS_MESSAGE;
             }
         }
