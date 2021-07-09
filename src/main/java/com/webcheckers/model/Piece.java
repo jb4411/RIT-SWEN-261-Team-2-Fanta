@@ -71,9 +71,10 @@ public abstract class Piece {
      *
      * @param move the move to be checked
      * @param jumpedSquare the square jumped over
+     * @param endSpace the jump this square ends on
      * @return whether or not the move is valid
      */
-    public abstract boolean isJumpValid(Move move, Space jumpedSquare);
+    public abstract boolean isJumpValid(Move move, Space jumpedSquare, Space endSpace);
 
     /**
      * Returns whether or not this piece has any possible valid jumps.

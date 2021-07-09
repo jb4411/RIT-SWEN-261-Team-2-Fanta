@@ -25,4 +25,10 @@ public class Position{
     public Position inverse() {
         return new Position(BoardView.NUM_ROWS - row - 1, BoardView.NUM_COLS - cell - 1);
     }
+
+    public boolean isValid() {
+        boolean validRow = (row >= 0) && (row < BoardView.NUM_ROWS);
+        boolean validCell = (cell >= 0) && (cell < BoardView.NUM_COLS);
+        return validRow && validCell;
+    }
 }

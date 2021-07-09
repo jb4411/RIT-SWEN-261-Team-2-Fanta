@@ -42,10 +42,11 @@ public class King extends Piece {
      *
      * @param move         the move to be checked
      * @param jumpedSquare the square jumped over
+     * @param endSpace     the jump this square ends on
      * @return whether or not the move is valid
      */
     @Override
-    public boolean isJumpValid(Move move, Space jumpedSquare) {
+    public boolean isJumpValid(Move move, Space jumpedSquare, Space endSpace) {
         return false;
     }
 
@@ -61,6 +62,4 @@ public class King extends Piece {
     public boolean hasJump(BoardView board, int startRow, int startCell) {
         return false;
     }
-
-
 }

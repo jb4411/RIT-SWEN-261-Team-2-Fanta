@@ -157,8 +157,19 @@ public class CheckersGame {
         if(turnMoves.size() == 0) {
             return NO_MOVES_MADE_MESSAGE;
         }
-        if(board.playerHasJump()) {
+        BoardView copy = new BoardView(board, currentColor == Piece.Color.WHITE);
+
+        if(turnMoves.getLast().isSimpleMove() && copy.playerCanJump(currentColor)) {
             return JUMP_EXISTS_MESSAGE;
+        } else {
+            for (Move turnMove : turnMoves) {
+                copy.makeMove(turnMove);
+            }
+            Position endPosition = turnMoves.getLast().getEnd();
+            Space endSpace = copy.getSquare(endPosition);
+            if(endSpace.getPiece().hasJump(copy, endPosition.getRow(), endPosition.getCell())) {
+                return JUMP_EXISTS_MESSAGE;
+            }
         }
 
         for (Move turnMove : turnMoves) {
@@ -168,6 +179,8 @@ public class CheckersGame {
                 board.makeMove(turnMove);
             }
         }
+
+
         if(currentColor == Piece.Color.RED) {
             currentColor = Piece.Color.WHITE;
         } else {

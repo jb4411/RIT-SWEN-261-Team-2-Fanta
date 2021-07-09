@@ -41,12 +41,13 @@ public class Single extends Piece{
      *
      * @param move the move to be checked
      * @param jumpedSquare the square jumped over
+     * @param endSpace the jump this square ends on
      * @return whether or not the move is valid
      */
     @Override
-    public boolean isJumpValid(Move move, Space jumpedSquare) {
+    public boolean isJumpValid(Move move, Space jumpedSquare, Space endSpace) {
         boolean captured = (jumpedSquare.getPiece() != null) && (jumpedSquare.getPiece().getColor() != this.getColor());
-        return move.isJump() && ((move.getStart().getRow() - move.getEnd().getRow()) == 2) && captured;
+        return move.isJump() && ((move.getStart().getRow() - move.getEnd().getRow()) == 2) && captured && (endSpace.getPiece() == null);
     }
 
     /**
@@ -61,14 +62,14 @@ public class Single extends Piece{
     public boolean hasJump(BoardView board, int startRow, int startCell) {
         Move jump;
         Position start = new Position(startRow, startCell);
-        Position end = new Position(startRow - 1, startCell - 1);
+        Position end = new Position(startRow - 2, startCell - 2);
         jump = new Move(start, end);
-        if(this.isJumpValid(jump, board.getJumpedSquare(jump))) {
+        if(end.isValid() && this.isJumpValid(jump, board.getJumpedSquare(jump), board.getSquare(end))) {
             return true;
         } else {
-            end = new Position(startRow - 1, startCell + 1);
+            end = new Position(startRow - 2, startCell + 2);
             jump = new Move(start, end);
-            return this.isJumpValid(jump, board.getJumpedSquare(jump));
+            return end.isValid() && this.isJumpValid(jump, board.getJumpedSquare(jump), board.getSquare(end));
         }
     }
 

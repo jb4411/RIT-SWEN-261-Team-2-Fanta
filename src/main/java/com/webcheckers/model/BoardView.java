@@ -109,7 +109,7 @@ public class BoardView implements Iterable<Row>{
         if(lastMoveType == MoveType.NONE && !checkedJumps) {
             playerHasJump = playerCanJump(playerColor);
         }
-
+        System.out.println(playerHasJump);
         if(move.isSimpleMove()) {
             if(lastMoveType == MoveType.SIMPLE) {
                 return DOUBLE_MOVE_MESSAGE;
@@ -132,7 +132,7 @@ public class BoardView implements Iterable<Row>{
             }
 
             Space jumpedSquare = getJumpedSquare(move);
-            if(startPiece.isJumpValid(move, jumpedSquare)) {
+            if(startPiece.isJumpValid(move, jumpedSquare, endSpace)) {
                 return VALID_JUMP_MESSAGE;
             } else {
                 Piece jumpedPiece = jumpedSquare.getPiece();
@@ -182,7 +182,7 @@ public class BoardView implements Iterable<Row>{
         return board[row][cell];
     }
 
-    private boolean playerCanJump(Piece.Color playerColor) {
+    public boolean playerCanJump(Piece.Color playerColor) {
         Piece piece;
         int rowIdx = 0;
         for(Space[] row : board) {
@@ -221,6 +221,10 @@ public class BoardView implements Iterable<Row>{
 
     public boolean playerHasJump() {
         return playerHasJump;
+    }
+
+    public Space getSquare(Position position) {
+        return board[position.getRow()][position.getCell()];
     }
 
     /**
