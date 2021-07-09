@@ -149,9 +149,11 @@ public class BoardView implements Iterable<Row>{
         assert startSpace != null;
         assert endSpace != null;
         Piece piece = startSpace.getPiece();
-
         startSpace.setPiece(null);
-        if(piece.getType() == Piece.Type.SINGLE && end.getRow() == 0) {
+
+        boolean redKing = (piece.getColor() == Piece.Color.RED) && (end.getRow() == 0);
+        boolean whiteKing = (piece.getColor() == Piece.Color.WHITE) && (end.getRow() == 7);
+        if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
             endSpace.setPiece(new King(piece.getColor()));
         } else {
             endSpace.setPiece(piece);
