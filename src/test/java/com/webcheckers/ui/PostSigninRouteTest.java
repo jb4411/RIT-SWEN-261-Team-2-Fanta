@@ -1,13 +1,13 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.application.PlayerLobby.NameStatus;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
@@ -32,6 +32,8 @@ public class PostSigninRouteTest {
     private final String NOT_VALID_USERNAME = " asdf";
     private final String ALREADY_IN_USE = "player";
     private final String VALID_NAME = "player01";
+    private final String handleResult = null;
+    private final String notNull = "notNull";
     
     //mock objects
     private PostSigninRoute CuT;
@@ -83,6 +85,8 @@ public class PostSigninRouteTest {
         testHelper.assertViewModelAttribute(PostSigninRoute.SIGNIN_MESSAGE_ATTR, Message.error(PostSigninRoute.INVALID_NAME_MESSAGE));
         // * tests for correct view name
         testHelper.assertViewName("signin.ftl");
+        // * returns null
+        assertEquals(handleResult, CuT.handle(request, response));
     }
 
     @Test
@@ -103,6 +107,8 @@ public class PostSigninRouteTest {
         testHelper.assertViewModelAttribute(PostSigninRoute.SIGNIN_MESSAGE_ATTR, Message.error(PostSigninRoute.DUPLICATE_NAME_MESSAGE));
         // * tests for correct view name
         testHelper.assertViewName("signin.ftl");
+        // * returns null
+        assertEquals(handleResult, CuT.handle(request, response));
         
     }
 
@@ -118,7 +124,23 @@ public class PostSigninRouteTest {
         //analyze the results:
         // * redirect to the homepage
         verify(response).redirect(WebServer.HOME_URL);
+        // * returns null
+        assertEquals(handleResult, CuT.handle(request, response));
 
     }
+
+    @Test
+    public void notNull(){
+        //when player name attribute isn't null
+        when(request.session().attribute(eq(GetSigninRoute.PLAYER_NAME_ATTR))).thenReturn(notNull);
+        //invoke the test
+        CuT.handle(request, response);
+        //analyze the results:
+        // * redirects to the homepage
+        verify(response).redirect(WebServer.HOME_URL);
+        // * retruns null
+        assertEquals(handleResult, CuT.handle(request, response));
+    }
+    
 
 }
