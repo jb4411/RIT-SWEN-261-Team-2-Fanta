@@ -4,6 +4,7 @@ package com.webcheckers.model;
  * A class to represent Position object.
  *
  * @author Eric Landers esl7511@rit.edu
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Position{
     private int row;
