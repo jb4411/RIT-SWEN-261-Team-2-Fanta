@@ -136,8 +136,16 @@ public class PostSigninRouteTest {
     
     @Test
     public void nullHandleCase(){
+        //when player name attribute isn't null
         when(request.session().attribute(eq(GetSigninRoute.PLAYER_NAME_ATTR))).thenReturn(notNull);
+        //mock playerlobby object
         PlayerLobby badLobby = mock(PlayerLobby.class);
+        //when username is null
         when(badLobby.addPlayer(anyString())).thenReturn(null);
+        //invoke
+        CuT.handle(request, response);
+        //analyze the results:
+        // * returns null object
+        assertEquals(nullObject, CuT.handle(request, response));
     }
 }
