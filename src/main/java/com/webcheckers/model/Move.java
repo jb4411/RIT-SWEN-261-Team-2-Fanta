@@ -8,6 +8,7 @@ package com.webcheckers.model;
  */
 public class Move{
 
+    //The starting and ending position of a Move
     private Position start;
     private Position end;
 
@@ -22,10 +23,20 @@ public class Move{
         this.end = end;
     }
 
+    /**
+     * Returns the starting position of a Move
+     *
+     * @return start
+     */
     public Position getStart(){
         return start;
     }
 
+    /**
+     * Returns the ending position of a Move
+     *
+     * @return end
+     */
     public Position getEnd(){
         return end;
     }
@@ -39,10 +50,20 @@ public class Move{
         return (Math.abs(start.getRow() - end.getRow()) == 1) && (Math.abs(start.getCell() - end.getCell()) == 1);
     }
 
+    /**
+     * Returns if a Move can be considered a jump
+     *
+     * @return true if a Move is a jump, false otherwise
+     */
     public boolean isJump() {
         return (Math.abs(start.getRow() - end.getRow()) == 2) && (Math.abs(start.getCell() - end.getCell()) == 2);
     }
 
+    /**
+     * Inverts a Move
+     *
+     * @return an inverted version of a Move
+     */
     public Move inverse() {
         return new Move(start.inverse(), end.inverse());
     }
