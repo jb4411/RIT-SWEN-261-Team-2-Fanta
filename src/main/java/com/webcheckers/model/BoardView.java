@@ -10,6 +10,7 @@ import java.util.*;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class BoardView implements Iterable<Row>{
+    //Values used in generating the game board
     private Player red;
     private Player white;
     private Space[][] board;
@@ -17,6 +18,7 @@ public class BoardView implements Iterable<Row>{
     private boolean checkedJumps = false;
     private boolean playerHasJump = false;
 
+    //Different types of moves
     public enum MoveType {
         NONE,
         SIMPLE,
@@ -26,17 +28,22 @@ public class BoardView implements Iterable<Row>{
     public static final int NUM_ROWS = 8;
     public static final int NUM_COLS = 8;
 
+    //Messages for valid moves and jumps
+    static final Message VALID_MOVE_MESSAGE = Message.info("That move is legal.");
+    static final Message VALID_JUMP_MESSAGE = Message.info("That jump is legal.");
+
+    //Error messages regarding illegal moves
     static final Message NULL_SPACE_MESSAGE = Message.error("You cannot move to an invalid space!");
     static final Message NULL_START_PIECE_MESSAGE = Message.error("You must move a checker!");
     static final Message OPPONENTS_PIECE_MESSAGE = Message.error("You cannot move your opponents pieces!");
-    static final Message OCCUPIED_END_SPACE_MESSAGE = Message.error("You cannot to an occupied square!");
-    static final Message FORCED_JUMP_MESSAGE = Message.error("When a jump is possible, you must must jump!");
-    static final Message VALID_MOVE_MESSAGE = Message.info("That move is legal.");
+    static final Message OCCUPIED_END_SPACE_MESSAGE = Message.error("You cannot move to an occupied square!");
     static final Message ILLEGAL_MOVE_MESSAGE = Message.error("That piece cannot move like that!");
-    static final Message VALID_JUMP_MESSAGE = Message.info("That jump is legal.");
+    static final Message DOUBLE_MOVE_MESSAGE = Message.error("You cannot move twice in one turn!");
+
+    //Error messages regarding illegal jumps
+    static final Message FORCED_JUMP_MESSAGE = Message.error("When a jump is possible, you must must jump!");
     static final Message JUMP_OVER_NOTHING_MESSAGE = Message.error("You cannot jump over an empty square!");
     static final Message JUMP_OVER_OWN_PIECE_MESSAGE = Message.error("You cannot jump over your own piece!");
-    static final Message DOUBLE_MOVE_MESSAGE = Message.error("You cannot move twice in one turn!");
     static final Message MOVE_AFTER_JUMPING_MESSAGE = Message.error("You cannot move after jumping!");
     static final Message JUMP_AFTER_MOVING_MESSAGE = Message.error("You cannot jump after moving!");
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
@@ -146,6 +153,12 @@ public class BoardView implements Iterable<Row>{
         return INVALID_MOVE_MESSAGE;
     }
 
+    /**
+     * Makes a move on the board.
+     * Calculates if a piece is a king and sets it as one if true
+     *
+     * @param move the move made by the player
+     */
     public void makeMove(Move move) {
         Position start = move.getStart();
         Position end = move.getEnd();
@@ -174,6 +187,12 @@ public class BoardView implements Iterable<Row>{
         }
     }
 
+    /**
+     * Locates the square a piece can jump to
+     *
+     * @param move the move that determines the jump
+     * @return the board location that can be jumped to
+     */
     public Space getJumpedSquare(Move move) {
         Position start = move.getStart();
         Position end = move.getEnd();
@@ -182,6 +201,13 @@ public class BoardView implements Iterable<Row>{
         return board[row][cell];
     }
 
+    /**
+     * Calculates whether a player can make a jump move by
+     * identifying each piece on the board and whether they have a jump move available
+     *
+     * @param playerColor the player's color that will determine which pieces they can move
+     * @return true if the player can make a jump move, false otherwise
+     */
     public boolean playerCanJump(Piece.Color playerColor) {
         Piece piece;
         int rowIdx = 0;
@@ -197,6 +223,12 @@ public class BoardView implements Iterable<Row>{
         return false;
     }
 
+    /**
+     * Returns the space of a valid position
+     *
+     * @param position the position to be checked
+     * @return the position's location on the board if the position is valid, null otherwise
+     */
     private Space getSpace(Position position) {
         if(validPosition(position)) {
             return board[position.getRow()][position.getCell()];
@@ -204,25 +236,51 @@ public class BoardView implements Iterable<Row>{
         return null;
     }
 
+    /**
+     * Determines if a position is valid by ensuring both its column and row
+     * are within the bounds of the board
+     *
+     * @param position the position to be checked
+     * @return true if the position is valid, false otherwise
+     */
     public boolean validPosition(Position position) {
         boolean validRow = ((position.getRow() < NUM_ROWS) && (position.getRow() >= 0));
         boolean validCol = ((position.getCell() < NUM_COLS) && (position.getCell() >= 0));
         return validRow && validCol;
     }
 
+    /**
+     * Tracks the last type of move made by the player
+     *
+     * @param lastMoveType the last type of move made
+     */
     public void setLastMoveType(MoveType lastMoveType) {
         this.lastMoveType = lastMoveType;
     }
 
+    /**
+     * Resets the jump data for the next potential move
+     */
     public void resetJumpData() {
         this.playerHasJump = false;
         this.checkedJumps = false;
     }
 
+    /**
+     * Returns whether the player has a jump move available
+     *
+     * @return true or false, if there is a jump move available to the player
+     */
     public boolean playerHasJump() {
         return playerHasJump;
     }
 
+    /**
+     *
+     *
+     * @param position
+     * @return
+     */
     public Space getSquare(Position position) {
         return board[position.getRow()][position.getCell()];
     }
