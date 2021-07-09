@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class CheckersGame {
+    //Values used to determine the status of the current game being played
     private Player red;
     private Player white;
     private Mode mode;
@@ -20,11 +21,16 @@ public class CheckersGame {
     private LinkedList<Move> turnMoves;
     private boolean isGameOver;
 
-    static final Message NO_MOVES_MADE_MESSAGE = Message.error("You have not made any moves yet!");
+    // Messages to alert to a properly submitted and backed up move
     static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
-    static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
     static final Message TURN_SUBMITTED_MESSAGE = Message.info("Turn submitted successfully!");
 
+    // Messages to alert to an unmade move/invalid single move when jump move is available
+    static final Message NO_MOVES_MADE_MESSAGE = Message.error("You have not made any moves yet!");
+    static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
+
+
+    // The different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements)
     public enum Mode {
         PLAY,
         SPECTATOR,
@@ -45,10 +51,20 @@ public class CheckersGame {
         }
     }
 
+    /**
+     * Returns current color of the player in turn
+     *
+     * @return currentColor, holding the color of the player
+     */
     public Piece.Color getCurrentColor() {
         return currentColor;
     }
 
+    /**
+     * Returns a message alerting to whether the game is over
+     *
+     * @return a message if the game is over
+     */
     public Message gameOverMessage() {
         if(!isGameOver) {
             return null;
@@ -76,6 +92,11 @@ public class CheckersGame {
         this.isGameOver = false;
     }
 
+    /**
+     * Determines if the game is completed
+     *
+     * @return true if isGameOver is true, false otherwise
+     */
     public boolean isGameOver() {
         return isGameOver;
     }
@@ -137,6 +158,11 @@ public class CheckersGame {
         return message;
     }
 
+    /**
+     * Tracks the latest move made and backs it up
+     *
+     * @return a message determining if a move was not made or was backed up
+     */
     public Message backupMove() {
         if(turnMoves.size() == 0) {
             return NO_MOVES_MADE_MESSAGE;
@@ -153,6 +179,12 @@ public class CheckersGame {
         return MOVE_BACKED_UP_MESSAGE;
     }
 
+    /**
+     * Submits a move made by a player to be displayed on the board. Move will not
+     * be submitted if it is a non-jump being made while a jump move is available
+     *
+     * @return TURN_SUBMITTED_MESSAGE if a move can be submitted, NO_MOVES_MADE_MESSAGE or JUMP_EXISTS_MESSAGE otherwise
+     */
     public Message submitTurn() {
         if(turnMoves.size() == 0) {
             return NO_MOVES_MADE_MESSAGE;
