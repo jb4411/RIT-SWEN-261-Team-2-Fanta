@@ -1,6 +1,8 @@
 package com.webcheckers.model;
 
 
+import java.util.List;
+
 /**
  * A class to represent a king piece.
  *
@@ -34,7 +36,7 @@ public class King extends Piece {
      */
     @Override
     public boolean isMoveValid(Move move) {
-        return false;
+        return move.isSimpleMove() && (Math.abs(move.getStart().getRow() - move.getEnd().getRow()) == 1);
     }
 
     /**
@@ -47,7 +49,8 @@ public class King extends Piece {
      */
     @Override
     public boolean isJumpValid(Move move, Space jumpedSquare, Space endSpace) {
-        return false;
+        boolean captured = (jumpedSquare.getPiece() != null) && (jumpedSquare.getPiece().getColor() != this.getColor());
+        return move.isJump() && (Math.abs(move.getStart().getRow() - move.getEnd().getRow()) == 2) && captured && (endSpace.getPiece() == null);
     }
 
     /**
@@ -60,6 +63,18 @@ public class King extends Piece {
      */
     @Override
     public boolean hasJump(BoardView board, int startRow, int startCell) {
+        Move jump;
+        Position start = new Position(startRow, startCell);
+
+        List<List<Integer>> signs = List.of(List.of(2, 2), List.of(-2, -2), List.of(-2, 2), List.of(2, -2));
+        for(List<Integer> pair : signs) {
+            Position end = new Position(startRow + pair.get(0), startCell + pair.get(1));
+            jump = new Move(start, end);
+
+            if(end.isValid() && this.isJumpValid(jump, board.getJumpedSquare(jump), board.getSquare(end))) {
+                return true;
+            }
+        }
         return false;
     }
 }

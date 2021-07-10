@@ -116,7 +116,7 @@ public class BoardView implements Iterable<Row>{
         if(lastMoveType == MoveType.NONE && !checkedJumps) {
             playerHasJump = playerCanJump(playerColor);
         }
-        System.out.println(playerHasJump);
+
         if(move.isSimpleMove()) {
             if(lastMoveType == MoveType.SIMPLE) {
                 return DOUBLE_MOVE_MESSAGE;
