@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Piece.Color;
 
 import org.junit.jupiter.api.Tag;
@@ -25,10 +26,25 @@ public class BoardViewTest {
         assertEquals(red.toString() + " : " + white.toString(), CuT.toString());
     }
 
-    // not fully implemented
-    // @Test
-    // public void ctor_FlipTest(){
-    //     BoardView board = new BoardView(red, white);
-    //     BoardView CuT = new BoardView(board, true);
-    // }
+    // not fully implemented need to fix
+    @Test
+    public void ctor_FlipTestTrue(){
+        BoardView board = new BoardView(red, white);
+        BoardView CuT = new BoardView(board, true);
+        for(int row = 0; row<8; row++){
+            assertEquals(board.getRow(8 - row - 1), CuT.getRow(row));
+        }
+    }
+
+    //not fully implemented need to fix
+    @Test
+    public void ctor_FlipTestFalse(){
+        BoardView board = new BoardView(red, white);
+        BoardView CuT = new BoardView(board, false);
+        for(int row = 0; row<8; row++){
+            assertEquals(board.getRow(row), CuT.getRow(row));
+        }
+    }
+
+
 }

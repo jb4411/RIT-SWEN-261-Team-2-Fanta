@@ -291,8 +291,12 @@ public class BoardView implements Iterable<Row>{
      * @param rowIdx the index of the desired row
      * @return the row at the given index
      */
-    private Space[] getRow(int rowIdx) {
+    public Space[] getRow(int rowIdx) {
         return board[rowIdx];
+    }
+
+    public Space[][] getBoard(){
+        return board;
     }
 
     /**
