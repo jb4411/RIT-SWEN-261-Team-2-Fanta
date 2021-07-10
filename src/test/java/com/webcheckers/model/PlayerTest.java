@@ -62,5 +62,14 @@ public class PlayerTest {
         assertEquals(NAME.hashCode(), CuT.hashCode());
     }
 
+    /**
+     * Tests toString() method
+     */
+    @Test
+    public void toStringTest() {
+        String expected = NAME + Piece.Color.RED;
+        assertEquals(expected, CuT.toString());
+    }
+
 
 }
