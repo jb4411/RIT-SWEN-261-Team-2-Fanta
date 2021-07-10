@@ -56,8 +56,8 @@ public class King extends Piece {
     /**
      * Returns whether or not this piece has any possible valid jumps.
      *
-     * @param board     the current board
-     * @param startRow  the row this piece is on
+     * @param board the current board
+     * @param startRow the row this piece is on
      * @param startCell the cell this piece is on
      * @return whether or not this piece can jump
      */
