@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * Unit test for {@link Player} component
  *
  * @author <a href='mailto:jlz6146@rit.edu'>Jess Zhao</a>
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("Model-tier")
 public class PlayerTest {
@@ -46,11 +47,11 @@ public class PlayerTest {
         Player SAME_NAME = new Player(NAME);
         Player DIFF_NAME = new Player("Nope");
 
-        boolean SAME = SAME_NAME.equals(CuT);
-        boolean DIFF = DIFF_NAME.equals(CuT);
+        assertEquals(CuT, CuT);
+        assertNotEquals(CuT, "not a player obeject");
+        assertEquals(SAME_NAME, CuT);
+        assertNotEquals(DIFF_NAME, CuT);
 
-        assertTrue(SAME);
-        assertFalse(DIFF);
     }
 
     /**
@@ -60,5 +61,6 @@ public class PlayerTest {
     public void hashcodeTest(){
         assertEquals(NAME.hashCode(), CuT.hashCode());
     }
+
 
 }

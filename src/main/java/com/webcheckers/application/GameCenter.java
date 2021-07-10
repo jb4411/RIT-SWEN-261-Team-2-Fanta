@@ -5,6 +5,7 @@ import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -115,6 +116,7 @@ public class GameCenter {
         CheckersGame game = new CheckersGame(red, white, CheckersGame.Mode.PLAY);
         inGame.put(red, game);
         inGame.put(white, game);
+        games.put(Objects.hash(redPlayerName, whitePlayerName), game);
 
         LOG.info("New checkers game created for " + red.getName() + " and " + white.getName());
 
@@ -133,6 +135,7 @@ public class GameCenter {
             inGame.remove(player);
             if(opponent != null && inGame(opponent.getName())) {
                 inGame.remove(opponent);
+                games.remove(Objects.hash(name, opponent.getName()));
             }
         }
     }
