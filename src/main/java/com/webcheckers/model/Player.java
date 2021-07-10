@@ -75,4 +75,11 @@ public class Player{
     public int hashCode(){
         return name.hashCode();
     }
+
+    @Override
+    public String toString(){
+        String stringVersion = name + color.name();
+        return stringVersion;
+
+    }
 }

@@ -330,4 +330,10 @@ public class BoardView implements Iterable<Row>{
         return lst.iterator();
     }
 
+    @Override
+    public String toString(){
+        String stringVersion = red.toString() + " : " + white.toString();
+        return stringVersion;
+    }
+
 }
