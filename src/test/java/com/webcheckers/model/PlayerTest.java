@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for {@link Player} component
  *
- * @author <a href='mailto:jlz6146@rit.edu'>Jess Zhao</a>
+ * @author Jess Zhao jlz6146@rit.edu
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("Model-tier")
@@ -48,7 +48,7 @@ public class PlayerTest {
         Player DIFF_NAME = new Player("Nope");
 
         assertEquals(CuT, CuT);
-        assertNotEquals(CuT, "not a player obeject");
+        assertNotEquals(CuT, "not a player object");
         assertEquals(SAME_NAME, CuT);
         assertNotEquals(DIFF_NAME, CuT);
 
