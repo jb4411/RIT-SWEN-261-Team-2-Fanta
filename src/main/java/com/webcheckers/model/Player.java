@@ -7,6 +7,7 @@ package com.webcheckers.model;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Player{
+    //The name and color of the player
     private String name;
     private Piece.Color color;
 
