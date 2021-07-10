@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -15,29 +16,23 @@ public class PositionTest {
 
 
     private Position CuT;
-    private Request request;
-    private Session session;
+
+    private int ROW = 0;
+    private int CELL = 1;
 
     @BeforeEach
     public void setup(){
-        CuT = new Position(0, 1);
-        request = mock(Request.class);
-        session = mock(Session.class);
-        when(request.session()).thenReturn(session);
+        CuT = new Position(ROW, CELL);
 
     }
 
     /**
-     * Test for getRow() function
+     * Test for getRow() and getCell() functions
      */
     @Test
-    public void getRowTest(){
-        assertEquals(0, CuT.getRow());
-    }
-
-    @Test
-    public void getCellTest(){
-        assertEquals(1, CuT.getCell());
+    public void valuesTest(){
+        assertEquals(ROW, CuT.getRow());
+        assertEquals(CELL, CuT.getCell());
     }
 
     /**
@@ -45,20 +40,28 @@ public class PositionTest {
      */
     @Test
     public void inverseTest(){
-        Position inverse = new Position(BoardView.NUM_ROWS-CuT.getRow()-1, BoardView.NUM_COLS-CuT.getCell()-1);
-        assertEquals(inverse, CuT.inverse());
+        Position inverse = new Position(BoardView.NUM_ROWS - ROW - 1, BoardView.NUM_COLS - CELL - 1);
+        assertEquals(inverse.getRow(), CuT.inverse().getRow());
+        assertEquals(inverse.getCell(), CuT.inverse().getCell());
     }
 
     /**
-     * Ensures hashCode() method works properly in generating hashCode for a player
+     * Ensures isValid() method works properly in determining if a position is valid
      */
     @Test
     public void isValidTest(){
-        Position invalidRow = new Position(9, 1);
-        Position invalidCell = new Position(1, 9);
+        Position invalidRow = new Position(9, CELL);
+        Position invalidCell = new Position(ROW, 9);
 
         assertFalse(invalidRow.isValid());
         assertFalse(invalidCell.isValid());
+
+        invalidRow = new Position(-1, CELL);
+        invalidCell = new Position(ROW, -1);
+
+        assertFalse(invalidRow.isValid());
+        assertFalse(invalidCell.isValid());
+
         assertTrue(CuT.isValid());
     }
 
