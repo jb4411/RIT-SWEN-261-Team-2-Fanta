@@ -159,6 +159,14 @@ public class CheckersGame {
     }
 
     /**
+     * Clear the list of turn moves.
+     */
+    public void clearTurnMoves() {
+        this.turnMoves.clear();
+        this.board.setLastMoveType(BoardView.MoveType.NONE);
+    }
+
+    /**
      * Tracks the latest move made and backs it up
      *
      * @return a message determining if a move was not made or was backed up

@@ -42,6 +42,7 @@ public class PostSignOutRoute implements Route {
 
         if(gameCenter.inGame(name)) {
             response.redirect(WebServer.GAME_URL + "?error=IN_GAME_ERROR_MESSAGE");
+            gameCenter.getGame(name).clearTurnMoves();
             return null;
         }
 
