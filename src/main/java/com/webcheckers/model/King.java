@@ -36,7 +36,7 @@ public class King extends Piece {
      */
     @Override
     public boolean isMoveValid(Move move) {
-        return move.isSimpleMove() && (Math.abs(move.getStart().getRow() - move.getEnd().getRow()) == 1);
+        return move.isSimpleMove();
     }
 
     /**
