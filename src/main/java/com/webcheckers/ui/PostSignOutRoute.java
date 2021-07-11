@@ -1,6 +1,9 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
+import com.webcheckers.model.Move;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.Objects;
@@ -36,6 +39,12 @@ public class PostSignOutRoute implements Route {
     public Object handle(Request request, Response response){
         LOG.finer("GetSignOutRoute is invoked.");
         String name = request.session().attribute("name");
+
+        if(gameCenter.inGame(name)) {
+            response.redirect(WebServer.GAME_URL + "?error=IN_GAME_ERROR_MESSAGE");
+            gameCenter.getGame(name).clearTurnMoves();
+            return null;
+        }
 
         if(name != null){
             gameCenter.removePlayer(name);

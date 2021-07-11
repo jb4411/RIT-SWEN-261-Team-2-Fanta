@@ -1,12 +1,16 @@
 package com.webcheckers.model;
 
-import org.junit.BeforeEach;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import spark.Request;
 import spark.Session;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Tag("Model-tier")
 public class MoveTest {
@@ -18,7 +22,7 @@ public class MoveTest {
     private Request request;
     private Session session;
 
-    @Setup
+    @BeforeEach
     private void setup(){
         CuT = new Move(start,end);
         request = mock(Request.class);
