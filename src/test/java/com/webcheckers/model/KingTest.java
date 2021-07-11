@@ -13,8 +13,9 @@ public class KingTest {
 
     private King CuT;
     private Move move;
-    private Position start;
-    private Position end;
+    private Position start = new Position(1,2);
+    private Position end = new Position(2,3);
+    private BoardView board;
 
     private Request request;
     private Session session;
@@ -24,6 +25,7 @@ public class KingTest {
         CuT = new King(Piece.Color.RED);
         request = mock(Request.class);
         session = mock(Session.class);
+        board = mock(Boardview.class);
         when(request.session()).thenReturn(session);
 
     }
@@ -43,11 +45,21 @@ public class KingTest {
 
     @Test
     public void validMoveTest(){
-        start = new Position(1,2);
-        end = new Position(2,3);
+
         move = new Move(start, end);
         assertTrue(CuT.isMoveValid(move));
     }
+/**
+    @Test
+    public void validJumpTest(){
+
+    }
+
+    @Test
+    public void hasJumpTest(){
+        board = new BoardView(new Player("A"), new Player("B"));
 
 
+    }
+*/
 }
