@@ -3,6 +3,8 @@ package com.webcheckers.model;
 import java.util.Iterator;
 import java.util.List;
 
+import jdk.jfr.BooleanFlag;
+
 /**
  * A class to represent a row of the checkerboard.
  *
@@ -39,6 +41,14 @@ public class Row implements Iterable<Space> {
      */
     public Iterator<Space>iterator(){
         return spaces.iterator();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj == this) return true;
+        if(!(obj instanceof Row)) return false;
+        final Row o = (Row) obj;
+        return this.index == o.index && this.spaces == o.spaces;
     }
 
 }
