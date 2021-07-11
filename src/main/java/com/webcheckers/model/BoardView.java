@@ -276,10 +276,10 @@ public class BoardView implements Iterable<Row>{
     }
 
     /**
+     * Return the Space at the Position passed in.
      *
-     *
-     * @param position
-     * @return
+     * @param position the Position
+     * @return the Space at that position
      */
     public Space getSquare(Position position) {
         return board[position.getRow()][position.getCell()];
@@ -336,8 +336,7 @@ public class BoardView implements Iterable<Row>{
 
     @Override
     public String toString(){
-        String stringVersion = red.toString() + " : " + white.toString();
-        return stringVersion;
+        return red.toString() + " : " + white.toString();
     }
 
 }
