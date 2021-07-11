@@ -67,6 +67,20 @@ public class BoardViewTest {
         assertEquals(BoardView.NULL_SPACE_MESSAGE, nullSpaceMessage);
     }
 
+    @Test
+    public void checkMoveNullPieceTest(){
+        CuT = new BoardView(red, white);
+        Position start = new Position(4, 4);
+        Position end = new Position(4, 4);
+        Move move = new Move(start, end);
+
+        Message nullPieceMessage = CuT.checkMove(move, red.getColor());
+
+        assertEquals(BoardView.NULL_START_PIECE_MESSAGE, nullPieceMessage);
+    }
+
+
+
 
 
 }
