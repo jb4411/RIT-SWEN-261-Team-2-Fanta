@@ -41,10 +41,7 @@ public class BoardViewTest {
         BoardView board = new BoardView(red, white);
         CuT = new BoardView(board, true);
         for(int row = 0; row<8; row++){
-            for (int cell = 0; cell < 8; cell++) {
-                assertEquals(board.getRow(8 - row - 1)[8 - cell - 1], CuT.getRow(row)[cell]);
-            }
-
+            assertEquals(board.getRow(8 - row - 1), CuT.getRow(row));
         }
     }
 
@@ -80,6 +77,18 @@ public class BoardViewTest {
         Message nullPieceMessage = CuT.checkMove(move, red.getColor());
 
         assertEquals(BoardView.NULL_START_PIECE_MESSAGE, nullPieceMessage);
+    }
+
+    @Test
+    public void checkMoveOpponentsPieceTest(){
+        CuT = new BoardView(red, white);
+        Position start = new Position(1, 4);
+        Position end = new Position(0, 0);
+        Move move = new Move(start, end);
+
+        Message opponentsPieceMessage = CuT.checkMove(move, red.getColor());
+
+        assertEquals(BoardView.OPPONENTS_PIECE_MESSAGE, opponentsPieceMessage);
     }
 
 
