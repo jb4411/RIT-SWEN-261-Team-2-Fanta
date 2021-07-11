@@ -41,7 +41,14 @@ public class BoardViewTest {
         BoardView board = new BoardView(red, white);
         CuT = new BoardView(board, true);
         for(int row = 0; row<8; row++){
-            assertEquals(board.getRow(8 - row - 1), CuT.getRow(row));
+            for (int cell = 0; cell < 8; cell++) {
+                Space expected = board.getRow(8 - row - 1)[8 - cell - 1];
+                Space actual = CuT.getRow(row)[cell];
+                assertEquals(expected.getPiece(), actual.getPiece());
+                assertEquals(expected.isValid(), actual.isValid());
+                assertEquals(8 - expected.getCellIdx() - 1, actual.getCellIdx());
+            }
+
         }
     }
 
