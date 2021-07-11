@@ -6,6 +6,7 @@ import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -36,6 +37,8 @@ public class GetGameRoute implements Route {
     static final String ACTIVE_COLOR_ATTR = "activeColor";
     static final String BOARD_ATTR = "board";
     static final String MESSAGE_ATTR = "message";
+
+    static final Message IN_GAME_ERROR_MESSAGE = Message.error("You cannot sign out if you are in a game!");
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
@@ -103,6 +106,10 @@ public class GetGameRoute implements Route {
         CheckersGame game = gameCenter.getGame(name);
         PlayerLobby lobby = gameCenter.getLobby();
         Player current = lobby.getPlayer(name);
+
+        if(!request.queryParams().isEmpty()) {
+            vm.put(MESSAGE_ATTR, IN_GAME_ERROR_MESSAGE);
+        }
 
         Gson gson = new Gson();
         final Map<String, Object> modeOptions = new HashMap<>(2);
