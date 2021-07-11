@@ -59,6 +59,28 @@ public class GetGameRouteTest {
     }
 
     /**
+     * Test that when given a player ingame, redirects to home page
+     */
+    @Test
+    public void ingame_player_error(){
+        // Arrange the test scenario: null player
+        when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.IN_GAME);
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL);
+
+
+    }
+    /**
      * Test that when given a null player, redirects to home page
      */
     @Test
@@ -88,6 +110,29 @@ public class GetGameRouteTest {
     public void same_player_error(){
         // Arrange the test scenario: the playerLobby has two players willing to play.
         when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.SAME_PLAYER);
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL);
+
+
+    }
+
+    /**
+     * Test that when given a null player, redirects to home page
+     */
+    @Test
+    public void null_opponent(){
+        // Arrange the test scenario: null player
+        when(gameCenter.getOpponent("name")).thenReturn(null);
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
