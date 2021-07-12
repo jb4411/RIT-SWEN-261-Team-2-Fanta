@@ -177,6 +177,15 @@ public class CheckersGame {
     }
 
     /**
+     * Get the moves made this turn.
+     *
+     * @return a list of the move made this turn
+     */
+    protected LinkedList<Move> getTurnMoves() {
+        return turnMoves;
+    }
+
+    /**
      * Tracks the latest move made and backs it up
      *
      * @return a message determining if a move was not made or was backed up

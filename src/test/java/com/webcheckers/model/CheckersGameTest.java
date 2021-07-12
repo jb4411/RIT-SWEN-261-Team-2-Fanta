@@ -2,13 +2,16 @@ package com.webcheckers.model;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The unit test suite for the {@link CheckersGame} component.
@@ -132,8 +135,11 @@ public class CheckersGameTest {
      */
     @Test
     public void test_testMove() {
-        //TODO
-        assertEquals(Objects.hash(red, white, CheckersGame.Mode.PLAY), CuT.getGameID());
+        Move valid = new Move(new Position(5, 0), new Position(4, 1));
+        Move invalid = new Move(new Position(8, 8), new Position(9, 9));
+
+        assertEquals(BoardView.VALID_MOVE_MESSAGE, CuT.testMove(valid));
+        assertEquals(BoardView.NULL_SPACE_MESSAGE, CuT.testMove(invalid));
     }
 
     /**
@@ -141,6 +147,114 @@ public class CheckersGameTest {
      */
     @Test
     public void test_clearTurnMoves() {
-        assertEquals(Objects.hash(red, white, CheckersGame.Mode.PLAY), CuT.getGameID());
+        Move valid1 = new Move(new Position(5, 2), new Position(4, 3));
+        Move valid2 = new Move(new Position(5, 0), new Position(4, 1));
+
+        // Test move, should be valid
+        assertEquals(BoardView.VALID_MOVE_MESSAGE, CuT.testMove(valid1));
+        // Test second move, should be invalid, and cause a double move error.
+        assertEquals(BoardView.DOUBLE_MOVE_MESSAGE, CuT.testMove(valid2));
+
+        // Clear turn moves
+        CuT.clearTurnMoves();
+
+        // Test second move again, should be valid this time as turn moves should have been cleared
+        assertEquals(BoardView.VALID_MOVE_MESSAGE, CuT.testMove(valid2));
+    }
+
+    /**
+     * Test that getTurnMoves() works correctly.
+     */
+    @Test
+    public void test_getTurnMoves() {
+        Move valid = new Move(new Position(5, 2), new Position(4, 3));
+        LinkedList<Move> testTurnMoves = new LinkedList<>();
+
+        //Test that turnMoves is empty initially
+        assertEquals(testTurnMoves, CuT.getTurnMoves());
+
+        //Add a move to turnMoves
+        CuT.testMove(valid);
+        testTurnMoves.addLast(valid);
+
+        //Test that turnMoves now contains the move 'valid'
+        assertEquals(testTurnMoves, CuT.getTurnMoves());
+    }
+
+    /**
+     * Test that backupMove() works correctly.
+     */
+    @Test
+    public void test_backupMove() {
+        // Test that we get the no move made error message when trying to backup before a move has been made
+        assertEquals(CheckersGame.NO_MOVES_MADE_MESSAGE, CuT.backupMove());
+
+        Move valid = new Move(new Position(5, 2), new Position(4, 3));
+        CuT.testMove(valid);
+        assertEquals(CheckersGame.MOVE_BACKED_UP_MESSAGE, CuT.backupMove());
+
+        // Case turnMoves.getLast().isSimpleMove() is true
+        LinkedList<Move> turnMoves = CuT.getTurnMoves();
+        turnMoves.addLast(valid);
+        turnMoves.addLast(valid);
+        assertEquals(CheckersGame.MOVE_BACKED_UP_MESSAGE, CuT.backupMove());
+        turnMoves.clear();
+
+        // Set up valid jump
+        CuT.testMove(new Move(new Position(5, 0), new Position(4, 1)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(5, 4), new Position(4, 5)));
+        CuT.submitTurn();
+        Move jump = new Move(new Position(4, 1), new Position(2, 3));
+        CuT.testMove(jump);
+        // Test backing up a jump
+        assertEquals(CheckersGame.MOVE_BACKED_UP_MESSAGE, CuT.backupMove());
+
+        // Case turnMoves.getLast().isSimpleMove() is false
+        turnMoves.addLast(jump);
+        turnMoves.addLast(jump);
+        assertEquals(CheckersGame.MOVE_BACKED_UP_MESSAGE, CuT.backupMove());
+    }
+
+    /**
+     * Test that submitTurn() works correctly.
+     */
+    @Test
+    public void test_submitTurn() {
+        //Case: turnMoves.size() == 0
+        assertEquals(CheckersGame.NO_MOVES_MADE_MESSAGE, CuT.submitTurn());
+
+        //Case: jump exists, but player made a simple move
+        LinkedList<Move> turnMoves = CuT.getTurnMoves();
+        // Set up valid jump
+        CuT.testMove(new Move(new Position(5, 0), new Position(4, 1)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(5, 4), new Position(4, 5)));
+        CuT.submitTurn();
+
+        //Add simple move
+        Move simple = new Move(new Position(5, 2), new Position(4, 3));
+        turnMoves.addLast(simple);
+        assertEquals(CheckersGame.JUMP_EXISTS_MESSAGE, CuT.submitTurn());
+        turnMoves.removeLast();
+
+        //Case: double jump exists, but player only did the first jump
+        // Set up double jump
+        CuT.testMove(new Move(new Position(4, 1), new Position(2, 3)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(6, 3), new Position(4, 5)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(6, 1), new Position(5, 0)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(7, 2), new Position(6, 3)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(5, 2), new Position(4, 1)));
+        CuT.submitTurn();
+        CuT.testMove(new Move(new Position(5, 0), new Position(4, 1)));
+        CuT.submitTurn();
+        //Only make first of two jumps
+        CuT.testMove(new Move(new Position(4, 1), new Position(2, 3)));
+        Message msg = CuT.submitTurn();
+        assertEquals(CheckersGame.JUMP_EXISTS_MESSAGE, msg);
     }
 }
