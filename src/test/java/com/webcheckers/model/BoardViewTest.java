@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
  * The unit test suite for the {@link BoardView} component.
  *
  * @author Eric Landers esl7511@rit.edu
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class BoardViewTest {
     BoardView CuT;
@@ -58,7 +59,14 @@ public class BoardViewTest {
         BoardView board = new BoardView(red, white);
         CuT = new BoardView(board, false);
         for(int row = 0; row<8; row++){
-            assertEquals(board.getRow(row), CuT.getRow(row));
+            for (int cell = 0; cell < 8; cell++) {
+                Space expected = board.getRow(row)[cell];
+                Space actual = CuT.getRow(row)[cell];
+                assertEquals(expected.getPiece(), actual.getPiece());
+                assertEquals(expected.isValid(), actual.isValid());
+                assertEquals(expected.getCellIdx(), actual.getCellIdx());
+            }
+
         }
     }
 
