@@ -163,6 +163,6 @@ public class SpaceTest {
         assertEquals(equal, CuT);
 
         Space notEqual = new Space(0, null, false);
-        assertNotEquals(CuT, notEqual);
+        assertNotEquals(notEqual, CuT);
     }
 }
