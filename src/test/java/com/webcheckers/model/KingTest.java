@@ -29,7 +29,7 @@ public class KingTest {
         CuT = new King(Piece.Color.RED);
         request = mock(Request.class);
         session = mock(Session.class);
-        board = mock(Boardview.class);
+        board = mock(BoardView.class);
         when(request.session()).thenReturn(session);
 
     }
