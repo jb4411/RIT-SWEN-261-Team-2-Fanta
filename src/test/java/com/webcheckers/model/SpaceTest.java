@@ -1,28 +1,50 @@
 package com.webcheckers.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Piece.Color;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The unit test suite for the {@link Space} component.
  *
  * @author Eric Landers esl7511@rit.edu
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("Model-Tier")
 public class SpaceTest {
+    /**
+     * The component-under-test (CuT).
+     *
+     * <p>
+     * The {@link Color}, {@link Piece}, components are thoroughly tested so
+     * we can use them safely as "friendly" dependencies.
+     */
+    private Space CuT;
+
+    // friendly objects
     private Color testColor = Color.WHITE;
     private Color testColor1 = Color.RED;
     private Piece testPiece = new Single(testColor);
     private Piece nullPiece = null;
     private int cellIdx = 4;
 
+    /**
+     * Setup new objects for each test.
+     */
+    @BeforeEach
+    public void setup() {
+        CuT = new Space(cellIdx, testPiece, true);
+    }
 
+    /**
+     * Test that the constructor works correctly.
+     */
     @Test 
     public void ctor_valid(){
         // checks to make sure constructor main works for valid piece
@@ -30,6 +52,9 @@ public class SpaceTest {
         assertEquals(cellIdx + Boolean.toString(true), CuT.toString());
     }
 
+    /**
+     * Test that the constructor can handle being passed an invalid piece.
+     */
     @Test 
     public void ctor_invalid(){
         // checks to make sure constructor main works for invalid piece
@@ -37,6 +62,9 @@ public class SpaceTest {
         assertEquals(cellIdx + Boolean.toString(false), CuT.toString());
     }
 
+    /**
+     * Test that the copy constructor works correctly when flip is true.
+     */
     @Test 
     public void ctor_TrueFlip(){
         // checks to make sure copy constructor flips the space when the flip boolean is true
@@ -48,6 +76,9 @@ public class SpaceTest {
         assertEquals(Integer.toString(BoardView.NUM_COLS - space.getCellIdx() - 1), Integer.toString(CuT.getCellIdx()));
     }
 
+    /**
+     * Test that the copy constructor works correctly when flip is false.
+     */
     @Test 
     public void ctor_FalseFlip(){
         // checks to make sure copy constructor doesn't flip when the flip boolean is false
@@ -59,6 +90,9 @@ public class SpaceTest {
         assertEquals(Integer.toString(space.getCellIdx()), Integer.toString(CuT.getCellIdx()));
     }
 
+    /**
+     * Test that the copy constructor works correctly given a null piece.
+     */
     @Test
     public void ctor_withNullPiece(){
         // checks to make sure copy constructor sets the piece equal to null when a space with a null piece is passed
@@ -67,16 +101,22 @@ public class SpaceTest {
         // assert the pieces are equal and null
         assertEquals(space.getPiece(), CuT.getPiece());
     }
-    
 
+    /**
+     * Test that isValid() works correctly when there is no piece and 'true' is passed through the constructor.
+     */
     @Test
-    public void isValidtest(){
+    public void isValidTest(){
         // valid because there is no piece and 'true' is passed through constructor
         final Space CuT = new Space(cellIdx, null, true);
         // assert it is valid
         assertTrue(CuT.isValid());
     }
 
+
+    /**
+     * Test that isValid() works correctly when 'false' is passed through the constructor.
+     */
     @Test
     public void falseValidParameter(){
         // invalid because of 'false' passed into constructor
@@ -85,6 +125,9 @@ public class SpaceTest {
         assertFalse(CuT.isValid());
     }
 
+    /**
+     * Test that isValid() works correctly when there is a piece on the square.
+     */
     @Test 
     public void testPieceParameter(){
         // invalid because there is a piece on the space (passed through constructor)
@@ -93,6 +136,9 @@ public class SpaceTest {
         assertFalse(CuT.isValid());
     }
 
+    /**
+     * Test that setPiece() works correctly.
+     */
     @Test
     public void setPieceTest(){
         // checks to make sure setPiece method is working properly
@@ -104,4 +150,19 @@ public class SpaceTest {
         assertEquals(piece, CuT.getPiece());
     }
 
+
+    /**
+     * Test that equals() works correctly.
+     */
+    @Test
+    public void equalsTest(){
+        assertEquals(CuT, CuT);
+        assertFalse(CuT.equals("not a space"));
+
+        Space equal = new Space(cellIdx, testPiece, true);
+        assertEquals(equal, CuT);
+
+        Space notEqual = new Space(0, null, false);
+        assertNotEquals(CuT, notEqual);
+    }
 }

@@ -84,8 +84,7 @@ public class Space {
 
     @Override
     public String toString(){
-        String stringVersion = Integer.toString(cellIdx) + Boolean.toString(valid);
-        return stringVersion;
+        return cellIdx + Boolean.toString(valid);
     }
 
     /**
@@ -101,5 +100,4 @@ public class Space {
         final Space o = (Space) obj;
         return this.cellIdx == o.cellIdx && this.valid == o.valid && this.piece.equals(o.piece);
     }
-
 }

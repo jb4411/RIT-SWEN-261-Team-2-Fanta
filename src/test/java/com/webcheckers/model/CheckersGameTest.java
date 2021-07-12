@@ -24,8 +24,8 @@ public class CheckersGameTest {
      * The component-under-test (CuT).
      *
      * <p>
-     * The {@link GameCenter}, {@link PlayerLobby}, and {@link Player} components are thoroughly tested so
-     * we can use them safely as "friendly" dependencies.
+     * The {@link Player} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private CheckersGame CuT;
 
@@ -33,11 +33,9 @@ public class CheckersGameTest {
     private Player red;
     private Player white;
 
-    // mock objects
-
 
     /**
-     * Setup new mock objects for each test.
+     * Setup new objects for each test.
      */
     @BeforeEach
     public void setup() {
