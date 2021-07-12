@@ -29,6 +29,8 @@ public class CheckersGame {
     static final Message NO_MOVES_MADE_MESSAGE = Message.error("You have not made any moves yet!");
     static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
 
+    // Message to alert the player the the game has ended
+    static final Message GAME_OVER_MESSAGE = Message.info("Turn submitted successfully!");
 
     // The different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements)
     public enum Mode {
@@ -66,8 +68,8 @@ public class CheckersGame {
      * @return a message if the game is over
      */
     public Message gameOverMessage() {
-        if(!isGameOver) {
-            return null;
+        if(isGameOver) {
+            return GAME_OVER_MESSAGE;
         }
         return null;
     }
@@ -99,6 +101,14 @@ public class CheckersGame {
      */
     public boolean isGameOver() {
         return isGameOver;
+    }
+
+    /**
+     * Ends the game.
+     * We're in the endgame now. ;)
+     */
+    public void endGame() {
+        this.isGameOver = true;
     }
 
     /**
