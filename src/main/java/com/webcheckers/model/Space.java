@@ -92,7 +92,7 @@ public class Space {
      * Checks if two spaces are equal.
      *
      * @param obj the object to compare with
-     * @return whether they are equal or not
+     * @return whether or not they are equal
      */
     @Override
     public boolean equals(Object obj) {

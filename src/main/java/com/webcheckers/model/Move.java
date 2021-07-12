@@ -67,4 +67,18 @@ public class Move{
     public Move inverse() {
         return new Move(start.inverse(), end.inverse());
     }
+
+    /**
+     * Checks if two moves are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether or not they are equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Move)) return false;
+        final Move o = (Move) obj;
+        return this.start.equals(o.start) && this.end.equals(o.end);
+    }
 }

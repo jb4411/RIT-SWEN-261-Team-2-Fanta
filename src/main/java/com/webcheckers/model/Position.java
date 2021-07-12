@@ -60,4 +60,18 @@ public class Position{
         boolean validCell = (cell >= 0) && (cell < BoardView.NUM_COLS);
         return validRow && validCell;
     }
+
+    /**
+     * Checks if two positions are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether or not they are equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Position)) return false;
+        final Position o = (Position) obj;
+        return this.row ==o.row && this.cell ==o.cell;
+    }
 }
