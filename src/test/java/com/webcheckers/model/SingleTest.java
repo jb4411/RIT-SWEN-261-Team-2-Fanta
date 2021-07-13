@@ -114,20 +114,20 @@ public class SingleTest {
         //Case: the board is in its initial state
         assertFalse(CuT.hasJump(board, 5, 0));
 
-        // Set up valid jump to the right of a piece
+        // Set up valid jump to the right of the single piece
         board.makeMove(new Move(new Position(5, 0), new Position(4, 1)));
         board.makeMove((new Move(new Position(5, 4), new Position(4, 5))).inverse());
 
-        //Case: there is a jump to the right of a single piece
+        //Case: there is a jump to the right of the single piece
         assertTrue(CuT.hasJump(board, 4, 1));
 
 
-        // Set up valid jump to the left of a piece
+        // Set up valid jump to the left of the single piece
         board = new BoardView(red, white);
         board.makeMove(new Move(new Position(5, 2), new Position(4, 3)));
         board.makeMove((new Move(new Position(5, 6), new Position(4, 5))).inverse());
 
-        //Case: there is a jump to the left of a single piece
+        //Case: there is a jump to the left of the single piece
         assertTrue(CuT.hasJump(board, 4, 3));
     }
 }
