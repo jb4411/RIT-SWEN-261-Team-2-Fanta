@@ -24,6 +24,7 @@ import static org.mockito.Mockito.*;
  * The unit test suite for the {@link PostCheckTurnRoute} component.
  *
  * @author dsk1354@rit.edu
+ * @author esl7511@rit.edu
  */
 @Tag("UI-tier")
 public class PostCheckTurnRouteTest {
@@ -71,8 +72,14 @@ public class PostCheckTurnRouteTest {
     public void player_turn_true(){
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
+        playerLobby.addPlayer("player2");
         Player player = playerLobby.getPlayer("player");
-        when(session.attribute("name")).thenReturn("player");
+        Player player2 = playerLobby.getPlayer("player2");
+        gameCenter.addPlayer(player.getName());
+        gameCenter.addPlayer(player2.getName());
+        gameCenter.createGame(player.getName(), player2.getName());
+
+        when(session.attribute("name")).thenReturn(player.getName());
         player.setColor(Piece.Color.RED);
         when(gameCenter.getGame(player.getName()).getCurrentColor()).thenReturn(Piece.Color.RED);
         // To analyze what the Route created in the View-Model map you need
