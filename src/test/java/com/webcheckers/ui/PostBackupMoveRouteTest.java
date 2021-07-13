@@ -29,7 +29,7 @@ public class PostBackupMoveRouteTest {
     private Gson gson;
 
     //mock objects
-    private PostSubmitTurnRoute CuT;
+    private PostBackupMoveRoute CuT;
     private TemplateEngine engine;
     private Session session;
     private Request request;
@@ -48,7 +48,7 @@ public class PostBackupMoveRouteTest {
         gson = new Gson();
         lobby = new PlayerLobby();
         gameCenter = new GameCenter(lobby);
-        CuT = new PostSubmitTurnRoute(engine, gameCenter);
+        CuT = new PostBackupMoveRoute(engine, gameCenter);
     }
 
     @Test
