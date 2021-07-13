@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import spark.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
@@ -131,21 +132,22 @@ public class PostSigninRouteTest {
         // * redirects to the homepage
         verify(response).redirect(WebServer.HOME_URL);
         // * returns null object
-        assertEquals(nullObject, CuT.handle(request, response));
+        assertNull(CuT.handle(request, response));
     }
     
     @Test
     public void nullHandleCase(){
         //when player name attribute isn't null
-        when(request.session().attribute(eq(GetSigninRoute.PLAYER_NAME_ATTR))).thenReturn(notNull);
+        when(session.attribute(any())).thenReturn(null);
         //mock playerlobby object
         PlayerLobby badLobby = mock(PlayerLobby.class);
+        CuT = new PostSigninRoute(engine, badLobby);
         //when username is null
-        when(badLobby.addPlayer(anyString())).thenReturn(null);
+        when(badLobby.addPlayer(anyString())).thenReturn((PlayerLobby.NameStatus) null);
         //invoke
         CuT.handle(request, response);
-        //analyze the results:
+        //analyze the results:a
         // * returns null object
-        assertEquals(nullObject, CuT.handle(request, response));
+        assertNull(CuT.handle(request, response));
     }
 }

@@ -61,22 +61,24 @@ public class PostSigninRoute implements Route {
 
         String name = request.queryParams(GetSigninRoute.PLAYER_NAME_ATTR);
         PlayerLobby.NameStatus result = this.lobby.addPlayer(name);
-        switch (result) {
-            case INVALID:
-                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(INVALID_NAME_MESSAGE));
-                mv = new ModelAndView(vm, VIEW_NAME);
-                return templateEngine.render(mv);
+        if(result != null) {
+            switch (result) {
+                case INVALID:
+                    vm.put(SIGNIN_MESSAGE_ATTR, Message.error(INVALID_NAME_MESSAGE));
+                    mv = new ModelAndView(vm, VIEW_NAME);
+                    return templateEngine.render(mv);
 
-            case DUPLICATE:
-                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(DUPLICATE_NAME_MESSAGE));
-                mv = new ModelAndView(vm, VIEW_NAME);
-                return templateEngine.render(mv);
+                case DUPLICATE:
+                    vm.put(SIGNIN_MESSAGE_ATTR, Message.error(DUPLICATE_NAME_MESSAGE));
+                    mv = new ModelAndView(vm, VIEW_NAME);
+                    return templateEngine.render(mv);
 
-            case VALID:
-                request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
-                LOG.info(name + " has signed in.");
-                response.redirect(WebServer.HOME_URL);
-                return null;
+                case VALID:
+                    request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
+                    LOG.info(name + " has signed in.");
+                    response.redirect(WebServer.HOME_URL);
+                    return null;
+            }
         }
         return null;
     }
