@@ -10,11 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
-import spark.utils.Assert;
-
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -73,9 +68,7 @@ public class PostCheckTurnRouteTest {
     public void player_turn_true() throws Exception {
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
-        playerLobby.addPlayer("player2");
         Player player = playerLobby.getPlayer("player");
-        Player player2 = playerLobby.getPlayer("player2");
 
         when(session.attribute("name")).thenReturn(player.getName());
         player.setColor(Piece.Color.RED);

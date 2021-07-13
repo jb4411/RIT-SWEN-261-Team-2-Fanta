@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.CheckersGame;
-import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
-import com.webcheckers.model.Position;
 import com.webcheckers.util.Message;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,11 +14,10 @@ import org.junit.jupiter.api.Test;
 import spark.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * The unit test suite for the {@link PostValidateTurnRoute} component.
+ * The unit test suite for the {@link PostSubmitTurnRoute} component.
  *
  * @author esl7511@rit.edu
  */
