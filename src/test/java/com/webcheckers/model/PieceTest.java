@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PieceTest {
     private Piece single = new Single(Piece.Color.RED);
     private Piece king = new King(Piece.Color.WHITE);
+
     /**
      * Test that getType() works correctly.
      */
