@@ -229,7 +229,7 @@ public class BoardView implements Iterable<Row>{
      * @param position the position to be checked
      * @return the position's location on the board if the position is valid, null otherwise
      */
-    private Space getSpace(Position position) {
+    public Space getSpace(Position position) {
         if(validPosition(position)) {
             return board[position.getRow()][position.getCell()];
         }
@@ -247,6 +247,15 @@ public class BoardView implements Iterable<Row>{
         boolean validRow = ((position.getRow() < NUM_ROWS) && (position.getRow() >= 0));
         boolean validCol = ((position.getCell() < NUM_COLS) && (position.getCell() >= 0));
         return validRow && validCol;
+    }
+
+    /**
+     * Returns the type of the last move made.
+     *
+     * @return the type of the last move made
+     */
+    public MoveType getLastMoveType() {
+        return this.lastMoveType;
     }
 
     /**

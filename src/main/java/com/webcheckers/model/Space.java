@@ -98,6 +98,12 @@ public class Space {
         if(obj == this) return true;
         if(!(obj instanceof Space)) return false;
         final Space o = (Space) obj;
-        return this.cellIdx == o.cellIdx && this.valid == o.valid && this.piece.equals(o.piece);
+        boolean samePiece;
+        if(this.piece == null || o.piece == null) {
+            samePiece = this.piece == o.piece;
+        } else {
+            samePiece = this.piece.equals(o.piece);
+        }
+        return this.cellIdx == o.cellIdx && this.valid == o.valid && samePiece;
     }
 }
