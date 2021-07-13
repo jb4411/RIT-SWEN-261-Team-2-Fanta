@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -87,6 +88,27 @@ public class PostSignOutRouteTest {
         verify(response).redirect(WebServer.HOME_URL);
         // make sure gameCenter.removePlayer() was called
         verify(gameCenter).removePlayer("player");
+        verify(gameCenter, times(1)).removePlayer("player");
     }
 
+    /**
+     * Test that CuT signs the player out and redirects to the Home view when the player is logged in.
+     */
+    @Test
+    public void in_game_error() {
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(true);
+        CheckersGame mockGame = mock(CheckersGame.class);
+        when(gameCenter.getGame("player")).thenReturn(mockGame);
+        doNothing().when(mockGame).clearTurnMoves();
+
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        //   * redirect to the Game view
+        verify(response).redirect(WebServer.GAME_URL + "?error=IN_GAME_ERROR_MESSAGE");
+        verify(mockGame, times(1)).clearTurnMoves();
+    }
 }
