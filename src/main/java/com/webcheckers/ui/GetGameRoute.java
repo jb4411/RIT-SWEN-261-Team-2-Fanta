@@ -22,11 +22,14 @@ import static com.webcheckers.ui.WebServer.HOME_URL;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GetGameRoute implements Route {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
+    //Attributes in the view used when displaying the game page
     static final String RED_PLAYER_NAME_ATTR = "red";
     static final String WHITE_PLAYER_NAME_ATTR = "white";
     static final String CURRENT_USER_ATTR = "currentUser";
@@ -38,6 +41,7 @@ public class GetGameRoute implements Route {
     static final String BOARD_ATTR = "board";
     static final String MESSAGE_ATTR = "message";
 
+    //An error message used when the player tries to sign out during a game
     static final Message IN_GAME_ERROR_MESSAGE = Message.error("You cannot sign out if you are in a game!");
 
     /**

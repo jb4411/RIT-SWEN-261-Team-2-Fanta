@@ -15,7 +15,10 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class PostBackupMoveRoute implements Route{
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(PostBackupMoveRoute.class.getName());
+
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 

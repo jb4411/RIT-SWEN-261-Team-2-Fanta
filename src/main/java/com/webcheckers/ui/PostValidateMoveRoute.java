@@ -18,10 +18,10 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class PostValidateMoveRoute implements Route  {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(PostSigninRoute.class.getName());
 
-    static final String GAME_ID_ATTR = "gameID";
-
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
@@ -29,6 +29,7 @@ public class PostValidateMoveRoute implements Route  {
      * Create the Spark Route (UI controller) to handle all {@code POST /validateMove} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
+     * @param gameCenter the game center used to coordinate the state of the WebCheckers Application.
      */
     public PostValidateMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter) {
         LOG.finer("PostValidateMoveRoute is initialized.");

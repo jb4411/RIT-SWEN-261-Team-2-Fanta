@@ -15,9 +15,10 @@ import java.util.logging.Logger;
  */
 
 public class PostSubmitTurnRoute implements Route{
-
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(PostSigninRoute.class.getName());
 
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
