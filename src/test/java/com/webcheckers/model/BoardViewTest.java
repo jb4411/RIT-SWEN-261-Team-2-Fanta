@@ -3,6 +3,7 @@ package com.webcheckers.model;
 import static com.webcheckers.model.BoardView.NUM_ROWS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Piece.Color;
@@ -71,7 +72,6 @@ public class BoardViewTest {
      */
     @Test
     public void test_constructorFlipTrue() {
-        //TODO
         BoardView board = new BoardView(red, white);
         CuT = new BoardView(board, true);
         for(int row = 0; row<8; row++){
@@ -91,7 +91,6 @@ public class BoardViewTest {
      */
     @Test
     public void test_constructorFlipFalse() {
-        //TODO
         BoardView board = new BoardView(red, white);
         CuT = new BoardView(board, false);
         for(int row = 0; row<8; row++){
@@ -585,5 +584,16 @@ public class BoardViewTest {
         for (int i = 0; i < BoardView.NUM_COLS; i++) {
             assertEquals(expected.next(), actual.next());
         }
+    }
+
+    /**
+     * Test that toString() works correctly.
+     */
+    @Test
+    public void test_toString() {
+        when(red.toString()).thenReturn("red");
+        when(white.toString()).thenReturn("white");
+
+        assertEquals("red : white", CuT.toString());
     }
 }

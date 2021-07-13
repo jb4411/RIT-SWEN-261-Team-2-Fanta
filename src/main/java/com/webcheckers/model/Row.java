@@ -48,7 +48,7 @@ public class Row implements Iterable<Space> {
         if(obj == this) return true;
         if(!(obj instanceof Row)) return false;
         final Row o = (Row) obj;
-        return this.index == o.index && this.spaces == o.spaces;
+        return this.index == o.index && this.spaces.equals(o.spaces);
     }
 
 }
