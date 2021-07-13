@@ -70,7 +70,7 @@ public class PostBackupMoveRouteTest {
         CuT.handle(request, response);
     
         //analyze the results
-        // * calling handle equals calling the CheckersGame submitTurn method
+        // * calling handle equals calling the CheckersGame backupMove method
         assertEquals(CuT.handle(request, response), gson.toJson(gsonToJson));
     }
 }
