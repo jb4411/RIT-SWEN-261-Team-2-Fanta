@@ -3,23 +3,15 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Position;
-import com.webcheckers.model.CheckersGame.Mode;
-import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import spark.*;
-import spark.utils.Assert;
-
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,7 +27,7 @@ public class PostValidateMoveRouteTest {
     //friendly objects
     private GameCenter gameCenter;
     private PlayerLobby lobby;
-    public Gson gson;
+    private Gson gson;
     //mock objects
     private PostValidateMoveRoute CuT;
     private TemplateEngine engine;
@@ -75,13 +67,12 @@ public class PostValidateMoveRouteTest {
 
         when(request.session().attribute("name")).thenReturn(player.getName());
         when(request.queryParams("actionData")).thenReturn(gson.toJson(move));
-        final TemplateEngineTester tester = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
+
         //invoke
         CuT.handle(request, response);
 
         //analyze the results
-        // * calls the CheckersGame testMove method to verify the move
+        // * calling handle equals calling the CheckersGame testMove method
         assertEquals(CuT.handle(request, response), gson.toJson(game.testMove(move)));
         
     }
