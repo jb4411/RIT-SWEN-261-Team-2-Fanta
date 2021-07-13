@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Piece.Color;
 import com.webcheckers.util.Message;
@@ -30,23 +32,22 @@ public class BoardViewTest {
      * The component-under-test (CuT).
      *
      * <p>
-     * The {@link Player} component is thoroughly tested so
-     * we can use it safely as a "friendly" dependency.
+     * The {@link Space}, {@link Position}, and {@link Move} components are thoroughly tested so
+     * we can use them safely as "friendly" dependencies.
      */
     private BoardView CuT;
 
-    private Move move;
-    //mocks
+    // mock objects
     private Player red = mock(Player.class);
     private Player white = mock(Player.class);
 
-    //friendly objects
+    // friendly objects
     private Space startSpace;
     private Space endSpace;
     private Position start;
     private Position end;
     private Space[][] board;
-
+    private Move move;
 
     /**
      * Setup new objects for each test.

@@ -1,6 +1,7 @@
 package com.webcheckers.application;
 
 import com.webcheckers.model.CheckersGame;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,15 +18,26 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Tag("Application-tier")
 public class GameCenterTest {
+    /**
+     * The component-under-test (CuT).
+     * The {@link PlayerLobby}, component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
+     */
     private GameCenter CuT;
+
+    // friendly objects
     private PlayerLobby playerLobby;
 
+    /**
+     * Setup new objects for each test.
+     */
     @BeforeEach
     public void testSetup() {
         // Setup CuT and create the game
         playerLobby = new PlayerLobby();
         CuT = new GameCenter(playerLobby);
     }
+
     /**
      * Test that you can construct a new GameCenter.
      */

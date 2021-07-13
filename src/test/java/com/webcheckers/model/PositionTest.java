@@ -13,13 +13,18 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("Model-tier")
 public class PositionTest {
-
-
+    /**
+     * The component-under-test (CuT).
+     */
     private Position CuT;
 
+    // friendly objects
     private int ROW = 0;
     private int CELL = 1;
 
+    /**
+     * Setup new objects for each test.
+     */
     @BeforeEach
     public void setup(){
         CuT = new Position(ROW, CELL);
@@ -64,6 +69,4 @@ public class PositionTest {
 
         assertTrue(CuT.isValid());
     }
-
-
 }

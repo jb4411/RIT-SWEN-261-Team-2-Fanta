@@ -2,8 +2,6 @@ package com.webcheckers.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +21,7 @@ public class RowTest {
      */
     private Row CuT;
 
+    // friendly objects
     private List<Space> spaces;
     private int index = 7;
 

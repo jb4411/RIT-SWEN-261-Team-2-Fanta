@@ -19,16 +19,21 @@ import static org.mockito.Mockito.when;
  */
 @Tag("Application-tier")
 public class PlayerLobbyTest {
-
     /**
      * The component-under-test (CuT).
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private PlayerLobby CuT;
 
+    // friendly objects
     private Set<String> players;
     private int numPlayers;
     private String lobbyString;
 
+    /**
+     * Setup new objects for each test.
+     */
     @BeforeEach
     public void testSetup() {
         // Setup CuT

@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @Tag("Model-tier")
 public class PieceTest {
+    /**
+     * The component-under-test (CuT).
+     */
     private Piece single = new Single(Piece.Color.RED);
     private Piece king = new King(Piece.Color.WHITE);
 

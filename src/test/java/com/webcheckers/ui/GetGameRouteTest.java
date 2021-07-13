@@ -8,12 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
-
-
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -24,16 +20,19 @@ import static org.mockito.Mockito.*;
  */
 @Tag("UI-tier")
 public class GetGameRouteTest {
-
     /**
      * The component-under-test (CuT).
+     *
+     * This is a stateless component so we only need one.
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private GetGameRoute CuT;
 
-    //friendly
+    // friendly objects
     private PlayerLobby playerLobby;
 
-    //mock
+    // mock objects
     private GameCenter gameCenter;
     private Request request;
     private Session session;

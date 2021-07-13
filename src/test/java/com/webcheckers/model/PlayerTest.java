@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("Model-tier")
 public class PlayerTest {
-
+    // friendly objects
     private String NAME = "Test Name";
 
     /**
-     * Component under testing
+     * The component-under-test (CuT).
      */
     private Player CuT = new Player(NAME);
 
@@ -51,7 +51,6 @@ public class PlayerTest {
         assertNotEquals(CuT, "not a player object");
         assertEquals(SAME_NAME, CuT);
         assertNotEquals(DIFF_NAME, CuT);
-
     }
 
     /**

@@ -22,8 +22,8 @@ public class PostSignOutRouteTest {
      *
      * <p>
      * This is a stateless component so we only need one.
-     * The {@link GameCenter}, {@link PlayerLobby}, and {@link Player} components are thoroughly tested so
-     * we can use them safely as "friendly" dependencies.
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private PostSignOutRoute CuT;
 
@@ -101,7 +101,6 @@ public class PostSignOutRouteTest {
         CheckersGame mockGame = mock(CheckersGame.class);
         when(gameCenter.getGame("player")).thenReturn(mockGame);
         doNothing().when(mockGame).clearTurnMoves();
-
 
         // Invoke the test
         CuT.handle(request, response);

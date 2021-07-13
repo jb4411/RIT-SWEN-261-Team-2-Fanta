@@ -16,8 +16,13 @@ import org.junit.jupiter.api.Test;
 public class MoveTest {
     /**
      * The component-under-test (CuT).
+     * <p>
+     * The {@link Position} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private Move CuT;
+
+    // friendly objects
     private Position start = new Position(1,3);
     private Position end = new Position(7,8);
 

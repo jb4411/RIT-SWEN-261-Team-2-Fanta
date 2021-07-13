@@ -1,18 +1,14 @@
 package com.webcheckers.ui;
-
 import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
 import spark.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -23,18 +19,30 @@ import static org.mockito.Mockito.*;
  */
 @Tag("UI-tier")
 public class PostSubmitTurnRouteTest{
+    /**
+     * The component-under-test (CuT).
+     *
+     * <p>
+     * This is a stateless component so we only need one.
+     * The {@link PlayerLobby}, and {@link GameCenter}, components are thoroughly tested so
+     * we can use them safely as "friendly" dependencies.
+     */
+    private PostSubmitTurnRoute CuT;
+
     //friendly objects
     private PlayerLobby lobby;
     private GameCenter gameCenter;
     private Gson gson;
 
     //mock objects
-    private PostSubmitTurnRoute CuT;
     private TemplateEngine engine;
     private Session session;
     private Request request;
     private Response response;
 
+    /**
+     * Setup new mock objects for each test.
+     */
     @BeforeEach
     public void setup() {
         request = mock(Request.class);
@@ -42,8 +50,7 @@ public class PostSubmitTurnRouteTest{
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
-        
-        
+
         // create a unique CuT for each test
         gson = new Gson();
         lobby = new PlayerLobby();
@@ -51,6 +58,9 @@ public class PostSubmitTurnRouteTest{
         CuT = new PostSubmitTurnRoute(engine, gameCenter);
     }
 
+    /**
+     * Test that handle() works correctly.
+     */
     @Test
     public void handleTest() throws Exception{
         //setup

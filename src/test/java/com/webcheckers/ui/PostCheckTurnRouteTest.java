@@ -24,23 +24,25 @@ import static org.mockito.Mockito.*;
  */
 @Tag("UI-tier")
 public class PostCheckTurnRouteTest {
-
     /**
      * The component-under-test (CuT).
+     *
+     * <p>
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private PostCheckTurnRoute CuT;
 
-    //friendly
+    // friendly objects
     private PlayerLobby playerLobby;
     private Gson gson;
 
-    //mock
+    //mock objects
     private GameCenter gameCenter;
     private Request request;
     private Session session;
     private Response response;
     private TemplateEngine engine;
-
 
     /**
      * Setup new mock objects for each test.
@@ -87,8 +89,6 @@ public class PostCheckTurnRouteTest {
 
         // Analyze the results
         assertEquals(gson.toJson(Message.info("true")), CuT.handle(request, response));
-
-
     }
 
     /**
@@ -116,8 +116,5 @@ public class PostCheckTurnRouteTest {
 
         // Analyze the results
         assertEquals(CuT.handle(request, response), gson.toJson(Message.info("false")));
-
-
     }
-
 }

@@ -22,7 +22,7 @@ public class SpaceTest {
      * The component-under-test (CuT).
      *
      * <p>
-     * The {@link Color}, {@link Piece}, components are thoroughly tested so
+     * The {@link Color}, and {@link Piece}, components are thoroughly tested so
      * we can use them safely as "friendly" dependencies.
      */
     private Space CuT;

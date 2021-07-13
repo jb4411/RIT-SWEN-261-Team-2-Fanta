@@ -6,6 +6,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,28 +20,31 @@ import spark.Session;
 import spark.TemplateEngine;
 
 /**
- * Unit test for {@link GetSignInRoute} component
+ * Unit test for {@link GetSigninRoute} component
  *
  *  @author <a href='mailto:jlz6146@rit.edu'>Jess Zhao</a>
  */
 @Tag("UI-tier")
 public class GetSigninRouteTest {
-
     /**
-     * Component under test, CuT
+     * The component-under-test (CuT).
+     * <p>
+     * This is a stateless component so we only need one.
      */
     private GetSigninRoute CuT;
 
+    // friendly objects
+    static final String PLAYER_USED_NAME = "realPlayer";
+
+    // mock objects
     private Request request;
     private Session session;
     private TemplateEngine engine;
     private Response response;
 
-    static final String PLAYER_USED_NAME = "realPlayer";
-
 
     /**
-     * Initialize necessary components as mock classes for each test
+     * Setup new mock objects for each test.
      */
     @BeforeEach
     public void setup(){
@@ -80,7 +86,6 @@ public class GetSigninRouteTest {
 
     }
 
-
     /**
      * Test that CuT does not take a null engine parameter in its construction
      */
@@ -107,10 +112,4 @@ public class GetSigninRouteTest {
             fail("Null attribute cannot be handled.");
         }
     }
-
-
-
-
-
-
 }
