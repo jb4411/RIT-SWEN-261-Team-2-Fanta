@@ -32,7 +32,7 @@ public class GameCenterTest {
      * Setup new objects for each test.
      */
     @BeforeEach
-    public void testSetup() {
+    public void setup() {
         // Setup CuT and create the game
         playerLobby = new PlayerLobby();
         CuT = new GameCenter(playerLobby);
