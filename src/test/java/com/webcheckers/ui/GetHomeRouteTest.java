@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
@@ -123,6 +124,9 @@ public class GetHomeRouteTest {
         // Arrange the test scenario: There is an existing session with a player who is logged in and already in a game
         when(session.attribute("name")).thenReturn("player");
         when(gameCenter.inGame("player")).thenReturn(true);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(anyString())).thenReturn(game);
+        doNothing().when(game).clearTurnMoves();
 
         // Invoke the test
         CuT.handle(request, response);
@@ -130,6 +134,7 @@ public class GetHomeRouteTest {
         // Analyze the results:
         //   * redirect to the Game view
         verify(response).redirect(WebServer.GAME_URL);
+        verify(game, times(1)).clearTurnMoves();
     }
 
     /**
