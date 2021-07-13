@@ -32,7 +32,7 @@ public class PostCheckTurnRouteTest {
     /**
      * The component-under-test (CuT).
      */
-    private GetGameRoute CuT;
+    private PostCheckTurnRoute CuT;
 
     //friendly
     private PlayerLobby playerLobby;
@@ -61,7 +61,7 @@ public class PostCheckTurnRouteTest {
 
         // create a unique CuT for each test
         playerLobby = new PlayerLobby();
-        CuT = new GetGameRoute(engine, gameCenter);
+        CuT = new PostCheckTurnRoute(gameCenter, playerLobby);
 
     }
 
@@ -69,19 +69,18 @@ public class PostCheckTurnRouteTest {
      * Test that when given a player name and it is their turn, end result is true
      */
     @Test
-    public void player_turn_true(){
+    public void player_turn_true() throws Exception {
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
         playerLobby.addPlayer("player2");
         Player player = playerLobby.getPlayer("player");
         Player player2 = playerLobby.getPlayer("player2");
-        gameCenter.addPlayer(player.getName());
-        gameCenter.addPlayer(player2.getName());
-        gameCenter.createGame(player.getName(), player2.getName());
 
         when(session.attribute("name")).thenReturn(player.getName());
         player.setColor(Piece.Color.RED);
-        when(gameCenter.getGame(player.getName()).getCurrentColor()).thenReturn(Piece.Color.RED);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(anyString())).thenReturn(game);
+        when(game.getCurrentColor()).thenReturn(Piece.Color.RED);
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -93,7 +92,7 @@ public class PostCheckTurnRouteTest {
         CuT.handle(request, response);
 
         // Analyze the results
-        assertEquals(CuT.handle(request, response), gson.toJson(Message.info("true")));
+        assertEquals(gson.toJson(Message.info("true")), CuT.handle(request, response));
 
 
     }
@@ -102,13 +101,15 @@ public class PostCheckTurnRouteTest {
      * Test that when given a player name and it is their turn, end result is true
      */
     @Test
-    public void player_turn_false(){
+    public void player_turn_false() throws Exception {
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
         Player player = playerLobby.getPlayer("player");
         when(session.attribute("name")).thenReturn("player");
         player.setColor(Piece.Color.WHITE);
-        when(gameCenter.getGame(player.getName()).getCurrentColor()).thenReturn(Piece.Color.RED);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(anyString())).thenReturn(game);
+        when(game.getCurrentColor()).thenReturn(Piece.Color.RED);
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
