@@ -39,7 +39,7 @@ public class Row implements Iterable<Space> {
      *
      * @return Java Iterator of the Spaces within a single row.
      */
-    public Iterator<Space>iterator(){
+    public Iterator<Space> iterator(){
         return spaces.iterator();
     }
 
