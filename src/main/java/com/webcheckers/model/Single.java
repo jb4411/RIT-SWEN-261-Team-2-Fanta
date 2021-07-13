@@ -72,6 +72,4 @@ public class Single extends Piece{
             return end.isValid() && this.isJumpValid(jump, board.getJumpedSquare(jump), board.getSquare(end));
         }
     }
-
-
 }

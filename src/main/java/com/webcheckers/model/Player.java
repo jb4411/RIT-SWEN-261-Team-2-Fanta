@@ -76,10 +76,14 @@ public class Player{
         return name.hashCode();
     }
 
+    /**
+     * Return the string representation of the Player.
+     *
+     * @return the string representation of the Player
+     */
     @Override
     public String toString(){
-        String stringVersion = name + color.name();
-        return stringVersion;
+        return name + color.name();
 
     }
 }

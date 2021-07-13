@@ -7,7 +7,6 @@ package com.webcheckers.model;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Move{
-
     //The starting and ending position of a Move
     private Position start;
     private Position end;

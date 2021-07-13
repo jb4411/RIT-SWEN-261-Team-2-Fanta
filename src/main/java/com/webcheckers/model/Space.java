@@ -6,9 +6,10 @@ package com.webcheckers.model;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Space {
+    //Values used to hold index this space is at, whether this space is valid, and if it contains a piece
     private int cellIdx;
-    private Piece piece;
     private boolean valid;
+    private Piece piece;
 
     /**
      * Create a new Space.
@@ -82,6 +83,11 @@ public class Space {
         this.piece = piece;
     }
 
+    /**
+     * Return the string representation of this space.
+     *
+     * @return the string representation of this space
+     */
     @Override
     public String toString(){
         return cellIdx + Boolean.toString(valid);

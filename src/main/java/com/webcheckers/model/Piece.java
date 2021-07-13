@@ -8,14 +8,21 @@ import java.util.List;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public abstract class Piece {
+    //Values used to hold the type and color of this checker
     private Type rank;
     private Color color;
 
+    /**
+     * An enum to represent the type of a piece (king or single).
+     */
     public enum Type {
         KING,
         SINGLE
     }
 
+    /**
+     * An enum to represent the color of a piece (red or white).
+     */
     public enum Color {
         RED,
         WHITE

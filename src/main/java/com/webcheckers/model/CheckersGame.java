@@ -32,7 +32,9 @@ public class CheckersGame {
     // Message to alert the player the the game has ended
     static final Message GAME_OVER_MESSAGE = Message.info("Turn submitted successfully!");
 
-    // The different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements)
+    /**
+     * An enum for the different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements).
+     */
     public enum Mode {
         PLAY,
         SPECTATOR,

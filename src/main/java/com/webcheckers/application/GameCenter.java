@@ -1,9 +1,6 @@
 package com.webcheckers.application;
-
 import com.webcheckers.model.CheckersGame;
-import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
-
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -14,11 +11,15 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GameCenter {
+    //Values used for holding active games and players
     private static final Logger LOG = Logger.getLogger(GameCenter.class.getName());
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
     private final HashMap<Integer, CheckersGame> games;
 
+    /**
+     * An enum used when returning info about the status of game creation.
+     */
     public enum GameStatus {
         IN_GAME,
         NULL_PLAYER,

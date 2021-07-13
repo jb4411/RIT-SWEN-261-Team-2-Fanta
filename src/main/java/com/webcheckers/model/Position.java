@@ -7,7 +7,7 @@ package com.webcheckers.model;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Position{
-
+    //Values used to hold the coordinates of this Position
     private int row;
     private int cell;
 

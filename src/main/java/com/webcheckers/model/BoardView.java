@@ -18,14 +18,18 @@ public class BoardView implements Iterable<Row>{
     private boolean checkedJumps = false;
     private boolean playerHasJump = false;
 
-    //Different types of moves
+    /**
+     * An enum used to keep track of the type of the last move made.
+     */
     public enum MoveType {
         NONE,
         SIMPLE,
         JUMP
     }
 
+    //The number of rows in the checkerboard
     public static final int NUM_ROWS = 8;
+    //The number of cols in the checkerboard
     public static final int NUM_COLS = 8;
 
     //Messages for valid moves and jumps
@@ -305,6 +309,11 @@ public class BoardView implements Iterable<Row>{
         return board[rowIdx];
     }
 
+    /**
+     * Returns the current board.
+     *
+     * @return the current board
+     */
     public Space[][] getBoard(){
         return board;
     }
@@ -344,6 +353,11 @@ public class BoardView implements Iterable<Row>{
         return lst.iterator();
     }
 
+    /**
+     * Return the string representation of the board.
+     *
+     * @return the string representation of the board
+     */
     @Override
     public String toString(){
         return red.toString() + " : " + white.toString();

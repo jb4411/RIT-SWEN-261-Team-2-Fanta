@@ -13,8 +13,12 @@ import java.util.Set;
 public class PlayerLobby {
     private final HashMap<String, Player> players;
 
+    /**
+     * An enum used when returning info about the status of adding a player to the lobby.
+     */
     public enum NameStatus {INVALID, VALID, DUPLICATE}
 
+    //The string format used for PlayerLobby.toString()
     static final String LOBBY_STRING_FORMAT = "{Lobby, Number of Players: %d, Active Players: [%s]}";
 
     /**
@@ -85,7 +89,9 @@ public class PlayerLobby {
     }
 
     /**
-     * {@inheritDoc}
+     * Return the string representation of the PlayerLobby.
+     *
+     * @return the string representation of the PlayerLobby
      */
     @Override
     public synchronized String toString() {

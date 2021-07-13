@@ -11,6 +11,7 @@ import jdk.jfr.BooleanFlag;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Row implements Iterable<Space> {
+    //Values used to hold the index this row is at, and squares in this row
     private int index;
     private List<Space> spaces;
 
@@ -43,6 +44,12 @@ public class Row implements Iterable<Space> {
         return spaces.iterator();
     }
 
+    /**
+     * Checks if two rows are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether or not they are equal
+     */
     @Override
     public boolean equals(Object obj){
         if(obj == this) return true;
