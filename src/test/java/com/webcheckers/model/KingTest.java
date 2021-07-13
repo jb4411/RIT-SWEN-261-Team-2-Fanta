@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * The unit test suite for the {@link Single} component.
+ * The unit test suite for the {@link King} component.
  *
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
