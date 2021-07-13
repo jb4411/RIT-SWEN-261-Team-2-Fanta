@@ -61,7 +61,7 @@ public class GetSigninRouteTest {
      * Test that the sign-in page initializes correctly
      */
     @Test
-    public void not_null(){
+    public void test_notNull(){
         final TemplateEngineTester tester = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
 
@@ -77,7 +77,7 @@ public class GetSigninRouteTest {
      * Verifies that attempting to sign-in while already signed-in returns to the home page
      */
     @Test
-    public void previously_signed_in(){
+    public void test_previouslySignedIn(){
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(PLAYER_USED_NAME);
 
         CuT.handle(request, response);
@@ -90,7 +90,7 @@ public class GetSigninRouteTest {
      * Test that CuT does not take a null engine parameter in its construction
      */
     @Test
-    public void engine_render_fail(){
+    public void test_engineRenderFail(){
         when(engine.render(any(ModelAndView.class))).thenReturn(null);
         try {
             CuT = new GetSigninRoute(null);
@@ -104,7 +104,7 @@ public class GetSigninRouteTest {
      * Test that CuT does not accept a null name
      */
     @Test
-    public void null_name(){
+    public void test_nullName(){
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(null);
         try {
             CuT.handle(request, response);

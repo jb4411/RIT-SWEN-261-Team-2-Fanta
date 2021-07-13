@@ -38,7 +38,7 @@ public class MoveTest {
      * Test that getStart() works correctly.
      */
     @Test
-    public void getStartTest(){
+    public void test_getStart(){
         assertEquals(start, CuT.getStart());
     }
 
@@ -46,7 +46,7 @@ public class MoveTest {
      * Test that getEnd() works correctly.
      */
     @Test
-    public void getEndTest(){
+    public void test_getEnd(){
         assertEquals(end,CuT.getEnd());
     }
 
@@ -54,7 +54,7 @@ public class MoveTest {
      * Test that isSimpleMove() works correctly.
      */
     @Test
-    public void isSimpleTest(){
+    public void test_isSimple(){
         assertFalse(CuT.isSimpleMove());
         end = new Position(2,4);
         CuT = new Move(start, end);
@@ -65,7 +65,7 @@ public class MoveTest {
      * Test that isJump() works correctly.
      */
     @Test
-    public void isJumpTest(){
+    public void test_isJump(){
         assertFalse(CuT.isJump());
         end = new Position(3,5);
         CuT = new Move(start, end);
@@ -76,7 +76,7 @@ public class MoveTest {
      * Test that inverse() works correctly.
      */
     @Test
-    public void inverseTest(){
+    public void test_inverse(){
         Move inverse = new Move(start.inverse(), end.inverse());
         assertEquals(inverse, CuT.inverse());
     }

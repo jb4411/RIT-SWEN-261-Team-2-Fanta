@@ -62,7 +62,7 @@ public class GetGameRouteTest {
      * Test that when given a null player, redirects to home page
      */
     @Test
-    public void null_player_error(){
+    public void test_nullPlayer_error(){
         // Arrange the test scenario: null player
         when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.NULL_PLAYER);
         // To analyze what the Route created in the View-Model map you need
@@ -83,7 +83,7 @@ public class GetGameRouteTest {
      * Test that when given a player who is not already in a game, CuT redirects to home page
      */
     @Test
-    public void player_not_in_game(){
+    public void test_playerNotInGame(){
         // Arrange the test scenario: player not in game
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
@@ -106,7 +106,7 @@ public class GetGameRouteTest {
      * Test that when given a player who is already in a game, CuT redirects to home page
      */
     @Test
-    public void player_in_game_error(){
+    public void test_playerInGame_error(){
         // Arrange the test scenario: the player challenged is already in a game.
         when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.IN_GAME);
         // To analyze what the Route created in the View-Model map you need
@@ -133,7 +133,7 @@ public class GetGameRouteTest {
      * Test that when given the same player, redirects to home page
      */
     @Test
-    public void same_player_error(){
+    public void test_samePlayer_error(){
         // Arrange the test scenario: the playerLobby has two players willing to play.
         when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.SAME_PLAYER);
         // To analyze what the Route created in the View-Model map you need
@@ -159,7 +159,7 @@ public class GetGameRouteTest {
      * Test that when given a null player, redirects to home page
      */
     @Test
-    public void null_opponent(){
+    public void test_nullOpponent(){
         // Arrange the test scenario: null player
         when(gameCenter.getOpponent("name")).thenReturn(null);
         when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.NULL_PLAYER);
@@ -186,7 +186,7 @@ public class GetGameRouteTest {
      * Test that the Game view will create a new game if all conditions are met.
      */
     @Test
-    public void new_game(){
+    public void test_newGame(){
         // Arrange the test scenario: the playerLobby has two players willing to play.
         playerLobby.addPlayer("player1");
         playerLobby.addPlayer("player2");
@@ -241,7 +241,7 @@ public class GetGameRouteTest {
      * Test that CuT redirects to the Home page when the player is in a game with a null opponent.
      */
     @Test
-    public void old_session_null_opponent(){
+    public void test_oldSessionNullOpponent(){
         // Arrange the test scenario: null player
         when(gameCenter.getOpponent("name")).thenReturn(null);
         Set<String> mockSet = new HashSet<>();
@@ -262,7 +262,7 @@ public class GetGameRouteTest {
      * exists and the player is the white player.
      */
     @Test
-    public void old_session(){
+    public void test_oldSession(){
         when(gameCenter.getOpponent("player")).thenReturn(new Player("opponent"));
         Set<String> mockSet = new HashSet<>();
         mockSet.add("Not empty.");

@@ -62,7 +62,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view when the session is brand new.
      */
     @Test
-    public void new_session() {
+    public void test_newSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
@@ -86,7 +86,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view with a list of active players when the player is logged in.
      */
     @Test
-    public void old_session() {
+    public void test_oldSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         Set<String> players = new HashSet<>();
         players.add("player");
@@ -118,7 +118,7 @@ public class GetHomeRouteTest {
      * Test that CuT redirects to the Game view when the current player is logged in and already in a game
      */
     @Test
-    public void game_session() {
+    public void test_gameSession() {
         // Arrange the test scenario: There is an existing session with a player who is logged in and already in a game
         when(session.attribute("name")).thenReturn("player");
         when(gameCenter.inGame("player")).thenReturn(true);
@@ -140,7 +140,7 @@ public class GetHomeRouteTest {
      * contains "IN_GAME" as an error parameter.
      */
     @Test
-    public void in_game_error() {
+    public void test_inGameError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "IN_GAME" as an error parameter
@@ -165,7 +165,7 @@ public class GetHomeRouteTest {
      * URL contains "SAME_PLAYER" as an error parameter.
      */
     @Test
-    public void same_player_error() {
+    public void test_samePlayerError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "SAME_PLAYER" as an error parameter
@@ -189,7 +189,7 @@ public class GetHomeRouteTest {
      * URL contains "NULL_PLAYER" as an error parameter.
      */
     @Test
-    public void null_player_error() {
+    public void test_nullPlayerError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "NULL_PLAYER" as an error parameter
@@ -212,7 +212,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view when the error query parameter is invalid.
      */
     @Test
-    public void invalid_error_query_parameter() {
+    public void test_invalidErrorQueryParameter() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "NULL_PLAYER" as an error parameter
@@ -235,7 +235,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view when the error query parameter exists but name is null.
      */
     @Test
-    public void error_query_parameter_but_null_name() {
+    public void test_errorQueryParameterButNullName() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "NULL_PLAYER" as an error parameter

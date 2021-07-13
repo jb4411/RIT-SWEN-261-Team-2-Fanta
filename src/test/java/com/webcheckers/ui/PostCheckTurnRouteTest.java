@@ -67,7 +67,7 @@ public class PostCheckTurnRouteTest {
      * Test that when given a player name and it is their turn, end result is true
      */
     @Test
-    public void player_turn_true() throws Exception {
+    public void test_playerTurnTrue() throws Exception {
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
         Player player = playerLobby.getPlayer("player");
@@ -95,7 +95,7 @@ public class PostCheckTurnRouteTest {
      * Test that when given a player name and it is their turn, end result is true
      */
     @Test
-    public void player_turn_false() throws Exception {
+    public void test_playerTurnFalse() throws Exception {
         // Arrange the test scenario: null player
         playerLobby.addPlayer("player");
         Player player = playerLobby.getPlayer("player");

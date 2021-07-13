@@ -35,7 +35,7 @@ public class PositionTest {
      * Test for getRow() and getCell() functions
      */
     @Test
-    public void valuesTest(){
+    public void test_values(){
         assertEquals(ROW, CuT.getRow());
         assertEquals(CELL, CuT.getCell());
     }
@@ -44,7 +44,7 @@ public class PositionTest {
      * Ensures inverse() method works properly in creating a new inverted position
      */
     @Test
-    public void inverseTest(){
+    public void test_inverse(){
         Position inverse = new Position(BoardView.NUM_ROWS - ROW - 1, BoardView.NUM_COLS - CELL - 1);
         assertEquals(inverse.getRow(), CuT.inverse().getRow());
         assertEquals(inverse.getCell(), CuT.inverse().getCell());
@@ -54,7 +54,7 @@ public class PositionTest {
      * Ensures isValid() method works properly in determining if a position is valid
      */
     @Test
-    public void isValidTest(){
+    public void test_isValid(){
         Position invalidRow = new Position(9, CELL);
         Position invalidCell = new Position(ROW, 9);
 

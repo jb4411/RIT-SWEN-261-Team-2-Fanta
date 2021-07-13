@@ -42,7 +42,7 @@ public class GameCenterTest {
      * Test that you can construct a new GameCenter.
      */
     @Test
-    public void test_create_center() {
+    public void test_createCenter() {
         new GameCenter(playerLobby);
     }
 
@@ -50,7 +50,7 @@ public class GameCenterTest {
      * Test that you can create a game.
      */
     @Test
-    public void test_make_game() {
+    public void test_makeGame() {
         final GameCenter CuT = new GameCenter(playerLobby);
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
@@ -73,7 +73,7 @@ public class GameCenterTest {
      * Test that you can get a players opponent.
      */
     @Test
-    public void test_find_opponent() {
+    public void test_findOpponent() {
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
         CuT.createGame("Player1","Player2");
@@ -87,7 +87,7 @@ public class GameCenterTest {
      * Test that getting an opponent when the player is not in a game does not cause an error.
      */
     @Test
-    public void test_find_opponent_null_game() {
+    public void test_findOpponentNullGame() {
         CuT.addPlayer("Player1");
 
         // Opponent does not exist
@@ -98,7 +98,7 @@ public class GameCenterTest {
      * Test getting the player lobby from CuT.
      */
     @Test
-    public void test_get_lobby() {
+    public void test_getLobby() {
         assertEquals(playerLobby, CuT.getLobby());
     }
 
@@ -106,7 +106,7 @@ public class GameCenterTest {
      * Test getting a game by its ID.
      */
     @Test
-    public void test_get_game_by_id() {
+    public void test_getGameByID() {
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
         CuT.createGame("Player1","Player2");
@@ -118,7 +118,7 @@ public class GameCenterTest {
      * Test checking if a player is already in a game.
      */
     @Test
-    public void test_in_game() {
+    public void test_inGame() {
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
         CuT.addPlayer("not in game");
@@ -132,7 +132,7 @@ public class GameCenterTest {
      * Test the "IN_GAME" error when creating a game.
      */
     @Test
-    public void test_create_game_IN_GAME_error() {
+    public void test_createGame_IN_GAME_error() {
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
         CuT.addPlayer("Player3");
@@ -145,7 +145,7 @@ public class GameCenterTest {
      * Test the "NULL_PLAYER" error when creating a game.
      */
     @Test
-    public void test_create_game_NULL_PLAYER_error() {
+    public void test_createGame_NULL_PLAYER_error() {
         assertEquals(GameCenter.GameStatus.NULL_PLAYER, CuT.createGame(null,null));
     }
 
@@ -153,7 +153,7 @@ public class GameCenterTest {
      * Test the "SAME_PLAYER" error when creating a game.
      */
     @Test
-    public void test_create_game_SAME_PLAYER_error() {
+    public void test_createGame_SAME_PLAYER_error() {
         CuT.addPlayer("same");
         assertEquals(GameCenter.GameStatus.SAME_PLAYER, CuT.createGame("same","same"));
     }
@@ -177,7 +177,7 @@ public class GameCenterTest {
      * Test removing a player from the lobby.
      */
     @Test
-    public void test_remove_player() {
+    public void test_removePlayer() {
         CuT.addPlayer("Player1");
         CuT.addPlayer("Player2");
         CuT.addPlayer("Player3");

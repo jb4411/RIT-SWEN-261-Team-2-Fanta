@@ -25,7 +25,7 @@ public class PlayerTest {
      * Ensures getName() method works
      */
     @Test
-    public void getNameTest(){
+    public void test_getName(){
         assertEquals(NAME, CuT.getName());
     }
 
@@ -34,7 +34,7 @@ public class PlayerTest {
      * by setColor() and getColor() methods
      */
     @Test
-    public void colorTest(){
+    public void test_color(){
         CuT.setColor(Piece.Color.RED);
         assertEquals(Piece.Color.RED, CuT.getColor());
     }
@@ -43,7 +43,7 @@ public class PlayerTest {
      * Ensures equals() method works properly in discerning two players
      */
     @Test
-    public void equalsTest(){
+    public void test_equals(){
         Player SAME_NAME = new Player(NAME);
         Player DIFF_NAME = new Player("Nope");
 
@@ -57,7 +57,7 @@ public class PlayerTest {
      * Ensures hashCode() method works properly in generating hashCode for a player
      */
     @Test
-    public void hashcodeTest(){
+    public void test_hashcode(){
         assertEquals(NAME.hashCode(), CuT.hashCode());
     }
 
@@ -65,11 +65,9 @@ public class PlayerTest {
      * Tests toString() method
      */
     @Test
-    public void toStringTest() {
+    public void test_toString() {
         CuT.setColor(Piece.Color.RED);
         String expected = NAME + Piece.Color.RED;
         assertEquals(expected, CuT.toString());
     }
-
-
 }

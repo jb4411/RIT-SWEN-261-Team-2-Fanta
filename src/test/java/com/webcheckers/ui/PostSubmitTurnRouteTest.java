@@ -62,7 +62,7 @@ public class PostSubmitTurnRouteTest{
      * Test that handle() works correctly.
      */
     @Test
-    public void handleTest() throws Exception{
+    public void test_handle() throws Exception{
         //setup
         lobby.addPlayer("player2");
         lobby.addPlayer("player");

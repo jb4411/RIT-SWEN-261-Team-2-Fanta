@@ -58,7 +58,7 @@ public class PostSignOutRouteTest {
      * Test that CuT redirects to the Home view when the session is brand new.
      */
     @Test
-    public void new_session() {
+    public void test_newSession() {
         // Invoke the test
         CuT.handle(request, response);
 
@@ -71,7 +71,7 @@ public class PostSignOutRouteTest {
      * Test that CuT signs the player out and redirects to the Home view when the player is logged in.
      */
     @Test
-    public void old_session() {
+    public void test_oldSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         lobby.addPlayer("player");
 
@@ -95,7 +95,7 @@ public class PostSignOutRouteTest {
      * Test that CuT signs the player out and redirects to the Home view when the player is logged in.
      */
     @Test
-    public void in_game_error() {
+    public void test_inGameError() {
         when(session.attribute("name")).thenReturn("player");
         when(gameCenter.inGame("player")).thenReturn(true);
         CheckersGame mockGame = mock(CheckersGame.class);
