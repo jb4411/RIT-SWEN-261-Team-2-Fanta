@@ -21,7 +21,7 @@ geometry: margin=1in
 WebCheckers is a web-app that simulates checkers played with American rules.
 
 The goal for the project is to allow players to sign in and challenge others players to a game of checkers. 
-In addition, we plan to add a spectator mode and a method to save replays of past games to further enhance the player 
+In addition, we plan to add a spectator mode, or a method to save replays of past games to further enhance the player 
 experience.
 
 The application uses Spark and Freemarker for webpage rendering.
@@ -29,7 +29,7 @@ The application uses Spark and Freemarker for webpage rendering.
 
 ### Purpose
 The WebCheckers application allows users to play checkers anytime, anywhere. It provides a simple way for players to 
-challenge each other to a classic game of checkers right from the convenience of their web browser.
+challenge each other to a classic game of checkers from the convenience of their web browser.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -43,9 +43,6 @@ challenge each other to a classic game of checkers right from the convenience of
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
 
 ### Definition of MVP
 >  1. Every player must sign-in before playing a game, and be able to sign-out when finished playing.
@@ -71,9 +68,6 @@ This section describes the features of the application.
 > 8. Moving a King Checker
 > 9. Ending a Game
 > 10. Resignation
-> 11. Spectate an Ongoing Game
-> 12. Saving a Replay
-> 13. Reviewing a Replay
 > 14. Player Sign-in
 > 15. Start a Game
 
@@ -96,7 +90,7 @@ consists of the home page, the signin page, and the game page. Players start on 
 to the signin page. Once a player signs in with a unique username, they will be redirected back to the home page where
 they will now be able to see other active players. At this point they can either wait to be challenged by another
 player, or they can challenge a player. Once they have challenged a player, or have been challenged by another player,
-both players will be redirected to the game page. Once on the game page, starting with the red player, players take
+both players will be redirected to the game page. On the game page, starting with the red player, players take
 turns making moves. After the current player makes a move, their turn ends, and the other player's turn begins. This
 cycle continues until a player wins the game or a player resigns.
 
@@ -138,62 +132,42 @@ or a player resigns.
 
 
 ### UI Tier
-The UI Tier has ten classes, three handle GET requests, six of handle POST request, and the last handles the initialization of the HTTP routes.
+The UI Tier has ten classes, three handle GET requests, six handle POST requests, and the last handles the initialization of the HTTP routes.
 
 
 GetGameRoute: 
 > UI controller to GET the “/game” route.
 
 GetHomeRoute: 
-> UI controller to GET the “/” route. If a player is signed in, will display a list of all signed-in players.
+> UI controller to GET the “/” route. If a player is signed in, the home page will display a list of all signed-in players.
 
 GetSignInRoute: 
-> UI controller to GET the “/signin” route. Renders a page for the user to enter a username to sign in
+> UI controller to GET the “/signin” route. Renders a page for the user to enter a username to sign in.
 
 PostBackUpMoveRoute: 
-> UI controller to POST the “/backupMove” route. Checks if a
+> UI controller to POST the “/backupMove” route. Backs up the last move made this turn, if a move has been made.
 
 PostCheckTurnRoute: 
-> UI controller to POST the “/checkTurn” route. Checks which player’s turn it is by checking if the opponent has submitted their turn
+> UI controller to POST the “/checkTurn” route. Checks which player’s turn it is by checking if the opponent has 
+> submitted their turn.
 
 PostSignInRoute: 
-> UI controller to POST the “/signin” route. If the user has entered an acceptable username, it renders the homepage. Otherwise, it remains on the sign-in page
+> UI controller to POST the “/signin” route. If the user has entered an acceptable username, it renders the homepage. 
+> Otherwise, it remains on the sign-in page.
 
 PostSignOutRoute: 
-> UI controller to POST the “/signout” route. If a player attempts to sign out while in a game, an error message occurs. Otherwise, it renders the home page
+> UI controller to POST the “/signout” route. If a player attempts to sign out while in a game, an error message occurs.
+> Otherwise, it renders the home page.
 
 PostSubmitTurnRoute: 
-> UI Controller to POST the “submitTurn” route. If the entirety of a player’s turn is checked to be valid, the turn is posted
+> UI Controller to POST the “submitTurn” route. If the entirety of a player’s turn is valid, the turn is submitted, 
+> and that player's turn ends.
 
 PostValidateMoveRoute: 
-> UI Controller to post the “validateMove” route. If a player’s move is valid, it is posted
+> UI Controller to post the “validateMove” route. If a player’s move is valid, it is executed.
 
 WebServer: 
-> Initializes the HTTP handlers
-
-
-<br><br>
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
-
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
-
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
+> Initializes the all the HTTP routes used by the WebCheckers application.
 
 
 ### Application Tier
@@ -202,10 +176,11 @@ The application tier has two classes that act as services, GameCenter and Player
 (INSERT UML DIAGRAMS)
 
 GameCenter: 
-> This class is responsible for saving and storing played games, and has methods for retrieving these games. Additionally it can create and end games as needed
+> This class is responsible for saving and storing played games, and has methods for retrieving these games. 
+> Additionally it can create and end games as needed.
 
 PlayerLobby: 
-> This class is responsible for containing players that have logged in, and can add and remove players as needed
+> This class is responsible for containing players that have logged in, and can add and remove players as needed.
 
 
 ### Model Tier
@@ -213,10 +188,12 @@ The model tier has ten classes, two of which are value objects, the rest of whic
 processing user requests and domain entities that the user can interact with.
 
 BoardView: 
-> This class handles how the player views the board throughout the game, by constructing the board out of an iterable structure of Row objects and containing methods to check how a player can perform a move
-
+> This class handles how the player views the board throughout the game. It does this by constructing the board out of an 
+> iterable structure of Row objects, by providing methods to check if a potential move is valid, and by providing error 
+> messages for invalid moves.
+> 
 CheckersGame: 
-> This class represents a game that a player can participate in, and ensures that the players take their turns properly
+> This class represents a game that a player can participate in, and ensures that the players take their turns properly.
 
 Player: 
 > Holds player information such as color and name.
@@ -225,16 +202,18 @@ Position:
 > Contains information regarding the position of a square on the board.
 
 Row:
-> Creates an iterable structure of Space objects to represent a row on a checkerboard
+> Creates an iterable structure of Space objects to represent a row on a checkerboard.
 
 Space:
-> Represents a single square on the checkerboard, and contains information regarding if it is holding a piece, or if a player can move to it
+> Represents a single square on the checkerboard, and contains information regarding if it is holding a piece, or if a 
+> player can move to it.
 
 Move:
-> A value object that represents a player’s move. It is immutable, and determines if a player is making a jump move or a single move
+> A value object that represents a player’s move. It is immutable and determines if a player is making a jump move or a
+> single move.
 
 Piece:
-> An abstract class representing a checkers piece
+> An abstract class representing a checkers piece.
 
 King:
 > A concrete implementation of the piece class, used to represent a king checker.
@@ -253,26 +232,23 @@ Single:
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
 
+
+
+
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
 ### Acceptance Testing
-Number of user stories that have passed all acceptance criteria test: 8 (all stories for sprint 2)
+Number of user stories that have passed all acceptance criteria test: 10 (all stories for sprints 1 & 2)
 
 Number of user stories that have some acceptance criteria test failing: 0
 
-Number of user stories that have not had any testing yet: 0
+Number of user stories for sprints 1 & 2 that have not had any testing yet: 0
 
 Issues found during testing:
 > During sprint 2 we had one issue where the SignOut link was available on the GamePage when it shouldn’t have been. We fixed this issue without any problems.
 
-<br><br>
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
 
 ### Unit Testing and Code Coverage
 Testing Strategy:
@@ -281,7 +257,7 @@ We started by testing the classes in the application tier so that when it came t
 
 We aimed for and were able to achieve 100% code coverage in all classes besides the given classes (WebServer, Application, and Message).
 
-We thought that by having 100% coverage, we could be absolutely sure that there were no code smells or bugs.
+We believed that by having 100% coverage, we could be absolutely sure that there were no code smells or bugs.
 
 <br><br>
 > _Discuss your unit testing strategy. Report on the code coverage
