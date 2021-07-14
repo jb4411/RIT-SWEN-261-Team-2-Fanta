@@ -233,7 +233,11 @@ Single:
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
 
+The main design improvements we intend are adding the option to resign from a game, as well as adding code that ends 
+the game when a player gets to a losing board state (that is when one player has lost all their pieces).
 
+In addition, getGameRoute and getHomeRoute both have logic in them that might be better located in a different class 
+to reduce the complexity of the UI elements.
 
 ## Testing
 > _This section will provide information about the testing performed
