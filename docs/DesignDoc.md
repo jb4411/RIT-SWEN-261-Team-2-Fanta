@@ -48,13 +48,44 @@ This section describes the features of the application.
 > maybe Epics and critical Stories._
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+>  1. Every player must sign-in before playing a game, and be able to sign-out when finished playing.
+      <br>
+> 2. Two players must be able to play a game of checkers based upon the American rules.
+     <br>
+> 3. Either player of a game may choose to resign, at any point, which ends the game.
+
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+###Epics
+>1. Epic: Moving a Checker
+   Stories
+
+###User Stories
+> 1. Sign-Out
+> 2. Moving a Normal Checker
+> 3. Jump Move
+> 4. Capture Checker
+> 5. Choice of Jump Move
+> 6. Multiple Jump Move
+> 7. Kinging a Normal Checker
+> 8. Moving a King Checker
+> 9. Ending a Game
+> 10. Resignation
+> 11. Spectate an Ongoing Game
+> 12. Saving a Replay
+> 13. Reviewing a Replay
+> 14. Player Sign-in
+> 15. Start a Game
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+> 1. Spectate an Ongoing Game
+> 2. Have the option for a player not in a game to click on the username of a different player that is in a game. 
+     That player will be rerouted to that CheckersGame and will be able to watch the players move their pieces in real time.
+> 3. Saving and Reviewing a Replay
+> 4. Have the option for a player that is currently playing to record that gameplay, and access it later to view.
+
+We are still deciding which enhancement we want to implement.
+
 
 
 ## Application Domain
@@ -85,8 +116,8 @@ As a web application, the user interacts with the system through their browser. 
 of HTML pages with some minimal CSS for styling. There is also some JavaScript that has been provided to the team by the
 architect.
 
-The server-side tiers include the UI tier that is composed of UI controllers and views. Controllers are built using the 
-Spark framework and the views are built using the FreeMarker engine. The application and model tiers are built using 
+The server-side tiers include the UI tier that is composed of UI controllers and views. Controllers were built using the 
+Spark framework, and the views were built using the FreeMarker engine. The application and model tiers were built using 
 Java objects.
 
 ### Overview of User Interface
@@ -107,6 +138,41 @@ or a player resigns.
 
 
 ### UI Tier
+The UI Tier has ten classes, three handle GET requests, six of handle POST request, and the last handles the initialization of the HTTP routes.
+
+
+GetGameRoute: 
+> UI controller to GET the “/game” route.
+
+GetHomeRoute: 
+> UI controller to GET the “/” route. If a player is signed in, will display a list of all signed-in players.
+
+GetSignInRoute: 
+> UI controller to GET the “/signin” route. Renders a page for the user to enter a username to sign in
+
+PostBackUpMoveRoute: 
+> UI controller to POST the “/backupMove” route. Checks if a
+
+PostCheckTurnRoute: 
+> UI controller to POST the “/checkTurn” route. Checks which player’s turn it is by checking if the opponent has submitted their turn
+
+PostSignInRoute: 
+> UI controller to POST the “/signin” route. If the user has entered an acceptable username, it renders the homepage. Otherwise, it remains on the sign-in page
+
+PostSignOutRoute: 
+> UI controller to POST the “/signout” route. If a player attempts to sign out while in a game, an error message occurs. Otherwise, it renders the home page
+
+PostSubmitTurnRoute: 
+> UI Controller to POST the “submitTurn” route. If the entirety of a player’s turn is checked to be valid, the turn is posted
+
+PostValidateMoveRoute: 
+> UI Controller to post the “validateMove” route. If a player’s move is valid, it is posted
+
+WebServer: 
+> Initializes the HTTP handlers
+
+
+<br><br>
 > _Provide a summary of the Server-side UI tier of your architecture.
 > Describe the types of components in the tier and describe their
 > responsibilities.  This should be a narrative description, i.e. it has
@@ -131,15 +197,51 @@ or a player resigns.
 
 
 ### Application Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+The application tier has two classes that act as services, GameCenter and PlayerLobby.
+
+(INSERT UML DIAGRAMS)
+
+GameCenter: 
+> This class is responsible for saving and storing played games, and has methods for retrieving these games. Additionally it can create and end games as needed
+
+PlayerLobby: 
+> This class is responsible for containing players that have logged in, and can add and remove players as needed
 
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+The model tier has ten classes, two of which are value objects, the rest of which are entities. These are responsible for 
+processing user requests and domain entities that the user can interact with.
+
+BoardView: 
+> This class handles how the player views the board throughout the game, by constructing the board out of an iterable structure of Row objects and containing methods to check how a player can perform a move
+
+CheckersGame: 
+> This class represents a game that a player can participate in, and ensures that the players take their turns properly
+
+Player: 
+> Holds player information such as color and name.
+
+Position: 
+> Contains information regarding the position of a square on the board.
+
+Row:
+> Creates an iterable structure of Space objects to represent a row on a checkerboard
+
+Space:
+> Represents a single square on the checkerboard, and contains information regarding if it is holding a piece, or if a player can move to it
+
+Move:
+> A value object that represents a player’s move. It is immutable, and determines if a player is making a jump move or a single move
+
+Piece:
+> An abstract class representing a checkers piece
+
+King:
+> A concrete implementation of the piece class, used to represent a king checker.
+
+Single:
+> A concrete implementation of the piece class, used to represent a normal checker.
+
 
 ### Design Improvements
 > _Discuss design improvements that you would make if the project were
@@ -156,6 +258,16 @@ or a player resigns.
 > and the results of the testing._
 
 ### Acceptance Testing
+Number of user stories that have passed all acceptance criteria test: 8 (all stories for sprint 2)
+
+Number of user stories that have some acceptance criteria test failing: 0
+
+Number of user stories that have not had any testing yet: 0
+
+Issues found during testing:
+> During sprint 2 we had one issue where the SignOut link was available on the GamePage when it shouldn’t have been. We fixed this issue without any problems.
+
+<br><br>
 > _Report on the number of user stories that have passed all their
 > acceptance criteria tests, the number that have some acceptance
 > criteria tests failing, and the number of user stories that
@@ -163,6 +275,15 @@ or a player resigns.
 > acceptance testing and if there are any concerns._
 
 ### Unit Testing and Code Coverage
+Testing Strategy:
+
+We started by testing the classes in the application tier so that when it came time for testing the UI tier, we were able to use the application tier classes as friendly objects. We attempted to get 100% code coverage by creating multiple iterations of the tests for all classes.
+
+We aimed for and were able to achieve 100% code coverage in all classes besides the given classes (WebServer, Application, and Message).
+
+We thought that by having 100% coverage, we could be absolutely sure that there were no code smells or bugs.
+
+<br><br>
 > _Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
