@@ -15,14 +15,20 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class PostSigninRoute implements Route {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(PostSigninRoute.class.getName());
 
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final PlayerLobby lobby;
 
+    //Attributes in the view used when displaying the sigin page
     static final String SIGNIN_MESSAGE_ATTR = "message";
+
+    //The view name for the sigin page
     static final String VIEW_NAME = "signin.ftl";
 
+    //Error messages displayed to the user
     static final String INVALID_NAME_MESSAGE = "The name you entered is invalid. Please enter a name " +
             "containing only letters, numbers, and spaces.";
     static final String DUPLICATE_NAME_MESSAGE = "The name you entered is already in use. " +
@@ -61,22 +67,24 @@ public class PostSigninRoute implements Route {
 
         String name = request.queryParams(GetSigninRoute.PLAYER_NAME_ATTR);
         PlayerLobby.NameStatus result = this.lobby.addPlayer(name);
-        switch (result) {
-            case INVALID:
-                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(INVALID_NAME_MESSAGE));
-                mv = new ModelAndView(vm, VIEW_NAME);
-                return templateEngine.render(mv);
+        if(result != null) {
+            switch (result) {
+                case INVALID:
+                    vm.put(SIGNIN_MESSAGE_ATTR, Message.error(INVALID_NAME_MESSAGE));
+                    mv = new ModelAndView(vm, VIEW_NAME);
+                    return templateEngine.render(mv);
 
-            case DUPLICATE:
-                vm.put(SIGNIN_MESSAGE_ATTR, Message.error(DUPLICATE_NAME_MESSAGE));
-                mv = new ModelAndView(vm, VIEW_NAME);
-                return templateEngine.render(mv);
+                case DUPLICATE:
+                    vm.put(SIGNIN_MESSAGE_ATTR, Message.error(DUPLICATE_NAME_MESSAGE));
+                    mv = new ModelAndView(vm, VIEW_NAME);
+                    return templateEngine.render(mv);
 
-            case VALID:
-                request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
-                LOG.info(name + " has signed in.");
-                response.redirect(WebServer.HOME_URL);
-                return null;
+                case VALID:
+                    request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR, name);
+                    LOG.info(name + " has signed in.");
+                    response.redirect(WebServer.HOME_URL);
+                    return null;
+            }
         }
         return null;
     }

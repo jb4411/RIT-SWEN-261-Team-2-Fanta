@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -21,8 +22,8 @@ public class PostSignOutRouteTest {
      *
      * <p>
      * This is a stateless component so we only need one.
-     * The {@link GameCenter}, {@link PlayerLobby}, and {@link Player} components are thoroughly tested so
-     * we can use them safely as "friendly" dependencies.
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private PostSignOutRoute CuT;
 
@@ -57,7 +58,7 @@ public class PostSignOutRouteTest {
      * Test that CuT redirects to the Home view when the session is brand new.
      */
     @Test
-    public void new_session() {
+    public void test_newSession() {
         // Invoke the test
         CuT.handle(request, response);
 
@@ -70,7 +71,7 @@ public class PostSignOutRouteTest {
      * Test that CuT signs the player out and redirects to the Home view when the player is logged in.
      */
     @Test
-    public void old_session() {
+    public void test_oldSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         lobby.addPlayer("player");
 
@@ -87,6 +88,26 @@ public class PostSignOutRouteTest {
         verify(response).redirect(WebServer.HOME_URL);
         // make sure gameCenter.removePlayer() was called
         verify(gameCenter).removePlayer("player");
+        verify(gameCenter, times(1)).removePlayer("player");
     }
 
+    /**
+     * Test that CuT signs the player out and redirects to the Home view when the player is logged in.
+     */
+    @Test
+    public void test_inGameError() {
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(true);
+        CheckersGame mockGame = mock(CheckersGame.class);
+        when(gameCenter.getGame("player")).thenReturn(mockGame);
+        doNothing().when(mockGame).clearTurnMoves();
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        //   * redirect to the Game view
+        verify(response).redirect(WebServer.GAME_URL + "?error=IN_GAME_ERROR_MESSAGE");
+        verify(mockGame, times(1)).clearTurnMoves();
+    }
 }

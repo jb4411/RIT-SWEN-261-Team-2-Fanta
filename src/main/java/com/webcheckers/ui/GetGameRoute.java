@@ -1,9 +1,12 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -19,11 +22,14 @@ import static com.webcheckers.ui.WebServer.HOME_URL;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GetGameRoute implements Route {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
+    //Attributes in the view used when displaying the game page
     static final String RED_PLAYER_NAME_ATTR = "red";
     static final String WHITE_PLAYER_NAME_ATTR = "white";
     static final String CURRENT_USER_ATTR = "currentUser";
@@ -34,6 +40,9 @@ public class GetGameRoute implements Route {
     static final String ACTIVE_COLOR_ATTR = "activeColor";
     static final String BOARD_ATTR = "board";
     static final String MESSAGE_ATTR = "message";
+
+    //An error message used when the player tries to sign out during a game
+    static final Message IN_GAME_ERROR_MESSAGE = Message.error("You cannot sign out if you are in a game!");
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
@@ -102,13 +111,26 @@ public class GetGameRoute implements Route {
         PlayerLobby lobby = gameCenter.getLobby();
         Player current = lobby.getPlayer(name);
 
+        if(!request.queryParams().isEmpty()) {
+            vm.put(MESSAGE_ATTR, IN_GAME_ERROR_MESSAGE);
+        }
+
+        Gson gson = new Gson();
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        modeOptions.put("isGameOver", game.isGameOver());
+        modeOptions.put("gameOverMessage", game.gameOverMessage());
+        vm.put(MODE_OPTIONS_JSON_ATTR, gson.toJson(modeOptions));
+
         vm.put(CURRENT_USER_ATTR, current);
         vm.put(VIEW_MODE_ATTR, game.getMode());
-        //vm.put(MODE_OPTIONS_JSON__ATTR, ) //not used in sprint 1
         vm.put(RED_PLAYER_ATTR, game.redPlayer());
         vm.put(WHITE_PLAYER_ATTR, game.whitePlayer());
-        vm.put(ACTIVE_COLOR_ATTR, current.getColor());
-        if(current.getColor() == Player.Color.RED) {
+        if(game.getCurrentColor() == Piece.Color.RED) {
+            vm.put(ACTIVE_COLOR_ATTR, "RED");
+        } else {
+            vm.put(ACTIVE_COLOR_ATTR, "WHITE");
+        }
+        if(current.getColor() == Piece.Color.RED) {
             vm.put(BOARD_ATTR, game.getBoard(false));
         } else {
             vm.put(BOARD_ATTR, game.getBoard(true));

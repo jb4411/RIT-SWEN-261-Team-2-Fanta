@@ -13,10 +13,13 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GetSigninRoute implements Route {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(GetSigninRoute.class.getName());
 
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
 
+    //Attributes in the view used when displaying the signin page
     public static final String PLAYER_NAME_ATTR = "name";
 
     /**

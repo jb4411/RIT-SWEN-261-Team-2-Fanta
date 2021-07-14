@@ -2,22 +2,22 @@ package com.webcheckers.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link Player} component
  *
- * @author <a href='mailto:jlz6146@rit.edu'>Jess Zhao</a>
+ * @author Jess Zhao jlz6146@rit.edu
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("Model-tier")
 public class PlayerTest {
-
+    // friendly objects
     private String NAME = "Test Name";
 
     /**
-     * Component under testing
+     * The component-under-test (CuT).
      */
     private Player CuT = new Player(NAME);
 
@@ -25,7 +25,7 @@ public class PlayerTest {
      * Ensures getName() method works
      */
     @Test
-    public void getNameTest(){
+    public void test_getName(){
         assertEquals(NAME, CuT.getName());
     }
 
@@ -34,32 +34,40 @@ public class PlayerTest {
      * by setColor() and getColor() methods
      */
     @Test
-    public void colorTest(){
-        CuT.setColor(Player.Color.RED);
-        assertEquals(Player.Color.RED, CuT.getColor());
+    public void test_color(){
+        CuT.setColor(Piece.Color.RED);
+        assertEquals(Piece.Color.RED, CuT.getColor());
     }
 
     /**
      * Ensures equals() method works properly in discerning two players
      */
     @Test
-    public void equalsTest(){
+    public void test_equals(){
         Player SAME_NAME = new Player(NAME);
         Player DIFF_NAME = new Player("Nope");
 
-        boolean SAME = SAME_NAME.equals(CuT);
-        boolean DIFF = DIFF_NAME.equals(CuT);
-
-        assertTrue(SAME);
-        assertFalse(DIFF);
+        assertEquals(CuT, CuT);
+        assertNotEquals(CuT, "not a player object");
+        assertEquals(SAME_NAME, CuT);
+        assertNotEquals(DIFF_NAME, CuT);
     }
 
     /**
      * Ensures hashCode() method works properly in generating hashCode for a player
      */
     @Test
-    public void hashcodeTest(){
+    public void test_hashcode(){
         assertEquals(NAME.hashCode(), CuT.hashCode());
     }
 
+    /**
+     * Tests toString() method
+     */
+    @Test
+    public void test_toString() {
+        CuT.setColor(Piece.Color.RED);
+        String expected = NAME + Piece.Color.RED;
+        assertEquals(expected, CuT.toString());
+    }
 }

@@ -1,9 +1,8 @@
 package com.webcheckers.application;
-
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
-
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -12,10 +11,15 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GameCenter {
+    //Values used for holding active games and players
     private static final Logger LOG = Logger.getLogger(GameCenter.class.getName());
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
+    private final HashMap<Integer, CheckersGame> games;
 
+    /**
+     * An enum used when returning info about the status of game creation.
+     */
     public enum GameStatus {
         IN_GAME,
         NULL_PLAYER,
@@ -62,6 +66,16 @@ public class GameCenter {
     }
 
     /**
+     * Get a game by its unique identifier.
+     *
+     * @param gameID the ID of the game
+     * @return the game if it exists
+     */
+    public CheckersGame getGameByID(int gameID) {
+        return games.get(gameID);
+    }
+
+    /**
      * Create a new GameCenter.
      *
      * @param playerLobby the lobby of active players
@@ -69,6 +83,7 @@ public class GameCenter {
     public GameCenter(PlayerLobby playerLobby) {
         this.inGame = new HashMap<>();
         this.lobby = playerLobby;
+        this.games = new HashMap<>();
     }
 
     /**
@@ -102,6 +117,7 @@ public class GameCenter {
         CheckersGame game = new CheckersGame(red, white, CheckersGame.Mode.PLAY);
         inGame.put(red, game);
         inGame.put(white, game);
+        games.put(Objects.hash(redPlayerName, whitePlayerName), game);
 
         LOG.info("New checkers game created for " + red.getName() + " and " + white.getName());
 
@@ -120,6 +136,7 @@ public class GameCenter {
             inGame.remove(player);
             if(opponent != null && inGame(opponent.getName())) {
                 inGame.remove(opponent);
+                games.remove(Objects.hash(name, opponent.getName()));
             }
         }
     }

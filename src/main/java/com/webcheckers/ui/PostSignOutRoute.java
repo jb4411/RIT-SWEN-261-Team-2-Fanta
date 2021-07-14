@@ -1,5 +1,4 @@
 package com.webcheckers.ui;
-
 import com.webcheckers.application.GameCenter;
 import spark.*;
 
@@ -12,10 +11,19 @@ import java.util.logging.Logger;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class PostSignOutRoute implements Route {
+    //The log for this object
     private static final Logger LOG = Logger.getLogger(GetSigninRoute.class.getName());
+
+    //Variables used to hold the objects used by this route
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
+    /**
+     * Create the Spark Route (UI controller) to handle all {@code POST /signout} HTTP requests.
+     *
+     * @param templateEngine the HTML template rendering engine
+     * @param gameCenter the game center used to coordinate the state of the WebCheckers Application.
+     */
     public PostSignOutRoute(final TemplateEngine templateEngine, GameCenter gameCenter){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.gameCenter = gameCenter;
@@ -36,6 +44,12 @@ public class PostSignOutRoute implements Route {
     public Object handle(Request request, Response response){
         LOG.finer("GetSignOutRoute is invoked.");
         String name = request.session().attribute("name");
+
+        if(gameCenter.inGame(name)) {
+            response.redirect(WebServer.GAME_URL + "?error=IN_GAME_ERROR_MESSAGE");
+            gameCenter.getGame(name).clearTurnMoves();
+            return null;
+        }
 
         if(name != null){
             gameCenter.removePlayer(name);

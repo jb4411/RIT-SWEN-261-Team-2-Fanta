@@ -7,21 +7,16 @@ package com.webcheckers.model;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Player{
+    //The name and color of the player
     private String name;
-    private Color color;
-    private boolean isMyTurn = false;
-
-    public enum Color {
-        RED,
-        WHITE
-    }
+    private Piece.Color color;
 
     /**
      * Return the color of pieces this player is using.
      *
      * @return the color of pieces this player is using
      */
-    public Color getColor() {
+    public Piece.Color getColor() {
         return color;
     }
 
@@ -30,7 +25,7 @@ public class Player{
      *
      * @param color the color this player should be using
      */
-    public void setColor(Color color) {
+    public void setColor(Piece.Color color) {
         this.color = color;
     }
 
@@ -52,13 +47,6 @@ public class Player{
         return name;
     }
 
-    public void setMyTurn(boolean isMyTurn){
-        this.isMyTurn = isMyTurn;
-    }
-
-    public boolean checkMyTurn(){
-        return isMyTurn;
-    }
 
     /**
      * Check if this player is equal to the object passed in.
@@ -86,5 +74,16 @@ public class Player{
     @Override
     public int hashCode(){
         return name.hashCode();
+    }
+
+    /**
+     * Return the string representation of the Player.
+     *
+     * @return the string representation of the Player
+     */
+    @Override
+    public String toString(){
+        return name + color.name();
+
     }
 }

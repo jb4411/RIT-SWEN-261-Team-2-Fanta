@@ -2,17 +2,17 @@ package com.webcheckers.ui;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import spark.HaltException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,28 +20,31 @@ import spark.Session;
 import spark.TemplateEngine;
 
 /**
- * Unit test for {@link GetSignInRoute} component
+ * Unit test for {@link GetSigninRoute} component
  *
  *  @author <a href='mailto:jlz6146@rit.edu'>Jess Zhao</a>
  */
 @Tag("UI-tier")
 public class GetSigninRouteTest {
-
     /**
-     * Component under test, CuT
+     * The component-under-test (CuT).
+     * <p>
+     * This is a stateless component so we only need one.
      */
     private GetSigninRoute CuT;
 
+    // friendly objects
+    static final String PLAYER_USED_NAME = "realPlayer";
+
+    // mock objects
     private Request request;
     private Session session;
     private TemplateEngine engine;
     private Response response;
 
-    static final String PLAYER_USED_NAME = "realPlayer";
-
 
     /**
-     * Initialize necessary components as mock classes for each test
+     * Setup new mock objects for each test.
      */
     @BeforeEach
     public void setup(){
@@ -58,7 +61,7 @@ public class GetSigninRouteTest {
      * Test that the sign-in page initializes correctly
      */
     @Test
-    public void not_null(){
+    public void test_notNull(){
         final TemplateEngineTester tester = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
 
@@ -74,7 +77,7 @@ public class GetSigninRouteTest {
      * Verifies that attempting to sign-in while already signed-in returns to the home page
      */
     @Test
-    public void previously_signed_in(){
+    public void test_previouslySignedIn(){
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(PLAYER_USED_NAME);
 
         CuT.handle(request, response);
@@ -83,18 +86,17 @@ public class GetSigninRouteTest {
 
     }
 
-
     /**
      * Test that CuT does not take a null engine parameter in its construction
      */
     @Test
-    public void engine_render_fail(){
+    public void test_engineRenderFail(){
         when(engine.render(any(ModelAndView.class))).thenReturn(null);
         try {
-            CuT = new GetSigninRoute(engine);
+            CuT = new GetSigninRoute(null);
             fail("Null render, cannot create route.");
-        } catch (IllegalArgumentException noArg){
-
+        } catch (NullPointerException noArg){
+            //expected
         }
     }
 
@@ -102,19 +104,12 @@ public class GetSigninRouteTest {
      * Test that CuT does not accept a null name
      */
     @Test
-    public void null_name(){
+    public void test_nullName(){
         when(request.session().attribute(GetSigninRoute.PLAYER_NAME_ATTR)).thenReturn(null);
         try {
             CuT.handle(request, response);
+        } catch (NullPointerException nullArg){
             fail("Null attribute cannot be handled.");
-        } catch (IllegalArgumentException noArg){
-
         }
     }
-
-
-
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.webcheckers.board;
+package com.webcheckers.model;
 
 /**
  * A class to represent a space on the checkerboard.
@@ -6,9 +6,10 @@ package com.webcheckers.board;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class Space {
+    //Values used to hold index this space is at, whether this space is valid, and if it contains a piece
     private int cellIdx;
-    private Piece piece;
     private boolean valid;
+    private Piece piece;
 
     /**
      * Create a new Space.
@@ -28,8 +29,12 @@ public class Space {
      *
      * @param space the space to be copied
      */
-    public Space(Space space) {
-        this.cellIdx = space.getCellIdx();
+    public Space(Space space, boolean flip) {
+        if(flip) {
+            this.cellIdx = BoardView.NUM_COLS - space.getCellIdx() - 1;
+        } else {
+            this.cellIdx = space.getCellIdx();
+        }
         if(space.getPiece() != null) {
             this.piece = space.getPiece().getCopy();
         } else {
@@ -69,10 +74,42 @@ public class Space {
         return piece;
     }
 
-    @Override
-    public String toString(){
-        String stringVersion = Integer.toString(cellIdx) + Boolean.toString(valid);
-        return stringVersion;
+    /**
+     * Set the piece on this space.
+     *
+     * @param piece the piece to be on this space
+     */
+    public void setPiece(Piece piece) {
+        this.piece = piece;
     }
 
+    /**
+     * Return the string representation of this space.
+     *
+     * @return the string representation of this space
+     */
+    @Override
+    public String toString(){
+        return cellIdx + Boolean.toString(valid);
+    }
+
+    /**
+     * Checks if two spaces are equal.
+     *
+     * @param obj the object to compare with
+     * @return whether or not they are equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Space)) return false;
+        final Space o = (Space) obj;
+        boolean samePiece;
+        if(this.piece == null || o.piece == null) {
+            samePiece = this.piece == o.piece;
+        } else {
+            samePiece = this.piece.equals(o.piece);
+        }
+        return this.cellIdx == o.cellIdx && this.valid == o.valid && samePiece;
+    }
 }

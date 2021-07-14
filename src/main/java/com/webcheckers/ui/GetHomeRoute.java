@@ -18,18 +18,24 @@ import com.webcheckers.util.Message;
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 public class GetHomeRoute implements Route {
+  //The log for this object
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
+  //The home page welcome message
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+
+  //Error messages displayed to the user
   static final String IN_GAME_ERROR_MSG = "Sorry, %s is already in a game.";
   static final Message SAME_PLAYER_ERROR_MSG = Message.error("Sorry, you cannot start a game against yourself.");
   static final Message NULL_PLAYER_ERROR_MSG = Message.error("Sorry, the selected player does not exist.");
 
+  //Attributes in the view used when displaying the game page
   static final String CURRENT_USER_ATTR = "currentUser";
   static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
   static final String NUM_PLAYERS_ATTR = "numPlayers";
   static final String MESSAGE_ATTR = "message";
 
+  //Variables used to hold the objects used by this route
   private final TemplateEngine templateEngine;
   private final GameCenter gameCenter;
   private final PlayerLobby lobby;
@@ -88,6 +94,7 @@ public class GetHomeRoute implements Route {
 
     if(gameCenter.inGame(name)) {
       response.redirect(WebServer.GAME_URL);
+      gameCenter.getGame(name).clearTurnMoves();
       return null;
     }
 

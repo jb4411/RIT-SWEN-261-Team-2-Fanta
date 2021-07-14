@@ -1,16 +1,15 @@
 package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
@@ -63,7 +62,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view when the session is brand new.
      */
     @Test
-    public void new_session() {
+    public void test_newSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
@@ -87,7 +86,7 @@ public class GetHomeRouteTest {
      * Test that CuT shows the Home view with a list of active players when the player is logged in.
      */
     @Test
-    public void old_session() {
+    public void test_oldSession() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         Set<String> players = new HashSet<>();
         players.add("player");
@@ -119,10 +118,13 @@ public class GetHomeRouteTest {
      * Test that CuT redirects to the Game view when the current player is logged in and already in a game
      */
     @Test
-    public void game_session() {
+    public void test_gameSession() {
         // Arrange the test scenario: There is an existing session with a player who is logged in and already in a game
         when(session.attribute("name")).thenReturn("player");
         when(gameCenter.inGame("player")).thenReturn(true);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(anyString())).thenReturn(game);
+        doNothing().when(game).clearTurnMoves();
 
         // Invoke the test
         CuT.handle(request, response);
@@ -130,6 +132,7 @@ public class GetHomeRouteTest {
         // Analyze the results:
         //   * redirect to the Game view
         verify(response).redirect(WebServer.GAME_URL);
+        verify(game, times(1)).clearTurnMoves();
     }
 
     /**
@@ -137,7 +140,7 @@ public class GetHomeRouteTest {
      * contains "IN_GAME" as an error parameter.
      */
     @Test
-    public void in_game_error() {
+    public void test_inGameError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "IN_GAME" as an error parameter
@@ -162,7 +165,7 @@ public class GetHomeRouteTest {
      * URL contains "SAME_PLAYER" as an error parameter.
      */
     @Test
-    public void same_player_error() {
+    public void test_samePlayerError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "SAME_PLAYER" as an error parameter
@@ -186,7 +189,7 @@ public class GetHomeRouteTest {
      * URL contains "NULL_PLAYER" as an error parameter.
      */
     @Test
-    public void null_player_error() {
+    public void test_nullPlayerError() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         // Arrange the test scenario: The player is logged in and the request
         //     * URL contains "NULL_PLAYER" as an error parameter
@@ -205,4 +208,49 @@ public class GetHomeRouteTest {
         testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.NULL_PLAYER_ERROR_MSG);
     }
 
+    /**
+     * Test that CuT shows the Home view when the error query parameter is invalid.
+     */
+    @Test
+    public void test_invalidErrorQueryParameter() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        // Arrange the test scenario: The player is logged in and the request
+        //     * URL contains "NULL_PLAYER" as an error parameter
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(false);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams("error")).thenReturn("bad parameter");
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.WELCOME_MSG);
+    }
+
+    /**
+     * Test that CuT shows the Home view when the error query parameter exists but name is null.
+     */
+    @Test
+    public void test_errorQueryParameterButNullName() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        // Arrange the test scenario: The player is logged in and the request
+        //     * URL contains "NULL_PLAYER" as an error parameter
+        when(session.attribute("name")).thenReturn(null);
+        when(gameCenter.inGame("player")).thenReturn(false);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams("error")).thenReturn("IN_GAME");
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.WELCOME_MSG);
+    }
 }

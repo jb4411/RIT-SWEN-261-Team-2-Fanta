@@ -1,5 +1,6 @@
 package com.webcheckers.application;
 
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,18 +19,23 @@ import static org.mockito.Mockito.when;
  */
 @Tag("Application-tier")
 public class PlayerLobbyTest {
-
     /**
      * The component-under-test (CuT).
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
      */
     private PlayerLobby CuT;
 
+    // friendly objects
     private Set<String> players;
     private int numPlayers;
     private String lobbyString;
 
+    /**
+     * Setup new objects for each test.
+     */
     @BeforeEach
-    public void testSetup() {
+    public void setup() {
         // Setup CuT
         CuT = new PlayerLobby();
         players = new HashSet<>(CuT.getAllPlayers());
@@ -41,7 +47,7 @@ public class PlayerLobbyTest {
      * Test that you can construct a new PlayerLobby.
      */
     @Test
-    public void test_create_service() {
+    public void test_createService() {
         new PlayerLobby();
     }
 
@@ -49,7 +55,7 @@ public class PlayerLobbyTest {
      * Test the creation of a new PlayerLobby.
      */
     @Test
-    public void test_create_lobby() {
+    public void test_createLobby() {
         Set<String> playerSet = new HashSet<>();
 
         // Analyze results
@@ -65,7 +71,7 @@ public class PlayerLobbyTest {
      * Test adding a valid player.
      */
     @Test
-    public void test_add_valid_player() {
+    public void test_addValidPlayer() {
         // Perform action
         final PlayerLobby.NameStatus result = CuT.addPlayer("Valid");
         players.add("Valid");
@@ -83,7 +89,7 @@ public class PlayerLobbyTest {
      * Test adding a null player.
      */
     @Test
-    public void test_add_null_player() {
+    public void test_addNullPlayer() {
         // Perform action
         final PlayerLobby.NameStatus result = CuT.addPlayer(null);
 
@@ -100,7 +106,7 @@ public class PlayerLobbyTest {
      * Test adding an invalid player.
      */
     @Test
-    public void test_add_invalid_player() {
+    public void test_addInvalidPlayer() {
         // Perform action
         final PlayerLobby.NameStatus result = CuT.addPlayer("");
 
@@ -117,7 +123,7 @@ public class PlayerLobbyTest {
      * Test adding a duplicate player.
      */
     @Test
-    public void test_add_duplicate_player() {
+    public void test_addDuplicatePlayer() {
         // Perform action
         CuT.addPlayer("Duplicate");
         final PlayerLobby.NameStatus result = CuT.addPlayer("Duplicate");
@@ -136,7 +142,7 @@ public class PlayerLobbyTest {
      * Test adding multiple players.
      */
     @Test
-    public void test_add_multiple_players() {
+    public void test_addMultiplePlayers() {
         // Perform action
         final PlayerLobby.NameStatus result1 = CuT.addPlayer("player1");
         final PlayerLobby.NameStatus result2 = CuT.addPlayer("player2");
@@ -152,5 +158,27 @@ public class PlayerLobbyTest {
         assertEquals(2, CuT.getNumPlayers());
         assertEquals(String.format(PlayerLobby.LOBBY_STRING_FORMAT, 2, "player1, player2"), CuT.toString());
         assertEquals(players, CuT.getAllPlayers());
+    }
+
+    /**
+     * Test removing a player.
+     */
+    @Test
+    public void test_removePlayer() {
+        CuT.addPlayer("player");
+        CuT.removePlayer("player");
+        assertEquals(numPlayers, CuT.getNumPlayers());
+        assertEquals(lobbyString, CuT.toString());
+        assertEquals(players, CuT.getAllPlayers());
+    }
+
+    /**
+     * Test getting a player.
+     */
+    @Test
+    public void test_getPlayer() {
+        Player player = new Player("player");
+        CuT.addPlayer("player");
+        assertEquals(player, CuT.getPlayer("player"));
     }
 }
