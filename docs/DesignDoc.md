@@ -173,15 +173,16 @@ WebServer:
 ### Application Tier
 The application tier has two classes that act as services, GameCenter and PlayerLobby.
 
-(INSERT UML DIAGRAMS)
-
 GameCenter: 
 > This class is responsible for saving and storing played games, and has methods for retrieving these games. 
 > Additionally it can create and end games as needed.
 
+![The WebCheckers Domain Model](GameCenter.png)
+
 PlayerLobby: 
 > This class is responsible for containing players that have logged in, and can add and remove players as needed.
 
+![The WebCheckers Domain Model](PlayerLobby.png)
 
 ### Model Tier
 The model tier has ten classes, two of which are value objects, the rest of which are entities. These are responsible for 
