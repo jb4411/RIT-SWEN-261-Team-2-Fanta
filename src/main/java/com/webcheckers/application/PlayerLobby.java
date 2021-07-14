@@ -74,6 +74,17 @@ public class PlayerLobby {
     }
 
     /**
+     * Remove a player from the lobby of active players.
+     *
+     * @param name the name of the player to be removed
+     */
+    public void removePlayer(String name) {
+        if(name != null) {
+            players.remove(name);
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

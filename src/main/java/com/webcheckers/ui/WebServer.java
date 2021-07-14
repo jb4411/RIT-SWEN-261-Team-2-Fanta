@@ -160,6 +160,8 @@ public class WebServer {
     // Shows the Checkers game page.
     get(GAME_URL, new GetGameRoute(templateEngine, gameCenter));
 
+    // Sign out
+    post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, gameCenter));
     // Validate player moves
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine));
     // Backup player moves
