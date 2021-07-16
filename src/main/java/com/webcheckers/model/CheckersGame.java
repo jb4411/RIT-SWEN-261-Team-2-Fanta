@@ -252,4 +252,14 @@ public class CheckersGame {
         board.resetJumpData();
         return TURN_SUBMITTED_MESSAGE;
     }
+
+    /**
+     * Return the string representation of this CheckersGame.
+     *
+     * @return the string representation of this CheckersGame
+     */
+    @Override
+    public String toString() {
+        return red.getName() + " VS " + white.getName();
+    }
 }

@@ -2,7 +2,9 @@ package com.webcheckers.application;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -161,5 +163,19 @@ public class GameCenter {
             endGame(name);
         }
         lobby.removePlayer(name);
+    }
+
+    /**
+     * Get all active games and their game id's.
+     *
+     * @return A map of all actives games anf their game id's
+     */
+    public synchronized Map<String, Integer> getAllActiveGames() {
+        HashMap<String, Integer> activeGames = new HashMap<>();
+        for(int id : games.keySet()) {
+            String gameStr = games.get(id).toString();
+            activeGames.put(gameStr, id);
+        }
+        return activeGames;
     }
 }
