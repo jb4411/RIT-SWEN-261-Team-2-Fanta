@@ -44,7 +44,7 @@
           Games available to spectate:
           <ul>
              <#list activeGames?keys as game>
-                 <a href="/game?spectate=${activeGames[game]}">${game}</a> <br>
+                 <a href="/spectator/game?gameID=${activeGames[game]}">${game}</a> <br>
              </#list>
           </ul>
       <#else>
