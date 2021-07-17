@@ -100,7 +100,7 @@ public class GetHomeRoute implements Route {
       return null;
     }
 
-    Map<String, Integer> activeGames = gameCenter.getAllActiveGames();
+    Map<String, String> activeGames = gameCenter.getAllActiveGames();
 
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));

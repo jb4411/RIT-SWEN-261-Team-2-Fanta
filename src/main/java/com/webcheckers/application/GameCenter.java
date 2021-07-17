@@ -170,11 +170,11 @@ public class GameCenter {
      *
      * @return A map of all actives games anf their game id's
      */
-    public synchronized Map<String, Integer> getAllActiveGames() {
-        HashMap<String, Integer> activeGames = new HashMap<>();
+    public synchronized Map<String, String> getAllActiveGames() {
+        HashMap<String, String> activeGames = new HashMap<>();
         for(int id : games.keySet()) {
             String gameStr = games.get(id).toString();
-            activeGames.put(gameStr, id);
+            activeGames.put(gameStr, Integer.toString(id));
         }
         return activeGames;
     }

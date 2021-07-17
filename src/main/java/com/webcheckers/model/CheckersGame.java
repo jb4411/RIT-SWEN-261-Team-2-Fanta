@@ -48,11 +48,7 @@ public class CheckersGame {
      * @return a copy of the board
      */
     public BoardView getBoard(boolean flip){
-        if(!flip) {
-            return new BoardView(board, false);
-        } else {
-            return new BoardView(board, true);
-        }
+        return new BoardView(board, flip);
     }
 
     /**

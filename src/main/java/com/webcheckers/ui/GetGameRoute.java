@@ -102,8 +102,8 @@ public class GetGameRoute implements Route {
 
         Player opponent = gameCenter.getOpponent(name);
         if(opponent == null) {
-          response.redirect(HOME_URL);
-          return null;
+            response.redirect(HOME_URL);
+            return null;
         }
 
         Map<String, Object> vm = new HashMap<>();
