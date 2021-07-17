@@ -22,11 +22,8 @@ public class GetSpectatorGameRoute implements Route {
     private final PlayerLobby lobby;
 
     //Attributes in the view used when displaying the game page
-    static final String RED_PLAYER_NAME_ATTR = "red";
-    static final String WHITE_PLAYER_NAME_ATTR = "white";
     static final String CURRENT_USER_ATTR = "currentUser";
     static final String VIEW_MODE_ATTR = "viewMode";
-    static final String MODE_OPTIONS_JSON_ATTR = "modeOptionsAsJSON";
     static final String RED_PLAYER_ATTR = "redPlayer";
     static final String WHITE_PLAYER_ATTR = "whitePlayer";
     static final String ACTIVE_COLOR_ATTR = "activeColor";
@@ -73,8 +70,11 @@ public class GetSpectatorGameRoute implements Route {
         }
 
         Map<String, Object> vm = new HashMap<>();
-        CheckersGame game = gameCenter.getGameByID(Integer.parseInt(request.queryParams(GAME_ID_ATTR)));
-        vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
+        int gameID = Integer.parseInt(request.queryParams(GAME_ID_ATTR));
+        CheckersGame game = gameCenter.getGameByID(gameID);
+        Player current = lobby.getPlayer(name);
+        vm.put(CURRENT_USER_ATTR, current);
+        gameCenter.addSpectator(gameID, current);
         vm.put(VIEW_MODE_ATTR, CheckersGame.Mode.SPECTATOR);
         Player red = game.redPlayer();
         vm.put(RED_PLAYER_ATTR, red);

@@ -64,6 +64,7 @@ public class WebServer {
   public static final String SUBMITTURN_URL = "/submitTurn";
   public static final String BACKUPMOVE_URL = "/backupMove";
   public static final String SPECTATE_GAME_URL = "/spectator/game";
+  public static final String STOP_SPECTATING_GAME_URL = "/spectator/stopWatching";
 
 
   //
@@ -173,6 +174,8 @@ public class WebServer {
     post(SUBMITTURN_URL, new PostSubmitTurnRoute(templateEngine, gameCenter));
     // Spectate game
     get(SPECTATE_GAME_URL, new GetSpectatorGameRoute(templateEngine, gameCenter, playerLobby));
+    // Stop spectating game
+    get(STOP_SPECTATING_GAME_URL, new GetSpectatorStopWatchingRoute(gameCenter));
     //
     LOG.config("WebServer is initialized.");
   }

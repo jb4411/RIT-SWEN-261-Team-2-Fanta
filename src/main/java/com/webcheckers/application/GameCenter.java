@@ -1,10 +1,8 @@
 package com.webcheckers.application;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -18,6 +16,7 @@ public class GameCenter {
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
     private final HashMap<Integer, CheckersGame> games;
+    private final HashMap<Integer, Set<Player>> spectators;
 
     /**
      * An enum used when returning info about the status of game creation.
@@ -86,6 +85,7 @@ public class GameCenter {
         this.inGame = new HashMap<>();
         this.lobby = playerLobby;
         this.games = new HashMap<>();
+        this.spectators = new HashMap<>();
     }
 
     /**
@@ -177,5 +177,25 @@ public class GameCenter {
             activeGames.put(gameStr, Integer.toString(id));
         }
         return activeGames;
+    }
+
+    /**
+     * Add a player to the set of players spectating the game with the gameID passed in.
+     *
+     * @param gameID the ID of the game to spectate
+     * @param spectator the player to spectate said game
+     */
+    public void addSpectator(int gameID, Player spectator) {
+        this.spectators.get(gameID).add(spectator);
+    }
+
+    /**
+     * Remove the player passed in from the set of players spectating the game with the gameID passed in.
+     *
+     * @param gameID the ID of the game to remove the spectator from
+     * @param spectator the player that will no longer be spectating said game
+     */
+    public void removeSpectator(int gameID, Player spectator) {
+        this.spectators.get(gameID).remove(spectator);
     }
 }
