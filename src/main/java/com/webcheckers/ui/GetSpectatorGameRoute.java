@@ -2,7 +2,6 @@ package com.webcheckers.ui;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.BoardView;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;

@@ -48,7 +48,7 @@
              </#list>
           </ul>
       <#else>
-          <br>There are currently no games available to spectate.
+          <br><br>There are currently no games available to spectate.
         </#if>
     <#else>
       <#if numPlayers gt 1>
