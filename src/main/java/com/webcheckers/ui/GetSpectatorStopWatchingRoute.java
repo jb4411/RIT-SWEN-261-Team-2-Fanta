@@ -12,6 +12,11 @@ import java.util.logging.Logger;
 
 import static com.webcheckers.ui.GetSpectatorGameRoute.GAME_ID_ATTR;
 
+/**
+ * The UI Controller to GET when a spectator wants to exit spectating.
+ *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ */
 public class GetSpectatorStopWatchingRoute implements Route {
     //The log for this object
     private static final Logger LOG = Logger.getLogger(GetSpectatorStopWatchingRoute.class.getName());
@@ -29,6 +34,7 @@ public class GetSpectatorStopWatchingRoute implements Route {
         //
         LOG.config("GetSpectatorStopWatchingRoute is initialized.");
     }
+
     /**
      * Stop spectating the current game and return the spectator to the Home page.
      *

@@ -16,7 +16,8 @@ public class GameCenter {
     private final PlayerLobby lobby;
     private final HashMap<Player, CheckersGame> inGame;
     private final HashMap<Integer, CheckersGame> games;
-    private final HashMap<Integer, Set<Player>> spectators;
+    private final HashMap<Integer, Set<Player>> spectatedGames;
+    private final HashMap<Player, CheckersGame> spectators;
 
     /**
      * An enum used when returning info about the status of game creation.
@@ -85,6 +86,7 @@ public class GameCenter {
         this.inGame = new HashMap<>();
         this.lobby = playerLobby;
         this.games = new HashMap<>();
+        this.spectatedGames = new HashMap<>();
         this.spectators = new HashMap<>();
     }
 
@@ -186,10 +188,11 @@ public class GameCenter {
      * @param spectator the player to spectate said game
      */
     public void addSpectator(int gameID, Player spectator) {
-        if(!this.spectators.containsKey(gameID)) {
-            this.spectators.put(gameID, new HashSet<>());
+        this.spectators.put(spectator, this.getGameByID(gameID));
+        if(!this.spectatedGames.containsKey(gameID)) {
+            this.spectatedGames.put(gameID, new HashSet<>());
         }
-        this.spectators.get(gameID).add(spectator);
+        this.spectatedGames.get(gameID).add(spectator);
     }
 
     /**
@@ -199,6 +202,16 @@ public class GameCenter {
      * @param spectator the player that will no longer be spectating said game
      */
     public void removeSpectator(int gameID, Player spectator) {
-        this.spectators.get(gameID).remove(spectator);
+        this.spectatedGames.get(gameID).remove(spectator);
+    }
+
+    /**
+     * Get the game the player whose name is passed in is currently spectating, if they are spectating a game.
+     *
+     * @param spectator the name of the current player
+     * @return the game the spectator is spectating, if one exists
+     */
+    public CheckersGame getGameBySpectator(Player spectator) {
+        return this.spectators.get(spectator);
     }
 }

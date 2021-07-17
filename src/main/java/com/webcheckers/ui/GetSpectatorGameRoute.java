@@ -12,6 +12,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * The UI Controller to GET the spectator game page.
+ *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ */
 public class GetSpectatorGameRoute implements Route {
     //The log for this object
     private static final Logger LOG = Logger.getLogger(GetSpectatorGameRoute.class.getName());

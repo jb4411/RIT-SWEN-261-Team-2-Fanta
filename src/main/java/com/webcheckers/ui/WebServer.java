@@ -65,7 +65,7 @@ public class WebServer {
   public static final String BACKUPMOVE_URL = "/backupMove";
   public static final String SPECTATE_GAME_URL = "/spectator/game";
   public static final String STOP_SPECTATING_GAME_URL = "/spectator/stopWatching";
-
+  public static final String SPECTATOR_CHECKTURN_URL = "/spectator/checkTurn";
 
   //
   // Attributes
@@ -176,6 +176,8 @@ public class WebServer {
     get(SPECTATE_GAME_URL, new GetSpectatorGameRoute(templateEngine, gameCenter, playerLobby));
     // Stop spectating game
     get(STOP_SPECTATING_GAME_URL, new GetSpectatorStopWatchingRoute(gameCenter));
+    // Spectator check turn
+    post(SPECTATOR_CHECKTURN_URL, new PostSpectatorCheckTurnRoute(gameCenter, playerLobby));
     //
     LOG.config("WebServer is initialized.");
   }

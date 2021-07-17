@@ -20,6 +20,7 @@ public class CheckersGame {
     private Piece.Color currentColor;
     private LinkedList<Move> turnMoves;
     private boolean isGameOver;
+    private boolean newTurn = false;
 
     // Messages to alert to a properly submitted and backed up move
     static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
@@ -246,7 +247,26 @@ public class CheckersGame {
         turnMoves.clear();
         board.setLastMoveType(BoardView.MoveType.NONE);
         board.resetJumpData();
+        newTurn = true;
         return TURN_SUBMITTED_MESSAGE;
+    }
+
+    /**
+     * Check if there is a new turn available.
+     *
+     * @return whether or not a new turn available.
+     */
+    public boolean isNewTurn() {
+        return newTurn;
+    }
+
+    /**
+     * Set whether or not there is a new turn available.
+     *
+     * @param newTurn the new value of this.newTurn
+     */
+    public void setNewTurn(boolean newTurn) {
+        this.newTurn = newTurn;
     }
 
     /**
