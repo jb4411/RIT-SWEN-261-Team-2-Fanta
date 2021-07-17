@@ -39,6 +39,17 @@
       <#else>
         There are currently no other active players.
       </#if>
+
+      <#if numActiveGames gt 0>
+          Games available to spectate:
+          <ul>
+             <#list activeGames?keys as game>
+                 <a href="/game?spectate=${activeGames[game]}">${game}</a> <br>
+             </#list>
+          </ul>
+      <#else>
+          <br>There are currently no games available to spectate.
+        </#if>
     <#else>
       <#if numPlayers gt 1>
         There are currently ${numPlayers} players logged in.

@@ -34,6 +34,8 @@ public class GetHomeRoute implements Route {
   static final String CURRENT_PLAYERS_ATTR = "currentPlayers";
   static final String NUM_PLAYERS_ATTR = "numPlayers";
   static final String MESSAGE_ATTR = "message";
+  static final String ACTIVE_GAMES_ATTR = "activeGames";
+  static final String NUM_ACTIVE_GAMES_ATTR = "numActiveGames";
 
   //Variables used to hold the objects used by this route
   private final TemplateEngine templateEngine;
@@ -98,13 +100,17 @@ public class GetHomeRoute implements Route {
       return null;
     }
 
+    Map<String, Integer> activeGames = gameCenter.getAllActiveGames();
+
     if(name != null) {
       vm.put(CURRENT_USER_ATTR, lobby.getPlayer(name));
       vm.put(CURRENT_PLAYERS_ATTR, lobby.getAllPlayers());
+      vm.put(ACTIVE_GAMES_ATTR, activeGames);
     } else {
       vm.put(CURRENT_USER_ATTR, null);
     }
     vm.put(NUM_PLAYERS_ATTR, lobby.getNumPlayers());
+    vm.put(NUM_ACTIVE_GAMES_ATTR, activeGames.size());
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
