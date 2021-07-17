@@ -83,7 +83,6 @@ public class Player{
      */
     @Override
     public String toString(){
-        return name + color.name();
-
+        return name;
     }
 }

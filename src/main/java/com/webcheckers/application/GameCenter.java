@@ -186,6 +186,9 @@ public class GameCenter {
      * @param spectator the player to spectate said game
      */
     public void addSpectator(int gameID, Player spectator) {
+        if(!this.spectators.containsKey(gameID)) {
+            this.spectators.put(gameID, new HashSet<>());
+        }
         this.spectators.get(gameID).add(spectator);
     }
 

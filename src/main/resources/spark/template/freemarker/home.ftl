@@ -37,7 +37,7 @@
         </#list>
         </ul>
       <#else>
-        There are currently no other active players.
+        There are currently no other active players.<br><br>
       </#if>
 
       <#if numActiveGames gt 0>
@@ -48,7 +48,7 @@
              </#list>
           </ul>
       <#else>
-          <br><br>There are currently no games available to spectate.
+          There are currently no games available to spectate.
         </#if>
     <#else>
       <#if numPlayers gt 1>
