@@ -250,4 +250,43 @@ public class CheckersGameTest {
         Message msg = CuT.submitTurn();
         assertEquals(CheckersGame.JUMP_EXISTS_MESSAGE, msg);
     }
+
+    /**
+     * Test that isNewTurn() works correctly.
+     */
+    @Test
+    public void test_isNewTurn() {
+        // Case: initial state, no new turns
+        assertFalse(CuT.isNewTurn());
+
+        // Case:a move has been made, there should be a new turn
+        CuT.testMove(new Move(new Position(5, 0), new Position(4, 1)));
+        CuT.submitTurn();
+        assertTrue(CuT.isNewTurn());
+    }
+
+    /**
+     * Test that setNewTurn() works correctly.
+     */
+    @Test
+    public void test_setNewTurn() {
+        // Case: setting newTurn to true
+        CuT.setNewTurn(true);
+        assertTrue(CuT.isNewTurn());
+
+        // Case: setting newTurn to false
+        CuT.setNewTurn(false);
+        assertFalse(CuT.isNewTurn());
+    }
+
+    /**
+     * Test that toString() works correctly.
+     */
+    @Test
+    public void test_toString() {
+        String expected = red.getName() + " VS " + white.getName();
+        //Invoke the test
+        String actual = CuT.toString();
+        assertEquals(expected, actual);
+    }
 }
