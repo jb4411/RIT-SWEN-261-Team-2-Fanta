@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -222,5 +224,40 @@ public class GameCenterTest {
         assertEquals(Integer.toString(gameID), activeGames.get(gameStr));
     }
 
+    /**
+     * Test adding a spectator.
+     */
+    @Test
+    public void test_addSpectator() {
+        CuT.addPlayer("Player1");
+        CuT.addPlayer("Player2");
+        CuT.addPlayer("spectator1");
+        CuT.addPlayer("spectator2");
+        CuT.createGame("Player1","Player2");
+        int gameID = Objects.hash("Player1","Player2");
+        CheckersGame game = CuT.getGameByID(gameID);
 
+        // Case: game not already in spectatedGames
+        Player spectator1 = playerLobby.getPlayer("spectator1");
+        CuT.addSpectator(gameID, spectator1);
+        Map<Integer, Set<Player>> spectatedGames = CuT.getSpectatedGames();
+        HashMap<Player, CheckersGame> spectators = CuT.getSpectators();
+        // Assert that the game was added to spectatedGames
+        assertTrue(spectatedGames.containsKey(gameID));
+        assertTrue(spectatedGames.get(gameID).contains(spectator1));
+        // Assert that the spectator was added to spectators
+        assertTrue(spectators.containsKey(spectator1));
+        assertEquals(game, spectators.get(spectator1));
+
+        // Case: game already in spectatedGames
+        Player spectator2 = playerLobby.getPlayer("spectator2");
+        CuT.addSpectator(gameID, spectator2);
+        spectatedGames = CuT.getSpectatedGames();
+        spectators = CuT.getSpectators();
+        //Assert that the spectator was added to the set of players spectating the game
+        assertTrue(spectatedGames.get(gameID).contains(spectator2));
+        // Assert that the spectator was added to spectators
+        assertTrue(spectators.containsKey(spectator2));
+        assertEquals(game, spectators.get(spectator2));
+    }
 }
