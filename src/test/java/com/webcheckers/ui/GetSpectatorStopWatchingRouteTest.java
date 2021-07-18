@@ -1,7 +1,5 @@
 package com.webcheckers.ui;
 
-package com.webcheckers.ui;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.webcheckers.application.GameCenter;
@@ -9,7 +7,6 @@ import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 
-import
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -44,20 +41,21 @@ public class GetSpectatorStopWatchingRouteTest {
 
 
     @Test
-    public void testRedirect(){
+    public void testRedirect() throws Exception {
         CuT.handle(request, response);
         verify(response).redirect(WebServer.HOME_URL);
     }
 
     @Test
-    public void test_Spectator_removed() {
-        //when(session.attribute("name")).thenReturn("player");
-        //when(gameCenter.inGame("player")).thenReturn(true);
-        //int id = gameCenter.getGame("player").getGameID();
-        int gameID = Integer.parseInt(request.queryParams(GAME_ID_ATTR));
+    public void test_Spectator_removed() throws Exception {
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(true);
+        int gameID = gameCenter.getGame("player").getGameID();
+
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-        gameCenter.addSpectator(gameID, new Player("spectator"));
+        Player spectator = new Player("spectator");
+        gameCenter.addSpectator(gameID, spectator);
 
         // Invoke the test
         CuT.handle(request, response);
@@ -66,7 +64,7 @@ public class GetSpectatorStopWatchingRouteTest {
         //   * redirect to the Game view
         verify(response).redirect(WebServer.HOME_URL);
         // make sure gameCenter.removeSpectator() was called
-        verify(gameCenter).removeSpectator("spectator");
+        verify(gameCenter).removeSpectator(gameID, spectator);
         // make sure the spectator was not logged out
         assertNotNull(gameCenter.getLobby().getPlayer("spectator"));
     }
