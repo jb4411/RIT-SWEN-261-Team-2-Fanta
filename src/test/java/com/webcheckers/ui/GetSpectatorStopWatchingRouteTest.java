@@ -19,7 +19,9 @@ import static org.mockito.Mockito.*;
  * The unit test suite for the {@link GetSpectatorStopWatchingRoute} component.
  *
  * @author Jesse Burdick-Pless jb4411@g.rit.edu
+ * @author Jesse Zhao jlz6146@g.rit.edu
  */
+
 @Tag("UI-tier")
 public class GetSpectatorStopWatchingRouteTest {
     /**
@@ -59,6 +61,21 @@ public class GetSpectatorStopWatchingRouteTest {
     public void test_nullName() throws Exception {
         //setup
         when(session.attribute("name")).thenReturn(null);
+        final TemplateEngineTester tester = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
+        //invoke
+        CuT.handle(request, response);
+        //analyze the results
+        // * verify it redirects to homepage when the player's name is null
+        verify(response).redirect(WebServer.HOME_URL);
+    }
+
+    /**
+     * Test that when the query parameters of the request is null, CuT redirects to home page
+     */
+    @Test
+    public void test_Nullparam() throws Exception {
+        when(request.queryParams()).thenReturn(null);
         final TemplateEngineTester tester = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
         //invoke
