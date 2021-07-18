@@ -63,7 +63,7 @@ public class GetSpectatorGameRoute implements Route {
      *   the rendered HTML for the spectator Game page
      */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         LOG.finer("GetSpectatorGameRoute is invoked.");
         String name = request.session().attribute("name");
         if (name == null) {
