@@ -59,7 +59,7 @@ public class GetGameRouteTest {
     }
 
     /**
-     * Test that when given a null player, redirects to home page
+     * Test that when given a null player, redirects to home page.
      */
     @Test
     public void test_nullPlayer_error(){
