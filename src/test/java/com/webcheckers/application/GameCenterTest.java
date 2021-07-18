@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -197,4 +198,29 @@ public class GameCenterTest {
         //Assert "Player1" is still in the lobby
         assertNotNull(playerLobby.getPlayer("Player2"));
     }
+
+    /**
+     * Test getting all active players.
+     */
+    @Test
+    public void test_getAllActiveGames() {
+        // Case: initial state, active games should be empty
+        assertTrue(CuT.getAllActiveGames().isEmpty());
+
+        CuT.addPlayer("Player1");
+        CuT.addPlayer("Player2");
+        CuT.createGame("Player1","Player2");
+
+        // Case: an active game exists
+        Map<String, String> activeGames = CuT.getAllActiveGames();
+        assertFalse(activeGames.isEmpty());
+
+        String gameStr = "Player1 VS Player2";
+        assertTrue(activeGames.containsKey(gameStr));
+
+        int gameID = Objects.hash("Player1","Player2");
+        assertEquals(Integer.toString(gameID), activeGames.get(gameStr));
+    }
+
+
 }
