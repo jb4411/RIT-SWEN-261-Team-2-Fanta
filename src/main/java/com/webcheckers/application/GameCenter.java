@@ -214,4 +214,22 @@ public class GameCenter {
     public CheckersGame getGameBySpectator(Player spectator) {
         return this.spectators.get(spectator);
     }
+
+    /**
+     * Get the map of currently spectated games.
+     *
+     * @return all currently spectated games
+     */
+    public Map<Integer, Set<Player>> getSpectatedGames() {
+        return spectatedGames;
+    }
+
+    /**
+     * Get the map of spectators.
+     *
+     * @return all active spectators
+     */
+    public HashMap<Player, CheckersGame> getSpectators() {
+        return spectators;
+    }
 }
