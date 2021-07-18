@@ -203,6 +203,7 @@ public class GameCenter {
      */
     public void removeSpectator(int gameID, Player spectator) {
         this.spectatedGames.get(gameID).remove(spectator);
+        this.spectators.remove(spectator);
     }
 
     /**
@@ -229,7 +230,7 @@ public class GameCenter {
      *
      * @return all active spectators
      */
-    public HashMap<Player, CheckersGame> getSpectators() {
+    public Map<Player, CheckersGame> getSpectators() {
         return spectators;
     }
 }

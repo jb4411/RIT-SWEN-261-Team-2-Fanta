@@ -225,6 +225,30 @@ public class GameCenterTest {
     }
 
     /**
+     * Test getting the map of currently spectated games.
+     */
+    @Test
+    public void test_getSpectatedGames() {
+        // Case: initial state, no games are being spectated
+        Map<Integer, Set<Player>> spectatedGames = CuT.getSpectatedGames();
+        assertTrue(spectatedGames.isEmpty());
+        Map<Integer, Set<Player>> expectedMap = new HashMap<>();
+        assertEquals(expectedMap, spectatedGames);
+    }
+
+    /**
+     * Test getting the map of spectators.
+     */
+    @Test
+    public void test_getSpectators() {
+        // Case: initial state, there are no spectators
+        Map<Player, CheckersGame> spectators = CuT.getSpectators();
+        assertTrue(spectators.isEmpty());
+        Map<Player, CheckersGame> expectedMap = new HashMap<>();
+        assertEquals(expectedMap, spectators);
+    }
+
+    /**
      * Test adding a spectator.
      */
     @Test
@@ -241,7 +265,7 @@ public class GameCenterTest {
         Player spectator1 = playerLobby.getPlayer("spectator1");
         CuT.addSpectator(gameID, spectator1);
         Map<Integer, Set<Player>> spectatedGames = CuT.getSpectatedGames();
-        HashMap<Player, CheckersGame> spectators = CuT.getSpectators();
+        Map<Player, CheckersGame> spectators = CuT.getSpectators();
         // Assert that the game was added to spectatedGames
         assertTrue(spectatedGames.containsKey(gameID));
         assertTrue(spectatedGames.get(gameID).contains(spectator1));
@@ -259,5 +283,50 @@ public class GameCenterTest {
         // Assert that the spectator was added to spectators
         assertTrue(spectators.containsKey(spectator2));
         assertEquals(game, spectators.get(spectator2));
+    }
+
+    /**
+     * Test removing a spectator.
+     */
+    @Test
+    public void test_removeSpectator() {
+        CuT.addPlayer("Player1");
+        CuT.addPlayer("Player2");
+        CuT.addPlayer("spectator1");
+        CuT.createGame("Player1","Player2");
+        int gameID = Objects.hash("Player1","Player2");
+        CheckersGame game = CuT.getGameByID(gameID);
+        Player spectator1 = playerLobby.getPlayer("spectator1");
+        CuT.addSpectator(gameID, spectator1);
+
+        // Invoke the test
+        CuT.removeSpectator(gameID, spectator1);
+        Map<Integer, Set<Player>> spectatedGames = CuT.getSpectatedGames();
+        Map<Player, CheckersGame> spectators = CuT.getSpectators();
+        //Assert that the spectator was removed from the set of players spectating the game
+        assertFalse(spectatedGames.get(gameID).contains(spectator1));
+        // Assert that the spectator was removed from  spectators
+        assertFalse(spectators.containsKey(spectator1));
+    }
+
+    /**
+     * Test getting a game by a player spectating it.
+     */
+    @Test
+    public void test_getGameBySpectator() {
+        CuT.addPlayer("Player1");
+        CuT.addPlayer("Player2");
+        CuT.addPlayer("spectator");
+        CuT.createGame("Player1","Player2");
+        int gameID = Objects.hash("Player1","Player2");
+        CheckersGame game = CuT.getGameByID(gameID);
+        Player spectator = playerLobby.getPlayer("spectator");
+
+        // Case: the spectator is not spectating any games
+        assertNull(CuT.getGameBySpectator(spectator));
+
+        // Case: the spectator is spectating an active game
+        CuT.addSpectator(gameID, spectator);
+        assertEquals(game, CuT.getGameBySpectator(spectator));
     }
 }
