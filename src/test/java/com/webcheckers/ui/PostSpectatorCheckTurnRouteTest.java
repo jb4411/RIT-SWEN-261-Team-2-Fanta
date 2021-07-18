@@ -67,7 +67,7 @@ public class PostSpectatorCheckTurnRouteTest {
      * Test that when the player's name is null, CuT redirects to home page.
      */
     @Test
-    public void test_nullName() throws Exception{
+    public void test_nullName() throws Exception {
         //setup
         when(session.attribute("name")).thenReturn(null);
         final TemplateEngineTester tester = new TemplateEngineTester();
@@ -83,7 +83,7 @@ public class PostSpectatorCheckTurnRouteTest {
      * Test that when the spectated game is null, CuT redirects to home page.
      */
     @Test
-    public void test_nullSpectatedGame() throws Exception{
+    public void test_nullSpectatedGame() throws Exception {
         //setup
         when(session.attribute("name")).thenReturn("not null");
         final TemplateEngineTester tester = new TemplateEngineTester();
@@ -100,7 +100,7 @@ public class PostSpectatorCheckTurnRouteTest {
      * Test that when a new turn exists, the correct json response is received.
      */
     @Test
-    public void test_newTurnExists() throws Exception{
+    public void test_newTurnExists() throws Exception {
         //setup
         when(session.attribute("name")).thenReturn("not null");
         final TemplateEngineTester tester = new TemplateEngineTester();
@@ -119,7 +119,7 @@ public class PostSpectatorCheckTurnRouteTest {
      * Test that when no new turn exists, the correct json response is received.
      */
     @Test
-    public void test_noNewTurnExists() throws Exception{
+    public void test_noNewTurnExists() throws Exception {
         //setup
         when(session.attribute("name")).thenReturn("not null");
         final TemplateEngineTester tester = new TemplateEngineTester();

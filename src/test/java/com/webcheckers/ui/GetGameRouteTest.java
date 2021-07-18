@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
  * The unit test suite for the {@link GetGameRoute} component.
  *
  * @author dsk1354@rit.edu
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("UI-tier")
 public class GetGameRouteTest {
