@@ -25,8 +25,6 @@ import static org.mockito.Mockito.*;
  */
 @Tag("UI-Tier")
 public class PostSpectatorCheckTurnRouteTest {
-
-    private final String nullName = null;
     //friendly objects
     private PlayerLobby playerLobby;
     private Gson gson;
@@ -55,19 +53,32 @@ public class PostSpectatorCheckTurnRouteTest {
         // create a unique CuT for each test
         playerLobby = new PlayerLobby();
         CuT = new PostSpectatorCheckTurnRoute(gameCenter, playerLobby);
-
     }
 
     @Test
     public void nullNameTest() throws Exception{
         //setup
-        when(session.attribute("name")).thenReturn(nullName);
+        when(session.attribute("name")).thenReturn(null);
         final TemplateEngineTester tester = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
         //invoke
         CuT.handle(request, response);
         //analyze the results
-        // * verify it redirects to homepage when playername is null
+        // * verify it redirects to homepage when the players name is null
+        verify(response).redirect(WebServer.HOME_URL);
+    }
+
+    @Test
+    public void test_nullSpectatedGame() throws Exception{
+        //setup
+        when(session.attribute("name")).thenReturn("not null");
+        final TemplateEngineTester tester = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
+        when(gameCenter.getGameBySpectator(any())).thenReturn(null);
+        //invoke
+        CuT.handle(request, response);
+        //analyze the results
+        // * verify it redirects to homepage when the players name is null
         verify(response).redirect(WebServer.HOME_URL);
 
     }
