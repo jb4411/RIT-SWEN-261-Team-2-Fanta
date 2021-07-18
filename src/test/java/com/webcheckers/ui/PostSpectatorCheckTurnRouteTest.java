@@ -18,19 +18,27 @@ import static org.mockito.Mockito.*;
 
 /**
  * The unit test suite for the {@link PostSpectatorCheckTurnRoute} component.
- *
  * 
  * @author esl7511@rit.edu
- *
+ * @author Jesse Burdick-Pless jb4411@g.rit.edu
  */
 @Tag("UI-Tier")
 public class PostSpectatorCheckTurnRouteTest {
-    //friendly objects
+    /**
+     * The component-under-test (CuT).
+     *
+     * <p>
+     * This is a stateless component so we only need one.
+     * The {@link PlayerLobby} component is thoroughly tested so
+     * we can use it safely as a "friendly" dependency.
+     */
+    private PostSpectatorCheckTurnRoute CuT;
+
+    // friendly objects
     private PlayerLobby playerLobby;
     private Gson gson;
 
-    //mock objects
-    private PostSpectatorCheckTurnRoute CuT;
+    // mock objects
     private GameCenter gameCenter;
     private Request request;
     private Session session;
@@ -55,8 +63,11 @@ public class PostSpectatorCheckTurnRouteTest {
         CuT = new PostSpectatorCheckTurnRoute(gameCenter, playerLobby);
     }
 
+    /**
+     * Test that when the player's name is null, CuT redirects to home page.
+     */
     @Test
-    public void nullNameTest() throws Exception{
+    public void test_nullName() throws Exception{
         //setup
         when(session.attribute("name")).thenReturn(null);
         final TemplateEngineTester tester = new TemplateEngineTester();
@@ -64,10 +75,13 @@ public class PostSpectatorCheckTurnRouteTest {
         //invoke
         CuT.handle(request, response);
         //analyze the results
-        // * verify it redirects to homepage when the players name is null
+        // * verify it redirects to homepage when the player's name is null
         verify(response).redirect(WebServer.HOME_URL);
     }
 
+    /**
+     * Test that when the spectated game is null, CuT redirects to home page.
+     */
     @Test
     public void test_nullSpectatedGame() throws Exception{
         //setup
@@ -82,6 +96,9 @@ public class PostSpectatorCheckTurnRouteTest {
         verify(response).redirect(WebServer.HOME_URL);
     }
 
+    /**
+     * Test that when a new turn exists, the correct json response is received.
+     */
     @Test
     public void test_newTurnExists() throws Exception{
         //setup
@@ -98,6 +115,9 @@ public class PostSpectatorCheckTurnRouteTest {
         verify(mockGame, times(1)).setNewTurn(false);
     }
 
+    /**
+     * Test that when no new turn exists, the correct json response is received.
+     */
     @Test
     public void test_noNewTurnExists() throws Exception{
         //setup
