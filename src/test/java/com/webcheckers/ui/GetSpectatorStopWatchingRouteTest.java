@@ -18,6 +18,7 @@ import spark.*;
 import static com.webcheckers.ui.GetSpectatorGameRoute.GAME_ID_ATTR;
 import static org.mockito.Mockito.*;
 
+@Tag("UI-tier")
 public class GetSpectatorStopWatchingRouteTest {
 
     private GetSpectatorStopWatchingRoute CuT;
@@ -42,11 +43,13 @@ public class GetSpectatorStopWatchingRouteTest {
     }
 
 
+    @Test
     public void testRedirect(){
         CuT.handle(request, response);
         verify(response).redirect(WebServer.HOME_URL);
     }
 
+    @Test
     public void test_Spectator_removed() {
         //when(session.attribute("name")).thenReturn("player");
         //when(gameCenter.inGame("player")).thenReturn(true);
