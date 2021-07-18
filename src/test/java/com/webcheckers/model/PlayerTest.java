@@ -67,7 +67,7 @@ public class PlayerTest {
     @Test
     public void test_toString() {
         CuT.setColor(Piece.Color.RED);
-        String expected = NAME + Piece.Color.RED;
+        String expected = NAME;
         assertEquals(expected, CuT.toString());
     }
 }
