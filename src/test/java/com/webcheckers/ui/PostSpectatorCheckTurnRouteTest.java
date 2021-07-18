@@ -78,8 +78,38 @@ public class PostSpectatorCheckTurnRouteTest {
         //invoke
         CuT.handle(request, response);
         //analyze the results
-        // * verify it redirects to homepage when the players name is null
+        // * verify it redirects to homepage when the spectated game is null
         verify(response).redirect(WebServer.HOME_URL);
+    }
 
+    @Test
+    public void test_newTurnExists() throws Exception{
+        //setup
+        when(session.attribute("name")).thenReturn("not null");
+        final TemplateEngineTester tester = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
+        CheckersGame mockGame = mock(CheckersGame.class);
+        when(gameCenter.getGameBySpectator(any())).thenReturn(mockGame);
+        when(mockGame.isNewTurn()).thenReturn(true);
+        //invoke
+        String json = (String) CuT.handle(request, response);
+        //analyze the results
+        assertEquals(gson.toJson(Message.info("true")), json);
+        verify(mockGame, times(1)).setNewTurn(false);
+    }
+
+    @Test
+    public void test_noNewTurnExists() throws Exception{
+        //setup
+        when(session.attribute("name")).thenReturn("not null");
+        final TemplateEngineTester tester = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(tester.makeAnswer());
+        CheckersGame mockGame = mock(CheckersGame.class);
+        when(gameCenter.getGameBySpectator(any())).thenReturn(mockGame);
+        when(mockGame.isNewTurn()).thenReturn(false);
+        //invoke
+        String json = (String) CuT.handle(request, response);
+        //analyze the results
+        assertEquals(gson.toJson(Message.info("false")), json);
     }
 }
