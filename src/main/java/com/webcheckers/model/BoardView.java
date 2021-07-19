@@ -52,6 +52,9 @@ public class BoardView implements Iterable<Row>{
     static final Message JUMP_AFTER_MOVING_MESSAGE = Message.error("You cannot jump after moving!");
     static final Message INVALID_MOVE_MESSAGE = Message.error("That piece cannot move there!");
 
+    //Messages regarding game's end
+    static final Message PLAYER_WON_MESSAGE = Message.info("You won! :D");
+    static final Message PLAYER_LOST_MESSAGE = Message.info("Sorry! You lost :(");
 
     /**
      * Creates a new game board.
@@ -98,6 +101,15 @@ public class BoardView implements Iterable<Row>{
         Position end = move.getEnd();
         Space startSpace = getSpace(start);
         Space endSpace = getSpace(end);
+
+        //determines if a player has lost a game
+        if(!piecesRemaining(playerColor)) {
+            return PLAYER_LOST_MESSAGE;
+        }
+        //ideally, determines if a player has one a game
+        //if(!piecesRemaining()){
+          //  return PLAYER_WON_MESSAGE;
+        //}
 
         if(startSpace == null || endSpace == null) {
             return NULL_SPACE_MESSAGE;
@@ -337,6 +349,23 @@ public class BoardView implements Iterable<Row>{
                 }
             }
         }
+    }
+
+    /**
+     * Determines if pieces remain of a certain color
+     *
+     * @return true if number of pieces is above zero
+     * */
+    public boolean piecesRemaining(Piece.Color playerColor){
+        //figure out how to use 'iterator()' instead
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                if (board[row][col].getPiece() != null && board[row][col].getPiece().getColor() == playerColor){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
