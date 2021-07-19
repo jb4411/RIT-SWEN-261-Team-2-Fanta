@@ -343,6 +343,23 @@ public class BoardView implements Iterable<Row>{
     }
 
     /**
+     * Determines if pieces remain of a certain color
+     *
+     * @return true if number of pieces is above zero
+     * */
+    public boolean piecesRemaining(Piece.Color playerColor){
+        //figure out how to use 'iterator()' instead
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                if (board[row][col].getPiece() != null && board[row][col].getPiece().getColor() == playerColor){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Return an iterator of the board.
      *
      * @return a linked list of the rows in the board
@@ -365,5 +382,4 @@ public class BoardView implements Iterable<Row>{
     public String toString(){
         return red.toString() + " : " + white.toString();
     }
-
 }
