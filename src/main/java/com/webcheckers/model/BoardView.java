@@ -17,6 +17,7 @@ public class BoardView implements Iterable<Row>{
     private MoveType lastMoveType = MoveType.NONE;
     private boolean checkedJumps = false;
     private boolean playerHasJump = false;
+    private boolean isGameOver = false;
 
     /**
      * An enum used to keep track of the type of the last move made.
@@ -178,8 +179,9 @@ public class BoardView implements Iterable<Row>{
         Piece piece = startSpace.getPiece();
         startSpace.setPiece(null);
 
-        boolean redKing = (piece.getColor() == Piece.Color.RED) && (end.getRow() == 0);
-        boolean whiteKing = (piece.getColor() == Piece.Color.WHITE) && (end.getRow() == 7);
+        Piece.Color color = piece.getColor();
+        boolean redKing = (color == Piece.Color.RED) && (end.getRow() == 0);
+        boolean whiteKing = (color == Piece.Color.WHITE) && (end.getRow() == 7);
         if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
             endSpace.setPiece(new King(piece.getColor()));
         } else {
@@ -189,6 +191,7 @@ public class BoardView implements Iterable<Row>{
         if(move.isJump()) {
             getJumpedSquare(move).setPiece(null);
             lastMoveType = MoveType.JUMP;
+            isGameOver = piecesRemaining(color);
             playerHasJump = endSpace.getPiece().hasJump(this, end.getRow(), end.getCell());
         } else {
             lastMoveType = MoveType.SIMPLE;
@@ -281,6 +284,7 @@ public class BoardView implements Iterable<Row>{
     public void resetJumpData() {
         this.playerHasJump = false;
         this.checkedJumps = false;
+        this.isGameOver = false;
     }
 
     /**
@@ -343,12 +347,11 @@ public class BoardView implements Iterable<Row>{
     }
 
     /**
-     * Determines if pieces remain of a certain color
+     * Check if the player with the color passed in has any pieces left on the board.
      *
-     * @return true if number of pieces is above zero
+     * @return true if they have at least one piece left on the board, false otherwise
      * */
     public boolean piecesRemaining(Piece.Color playerColor){
-        //figure out how to use 'iterator()' instead
         for(int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
                 if (board[row][col].getPiece() != null && board[row][col].getPiece().getColor() == playerColor){
@@ -357,6 +360,15 @@ public class BoardView implements Iterable<Row>{
             }
         }
         return false;
+    }
+
+    /**
+     * Check if the game is over.
+     *
+     * @return whether or not the game has ended
+     */
+    public boolean isGameOver() {
+        return this.isGameOver;
     }
 
     /**

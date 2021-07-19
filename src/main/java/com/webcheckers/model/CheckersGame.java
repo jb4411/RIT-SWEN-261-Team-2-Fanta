@@ -31,7 +31,9 @@ public class CheckersGame {
     static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
 
     // Message to alert the player the the game has ended
-    static final Message GAME_OVER_MESSAGE = Message.info("Turn submitted successfully!");
+    static final Message GAME_OVER_MESSAGE = Message.info("The game has ended!");
+    static final String ALL_PIECES_CAPTURED_MESSAGE = "%s has captured all pieces.";
+    static final String PLAYER_RESIGNED_MESSAGE = "%s has resigned.";
 
     /**
      * An enum for the different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements).
@@ -99,7 +101,7 @@ public class CheckersGame {
      * @return true if isGameOver is true, false otherwise
      */
     public boolean isGameOver() {
-        return isGameOver;
+        return this.isGameOver;
     }
 
     /**
@@ -248,6 +250,7 @@ public class CheckersGame {
         board.setLastMoveType(BoardView.MoveType.NONE);
         board.resetJumpData();
         newTurn = true;
+        isGameOver = board.isGameOver();
         return TURN_SUBMITTED_MESSAGE;
     }
 
