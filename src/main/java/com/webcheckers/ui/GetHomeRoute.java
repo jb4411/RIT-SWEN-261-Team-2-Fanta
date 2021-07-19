@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.CheckersGame;
 import spark.*;
 
 import com.webcheckers.util.Message;
@@ -97,9 +98,13 @@ public class GetHomeRoute implements Route {
     if(gameCenter.inEndGame(name)) {
       gameCenter.exitGame(name);
     }
+
     if(gameCenter.inGame(name)) {
       response.redirect(WebServer.GAME_URL);
-      gameCenter.getGame(name).clearTurnMoves();
+      CheckersGame game = gameCenter.getGame(name);
+      if(lobby.getPlayer(name).getColor() == game.getCurrentColor()) {
+        game.clearTurnMoves();
+      }
       return null;
     }
 
