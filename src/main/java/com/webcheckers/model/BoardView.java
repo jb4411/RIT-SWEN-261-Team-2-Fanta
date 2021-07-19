@@ -71,6 +71,29 @@ public class BoardView implements Iterable<Row>{
     }
 
     /**
+     * Initialize the board to a valid initial board state.
+     */
+    public void initBoard1() {
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for(int col = 0; col < NUM_COLS; col++) {
+                if((row + col) % 2 == 1) {
+                    if(row <= 2) {
+                        board[row][col] = new Space(col, null, true);
+                    } else if(row >= 5) {
+                        board[row][col] = new Space(col, null, true);
+                    } else {
+                        board[row][col] = new Space(col, null, true);
+                    }
+                } else {
+                    board[row][col] = new Space(col, null, false);
+                }
+            }
+        }
+        board[7][0].setPiece(new Single(Piece.Color.RED));
+        board[6][1].setPiece(new Single(Piece.Color.WHITE));
+    }
+
+    /**
      * A copy constructor that can also return a flipped copy of the board.
      *
      * @param board the board to be copied
@@ -179,9 +202,15 @@ public class BoardView implements Iterable<Row>{
         Piece piece = startSpace.getPiece();
         startSpace.setPiece(null);
 
-        Piece.Color color = piece.getColor();
-        boolean redKing = (color == Piece.Color.RED) && (end.getRow() == 0);
-        boolean whiteKing = (color == Piece.Color.WHITE) && (end.getRow() == 7);
+        Piece.Color playerColor = piece.getColor();
+        Piece.Color opponentColor;
+        if(playerColor == Piece.Color.RED) {
+            opponentColor = Piece.Color.WHITE;
+        } else {
+            opponentColor = Piece.Color.RED;
+        }
+        boolean redKing = (playerColor == Piece.Color.RED) && (end.getRow() == 0);
+        boolean whiteKing = (playerColor == Piece.Color.WHITE) && (end.getRow() == 7);
         if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
             endSpace.setPiece(new King(piece.getColor()));
         } else {
@@ -191,7 +220,7 @@ public class BoardView implements Iterable<Row>{
         if(move.isJump()) {
             getJumpedSquare(move).setPiece(null);
             lastMoveType = MoveType.JUMP;
-            isGameOver = piecesRemaining(color);
+            isGameOver = !piecesRemaining(opponentColor);
             playerHasJump = endSpace.getPiece().hasJump(this, end.getRow(), end.getCell());
         } else {
             lastMoveType = MoveType.SIMPLE;

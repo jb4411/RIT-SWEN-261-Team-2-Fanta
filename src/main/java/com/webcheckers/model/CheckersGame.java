@@ -21,6 +21,8 @@ public class CheckersGame {
     private LinkedList<Move> turnMoves;
     private boolean isGameOver;
     private boolean newTurn = false;
+    private EndReason endReason;
+    private Piece.Color endingColor;
 
     // Messages to alert to a properly submitted and backed up move
     static final Message MOVE_BACKED_UP_MESSAGE = Message.info("Move backed up!");
@@ -31,7 +33,7 @@ public class CheckersGame {
     static final Message JUMP_EXISTS_MESSAGE = Message.error("When a jump is possible, you must must jump!!");
 
     // Message to alert the player the the game has ended
-    static final Message GAME_OVER_MESSAGE = Message.info("The game has ended!");
+    static final String GAME_OVER_MESSAGE = "The game has ended!";
     static final String ALL_PIECES_CAPTURED_MESSAGE = "%s has captured all pieces.";
     static final String PLAYER_RESIGNED_MESSAGE = "%s has resigned.";
 
@@ -42,6 +44,14 @@ public class CheckersGame {
         PLAY,
         SPECTATOR,
         REPLAY
+    }
+
+    /**
+     * An enum for the different reasons a game ended.
+     */
+    public enum EndReason {
+        CAPTURED,
+        RESIGNED
     }
 
     /**
@@ -68,11 +78,31 @@ public class CheckersGame {
      *
      * @return a message if the game is over
      */
-    public Message gameOverMessage() {
+    public String gameOverMessage() {
         if(isGameOver) {
-            return GAME_OVER_MESSAGE;
+            if(this.endReason == EndReason.CAPTURED) {
+                return String.format(ALL_PIECES_CAPTURED_MESSAGE, getPlayer(endingColor));
+            } else if(endReason == EndReason.RESIGNED) {
+                return String.format(PLAYER_RESIGNED_MESSAGE, getPlayer(endingColor));
+            } else {
+                return GAME_OVER_MESSAGE;
+            }
         }
         return null;
+    }
+
+    /**
+     * Get the player with the color passed in.
+     *
+     * @param playerColor the color of the desired player
+     * @return the player with said color
+     */
+    public Player getPlayer(Piece.Color playerColor) {
+        if(playerColor == Piece.Color.RED) {
+            return red;
+        } else {
+            return white;
+        }
     }
 
     /**
@@ -107,8 +137,13 @@ public class CheckersGame {
     /**
      * Ends the game.
      * We're in the endgame now. ;)
+     *
+     * @param endReason why the game ended
      */
-    public void endGame() {
+    public void endGame(EndReason endReason, Piece.Color endingColor) {
+        System.out.println("ending game");
+        this.endReason = endReason;
+        this.endingColor = endingColor;
         this.isGameOver = true;
     }
 
@@ -240,17 +275,22 @@ public class CheckersGame {
             }
         }
 
+        isGameOver = board.isGameOver();
+        if(isGameOver) {
+            endGame(EndReason.CAPTURED, currentColor);
+        } else {
+            board.resetJumpData();
+        }
 
         if(currentColor == Piece.Color.RED) {
             currentColor = Piece.Color.WHITE;
         } else {
             currentColor = Piece.Color.RED;
         }
+
         turnMoves.clear();
         board.setLastMoveType(BoardView.MoveType.NONE);
-        board.resetJumpData();
         newTurn = true;
-        isGameOver = board.isGameOver();
         return TURN_SUBMITTED_MESSAGE;
     }
 

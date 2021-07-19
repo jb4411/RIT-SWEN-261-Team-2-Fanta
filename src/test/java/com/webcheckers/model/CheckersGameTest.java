@@ -67,7 +67,7 @@ public class CheckersGameTest {
     @Test
     public void test_isGameOver_and_endGame() {
         assertFalse(CuT.isGameOver());
-        CuT.endGame();
+        CuT.endGame(CheckersGame.EndReason.CAPTURED, Piece.Color.RED);
         assertTrue(CuT.isGameOver());
     }
 
@@ -77,7 +77,7 @@ public class CheckersGameTest {
     @Test
     public void test_gameOverMessage() {
         assertNull(CuT.gameOverMessage());
-        CuT.endGame();
+        CuT.endGame(CheckersGame.EndReason.RESIGNED, Piece.Color.WHITE);
         assertEquals(CheckersGame.GAME_OVER_MESSAGE, CuT.gameOverMessage());
     }
 

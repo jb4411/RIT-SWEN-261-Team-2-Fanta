@@ -18,6 +18,7 @@ public class GameCenter {
     private final HashMap<Integer, CheckersGame> games;
     private final HashMap<Integer, Set<Player>> spectatedGames;
     private final HashMap<Player, CheckersGame> spectators;
+    private final HashMap<Player, CheckersGame> inEndGame;
 
     /**
      * An enum used when returning info about the status of game creation.
@@ -88,6 +89,7 @@ public class GameCenter {
         this.games = new HashMap<>();
         this.spectatedGames = new HashMap<>();
         this.spectators = new HashMap<>();
+        this.inEndGame = new HashMap<>();
     }
 
     /**
@@ -137,11 +139,24 @@ public class GameCenter {
         Player player = lobby.getPlayer(name);
         Player opponent = getOpponent(name);
         if(player != null && inGame(name)) {
-            inGame.remove(player);
+            inEndGame.put(player, inGame.get(player));
             if(opponent != null && inGame(opponent.getName())) {
-                inGame.remove(opponent);
+                inEndGame.put(opponent, inGame.get(opponent));
                 games.remove(Objects.hash(name, opponent.getName()));
             }
+        }
+    }
+
+    /**
+     * Remove the player with the name passed in from the game they are in, if any.
+     *
+     * @param name the name of the player trying to exit a game
+     */
+    public synchronized void exitGame(String name) {
+        Player player = lobby.getPlayer(name);
+        if(player != null) {
+            inEndGame.remove(player);
+            inGame.remove(player);
         }
     }
 
@@ -232,5 +247,16 @@ public class GameCenter {
      */
     public Map<Player, CheckersGame> getSpectators() {
         return spectators;
+    }
+
+
+    /**
+     * Check if a player is in a game that has ended.
+     *
+     * @param name the name of the player being checked
+     * @return whether or not the player is already in a game
+     */
+    public synchronized boolean inEndGame(String name) {
+        return inEndGame.containsKey(lobby.getPlayer(name));
     }
 }

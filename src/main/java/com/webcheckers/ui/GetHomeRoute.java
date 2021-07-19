@@ -94,6 +94,9 @@ public class GetHomeRoute implements Route {
       }
     }
 
+    if(gameCenter.inEndGame(name)) {
+      gameCenter.exitGame(name);
+    }
     if(gameCenter.inGame(name)) {
       response.redirect(WebServer.GAME_URL);
       gameCenter.getGame(name).clearTurnMoves();
