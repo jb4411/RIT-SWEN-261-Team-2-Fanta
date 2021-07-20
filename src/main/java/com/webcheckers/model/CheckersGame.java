@@ -273,19 +273,18 @@ public class CheckersGame {
                 board.makeMove(turnMove);
             }
         }
-        if(turnMoves.getLast().isJump()) {
-            Move move = turnMoves.getLast();
-            if(currentColor == Piece.Color.WHITE) {
-                move = move.inverse();
-            }
-            Position end = move.getEnd();
-            Space endSpace = board.getSpace(end);
-            Piece piece = endSpace.getPiece();
-            boolean redKing = (currentColor == Piece.Color.RED) && (end.getRow() == 0);
-            boolean whiteKing = (currentColor == Piece.Color.WHITE) && (end.getRow() == 7);
-            if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
-                endSpace.setPiece(new King(piece.getColor()));
-            }
+
+        Move move = turnMoves.getLast();
+        if(currentColor == Piece.Color.WHITE) {
+            move = move.inverse();
+        }
+        Position end = move.getEnd();
+        Space endSpace = board.getSpace(end);
+        Piece piece = endSpace.getPiece();
+        boolean redKing = (currentColor == Piece.Color.RED) && (end.getRow() == 0);
+        boolean whiteKing = (currentColor == Piece.Color.WHITE) && (end.getRow() == 7);
+        if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
+            endSpace.setPiece(new King(piece.getColor()));
         }
 
         isGameOver = board.isGameOver();
