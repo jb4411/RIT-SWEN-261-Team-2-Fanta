@@ -110,6 +110,11 @@ public class GetGameRoute implements Route {
             return null;
         }
 
+        if(gameCenter.inEndGame(name)){
+            response.redirect(HOME_URL);
+            return null;
+        }
+
         Map<String, Object> vm = new HashMap<>();
         CheckersGame game = gameCenter.getGame(name);
         PlayerLobby lobby = gameCenter.getLobby();

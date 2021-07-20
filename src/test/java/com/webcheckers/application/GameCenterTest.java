@@ -185,9 +185,26 @@ public class GameCenterTest {
         CuT.createGame("best","movie");
         CuT.endGame("best");
 
-        assertFalse(CuT.inGame("best"));
-        assertFalse(CuT.inGame("movie"));
+        assertTrue(CuT.inGame("best"));
+        assertTrue(CuT.inGame("movie"));
+        assertTrue(CuT.inEndGame("best"));
+        assertTrue(CuT.inEndGame("movie"));
         assertNull(CuT.getGameByID(Objects.hash("best","movie")));
+    }
+
+    /**
+     * Test exiting a game.
+     */
+    @Test
+    public void test_exitGame() {
+        CuT.addPlayer("player1");
+        CuT.addPlayer("player2");
+        CuT.createGame("player1","player2");
+        CuT.exitGame("player1");
+
+        assertFalse(CuT.inGame("player1"));
+        assertTrue(CuT.inGame("player2"));
+        assertFalse(CuT.inEndGame("player1"));
     }
 
     /**
@@ -209,7 +226,7 @@ public class GameCenterTest {
         assertNull(playerLobby.getPlayer("Player1"));
         //Assert the game "Player1" was in has ended.
         assertFalse(CuT.inGame("Player1"));
-        assertFalse(CuT.inGame("Player2"));
+        assertTrue(CuT.inGame("Player2"));
         assertNull(CuT.getGameByID(Objects.hash("Player1","Player2")));
         //Assert "Player1" is still in the lobby
         assertNotNull(playerLobby.getPlayer("Player2"));

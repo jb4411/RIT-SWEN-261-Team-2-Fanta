@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
@@ -114,7 +115,7 @@ public class GetSpectatorGameRouteTest {
         Player player2 = playerLobby.getPlayer("player2");
         when(session.attribute("name")).thenReturn("spectator");
         Player spectator = playerLobby.getPlayer("spectator");
-        CheckersGame game = new CheckersGame(player1, player2, CheckersGame.Mode.PLAY);
+        CheckersGame game = new CheckersGame(player1, player2, CheckersGame.Mode.PLAY, new BoardView(player1, player2));
         when(gameCenter.getGameByID(anyInt())).thenReturn(game);
         Set<String> mockSet = new HashSet<>();
         mockSet.add("12345");

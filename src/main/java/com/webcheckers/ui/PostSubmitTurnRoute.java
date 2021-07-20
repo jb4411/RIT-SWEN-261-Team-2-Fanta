@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Move;
+import com.webcheckers.util.Message;
 import spark.*;
 import java.util.logging.Logger;
 
@@ -46,6 +47,10 @@ public class PostSubmitTurnRoute implements Route{
         CheckersGame game = gameCenter.getGame(name);
 
         Gson gson = new Gson();
-        return gson.toJson(game.submitTurn());
+        Message message = game.submitTurn();
+        if(game.isGameOver()) {
+            gameCenter.endGame(name);
+        }
+        return gson.toJson(message);
     }
 }
