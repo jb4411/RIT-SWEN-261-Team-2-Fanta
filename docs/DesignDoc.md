@@ -224,6 +224,8 @@ Piece:
 King:
 > A concrete implementation of the piece class, used to represent a king checker.
 
+![The King UML Diagram](King.png)
+
 Single:
 > A concrete implementation of the piece class, used to represent a normal checker.
 
