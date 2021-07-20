@@ -204,10 +204,8 @@ public class GameCenter {
     public synchronized Map<String, String> getAllActiveGames() {
         HashMap<String, String> activeGames = new HashMap<>();
         for(int id : games.keySet()) {
-            if (!games.get(id).isGameOver()) {
-                String gameStr = games.get(id).toString();
-                activeGames.put(gameStr, Integer.toString(id));
-            }
+            String gameStr = games.get(id).toString();
+            activeGames.put(gameStr, Integer.toString(id));
         }
         return activeGames;
     }
