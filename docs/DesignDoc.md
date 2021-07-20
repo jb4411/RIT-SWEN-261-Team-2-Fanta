@@ -202,15 +202,23 @@ CheckersGame:
 Player:
 > Holds player information such as color and name.
 
+![The Player UML Diagram](Player.png)
+
 Position:
 > Contains information regarding the position of a square on the board.
+
+![The Position UML Diagram](Position.png)
 
 Row:
 > Creates an iterable structure of Space objects to represent a row on a checkerboard.
 
+![The Row UML Diagram](Row.png)
+
 Space:
 > Represents a single square on the checkerboard, and contains information regarding if it is holding a piece, or if a
 > player can move to it.
+
+![The Space UML Diagram](Space.png)
 
 Move:
 > A value object that represents a player’s move. It is immutable and determines if a player is making a jump move or a
@@ -221,6 +229,8 @@ Move:
 Piece:
 > An abstract class representing a checkers piece.
 
+![The Piece UML Diagram](Piece.png)
+
 King:
 > A concrete implementation of the piece class, used to represent a king checker.
 
@@ -229,6 +239,7 @@ King:
 Single:
 > A concrete implementation of the piece class, used to represent a normal checker.
 
+![The Single UML Diagram](Single.png)
 
 ### Design Improvements
 
