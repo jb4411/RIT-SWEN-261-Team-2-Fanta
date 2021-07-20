@@ -43,8 +43,7 @@ public class CheckersGame {
      */
     public enum Mode {
         PLAY,
-        SPECTATOR,
-        REPLAY
+        SPECTATOR
     }
 
     /**

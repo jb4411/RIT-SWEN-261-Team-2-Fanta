@@ -132,10 +132,6 @@ public class CheckersGameTest {
         // mode = SPECTATOR
         CuT = new CheckersGame(red, white, CheckersGame.Mode.SPECTATOR, new BoardView(red, white));
         assertEquals(CheckersGame.Mode.SPECTATOR, CuT.getMode());
-
-        // mode = REPLAY
-        CuT = new CheckersGame(red, white, CheckersGame.Mode.REPLAY, new BoardView(red, white));
-        assertEquals(CheckersGame.Mode.REPLAY, CuT.getMode());
     }
 
     /**
