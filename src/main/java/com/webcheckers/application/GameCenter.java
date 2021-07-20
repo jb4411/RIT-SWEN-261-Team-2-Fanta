@@ -272,7 +272,7 @@ public class GameCenter {
     }
 
     /**
-     * Ties to end the game the player is in by them resigning.
+     * Tries to end the game the player is in by them resigning.
      *
      * @param name the name of the player trying to resign
      * @return a message determining if a they successfully resigned
