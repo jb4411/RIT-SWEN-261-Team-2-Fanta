@@ -28,7 +28,8 @@ public class PostSpectatorCheckTurnRoute implements Route {
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /spectator/stopWatching} HTTP requests.
      *
-     * @param gameCenter the game center used to coordinate the state of the WebCheckers Application.
+     * @param gameCenter the game center used to coordinate the state of the WebCheckers Application
+     * @param lobby the lobby used to hold all players that are currently logged in
      */
     public PostSpectatorCheckTurnRoute(GameCenter gameCenter, PlayerLobby lobby) {
         this.gameCenter = gameCenter;

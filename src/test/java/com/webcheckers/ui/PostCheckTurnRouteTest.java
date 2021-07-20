@@ -60,7 +60,6 @@ public class PostCheckTurnRouteTest {
         // create a unique CuT for each test
         playerLobby = new PlayerLobby();
         CuT = new PostCheckTurnRoute(gameCenter, playerLobby);
-
     }
 
     /**

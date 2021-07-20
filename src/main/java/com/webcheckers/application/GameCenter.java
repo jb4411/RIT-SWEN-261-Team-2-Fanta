@@ -2,6 +2,7 @@ package com.webcheckers.application;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -20,6 +21,13 @@ public class GameCenter {
     private final HashMap<Integer, Set<Player>> spectatedGames;
     private final HashMap<Player, CheckersGame> spectators;
     private final HashMap<Player, CheckersGame> inEndGame;
+
+    // Messages to alert to an unmade move/invalid single move when jump move is available
+    static final Message COULD_NOT_RESIGN_MESSAGE = Message.error("Could not resign!");
+
+    // Message to alert the player the the game has ended
+    static final Message RESIGNED_MESSAGE = Message.info("Resigned successfully!");
+
 
     /**
      * An enum used when returning info about the status of game creation.
@@ -159,6 +167,8 @@ public class GameCenter {
     public synchronized void exitGame(String name) {
         Player player = lobby.getPlayer(name);
         if(player != null) {
+            CheckersGame game = getGame(name);
+            games.remove(game.getGameID());
             inEndGame.remove(player);
             inGame.remove(player);
         }
@@ -265,5 +275,25 @@ public class GameCenter {
      */
     public synchronized boolean inEndGame(String name) {
         return inEndGame.containsKey(lobby.getPlayer(name));
+    }
+
+    /**
+     * Ties to end the game the player is in by them resigning.
+     *
+     * @param name the name of the player trying to resign
+     * @return a message determining if a they successfully resigned
+     */
+    public Message resign(String name) {
+        Player player = lobby.getPlayer(name);
+        if(player == null) {
+            return COULD_NOT_RESIGN_MESSAGE;
+        }
+        CheckersGame game = getGame(name);
+        if(game == null) {
+            return COULD_NOT_RESIGN_MESSAGE;
+        }
+        game.endGame(CheckersGame.EndReason.RESIGNED, player.getColor());
+        endGame(name);
+        return RESIGNED_MESSAGE;
     }
 }

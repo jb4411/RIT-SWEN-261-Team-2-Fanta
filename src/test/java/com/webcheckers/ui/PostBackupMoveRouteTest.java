@@ -56,7 +56,7 @@ public class PostBackupMoveRouteTest {
         gson = new Gson();
         lobby = new PlayerLobby();
         gameCenter = new GameCenter(lobby);
-        CuT = new PostBackupMoveRoute(engine, gameCenter);
+        CuT = new PostBackupMoveRoute(gameCenter);
     }
 
     /**
