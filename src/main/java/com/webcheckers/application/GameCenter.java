@@ -186,16 +186,19 @@ public class GameCenter {
     /**
      * Get all active games and their game id's.
      *
-     * @return A map of all actives games anf their game id's
+     * @return A map of all active games and their game id's
      */
     public synchronized Map<String, String> getAllActiveGames() {
         HashMap<String, String> activeGames = new HashMap<>();
         for(int id : games.keySet()) {
-            String gameStr = games.get(id).toString();
-            activeGames.put(gameStr, Integer.toString(id));
+            if (!games.get(id).isGameOver()) {
+                String gameStr = games.get(id).toString();
+                activeGames.put(gameStr, Integer.toString(id));
+            }
         }
         return activeGames;
     }
+
 
     /**
      * Add a player to the set of players spectating the game with the gameID passed in.
