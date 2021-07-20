@@ -184,6 +184,32 @@ public class GetGameRouteTest {
     }
 
     /**
+     * Test that when given a player who is spectating a game, CuT redirects to home page
+     */
+    @Test
+    public void test_spectating_error(){
+        // Arrange the test scenario: the player challenged is already in a game.
+        when(gameCenter.createGame(null, null)).thenReturn(GameCenter.GameStatus.SPECTATING);
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(false);
+        HashSet<String> set = new HashSet<>();
+        set.add("not empty");
+        when(request.queryParams()).thenReturn(set);
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL+ "?error=" + GameCenter.GameStatus.SPECTATING + "&user=null");
+    }
+
+    /**
      * Test that the Game view will create a new game if all conditions are met.
      */
     @Test
