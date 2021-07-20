@@ -19,17 +19,15 @@ public class PostBackupMoveRoute implements Route{
     private static final Logger LOG = Logger.getLogger(PostBackupMoveRoute.class.getName());
 
     //Variables used to hold the objects used by this route
-    private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code POST /validateMove} HTTP requests.
      *
-     * @param templateEngine the HTML template rendering engine
+     * @param gameCenter the game center used to coordinate the state of the WebCheckers Application.
      */
-    public PostBackupMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter) {
+    public PostBackupMoveRoute(GameCenter gameCenter) {
         LOG.finer("PostBackupMoveRoute is initialized.");
-        this.templateEngine = templateEngine;
         this.gameCenter = gameCenter;
     }
 

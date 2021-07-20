@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.util.Message;
 
 import java.util.LinkedList;
