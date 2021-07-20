@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * The unit test suite for the {@link CheckersGame} component.
@@ -24,10 +25,11 @@ public class CheckersGameTest {
      */
     private CheckersGame CuT;
 
+
     // friendly objects
     private Player red;
     private Player white;
-
+    private BoardView boardView;
 
     /**
      * Setup new objects for each test.
@@ -36,9 +38,10 @@ public class CheckersGameTest {
     public void setup() {
         red = new Player("red");
         white = new Player("white");
+        boardView = new BoardView(red, white);
 
         // create a unique CuT for each test
-        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY);
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY, boardView);
     }
 
     /**
@@ -67,17 +70,37 @@ public class CheckersGameTest {
     @Test
     public void test_isGameOver_and_endGame() {
         assertFalse(CuT.isGameOver());
-        CuT.endGame();
+        CuT.endGame(CheckersGame.EndReason.CAPTURED, Piece.Color.RED);
         assertTrue(CuT.isGameOver());
     }
 
     /**
-     * Test that gameOverMessage() works correctly.
+     * Test that gameOverMessage() works correctly when a player captures all of their opponents pieces.
+     */
+    @Test
+    public void test_gameOverMessageAllPiecesCaptured() {
+        assertNull(CuT.gameOverMessage());
+        CuT.endGame(CheckersGame.EndReason.CAPTURED, Piece.Color.RED);
+        assertEquals(String.format(CheckersGame.ALL_PIECES_CAPTURED_MESSAGE, "red"), CuT.gameOverMessage());
+    }
+
+    /**
+     * Test that gameOverMessage() works correctly when a player resigns.
+     */
+    @Test
+    public void test_gameOverMessageResigned() {
+        assertNull(CuT.gameOverMessage());
+        CuT.endGame(CheckersGame.EndReason.RESIGNED, Piece.Color.WHITE);
+        assertEquals(String.format(CheckersGame.PLAYER_RESIGNED_MESSAGE, "white"), CuT.gameOverMessage());
+    }
+
+    /**
+     * Test that gameOverMessage() works correctly when the game ends in an unknown way.
      */
     @Test
     public void test_gameOverMessage() {
         assertNull(CuT.gameOverMessage());
-        CuT.endGame();
+        CuT.endGame(null, Piece.Color.WHITE);
         assertEquals(CheckersGame.GAME_OVER_MESSAGE, CuT.gameOverMessage());
     }
 
@@ -103,15 +126,15 @@ public class CheckersGameTest {
     @Test
     public void test_getMode() {
         // mode = PLAY
-        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY);
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY, new BoardView(red, white));
         assertEquals(CheckersGame.Mode.PLAY, CuT.getMode());
 
         // mode = SPECTATOR
-        CuT = new CheckersGame(red, white, CheckersGame.Mode.SPECTATOR);
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.SPECTATOR, new BoardView(red, white));
         assertEquals(CheckersGame.Mode.SPECTATOR, CuT.getMode());
 
         // mode = REPLAY
-        CuT = new CheckersGame(red, white, CheckersGame.Mode.REPLAY);
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.REPLAY, new BoardView(red, white));
         assertEquals(CheckersGame.Mode.REPLAY, CuT.getMode());
     }
 
@@ -247,8 +270,29 @@ public class CheckersGameTest {
         CuT.submitTurn();
         //Only make first of two jumps
         CuT.testMove(new Move(new Position(4, 1), new Position(2, 3)));
+        assertEquals(CheckersGame.JUMP_EXISTS_MESSAGE, CuT.submitTurn());
+
+        // Case: move creates a king piece
+        CuT.testMove(new Move(new Position(2, 3), new Position(0, 5)));
         Message msg = CuT.submitTurn();
-        assertEquals(CheckersGame.JUMP_EXISTS_MESSAGE, msg);
+        assertEquals(CheckersGame.TURN_SUBMITTED_MESSAGE, msg);
+        assertEquals(new King(Piece.Color.RED), boardView.getBoard()[0][5].getPiece());
+
+        // Case: this move caused the game to end
+        //Set up board so only two pieces remain
+        Space[][] board = boardView.getBoard();
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        board[7][0].setPiece(new Single(Piece.Color.RED));
+        board[6][1].setPiece(new Single(Piece.Color.WHITE));
+        // Create a game with this special board
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY, boardView);
+        CuT.testMove(new Move(new Position(7, 0), new Position(5, 2)));
+        assertEquals(CheckersGame.TURN_SUBMITTED_MESSAGE, CuT.submitTurn());
+        assertTrue(CuT.isGameOver());
     }
 
     /**

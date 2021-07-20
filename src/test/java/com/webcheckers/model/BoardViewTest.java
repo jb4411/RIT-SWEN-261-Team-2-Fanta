@@ -283,11 +283,11 @@ public class BoardViewTest {
     }
 
     /**
-     * Test that makeMove() works correctly when the move results in a single checker being kinged.
+     * Test that makeMove() works correctly when the move results in a single checker being ready to be kinged.
      */
     @Test
     public void test_makeMoveCreateKingChecker() {
-        //Case: red piece getting kinged
+        //Case: red piece ready to be kinged
         start = new Position(1, 0);
         end = new Position(0, 1);
         move = new Move(start, end);
@@ -295,10 +295,10 @@ public class BoardViewTest {
         board[0][1].setPiece(null);
 
         CuT.makeMove(move);
-        assertEquals(new King(Color.RED), board[0][1].getPiece());
+        assertEquals(new Single(Color.RED), board[0][1].getPiece());
         assertNull(board[1][0].getPiece());
 
-        //Case: white piece getting kinged
+        //Case: white piece  ready to be kinged
         start = new Position(6, 1);
         end = new Position(7, 0);
         move = new Move(start, end);
@@ -306,7 +306,7 @@ public class BoardViewTest {
         board[7][0].setPiece(null);
 
         CuT.makeMove(move);
-        assertEquals(new King(Color.WHITE), board[7][0].getPiece());
+        assertEquals(new Single(Color.WHITE), board[7][0].getPiece());
         assertNull(board[6][1].getPiece());
     }
 
@@ -567,6 +567,50 @@ public class BoardViewTest {
                 assertEquals(expected[row][col], actual[row][col]);
             }
         }
+    }
+
+    /**
+     * Test that piecesRemaining() works correctly.
+     */
+    @Test
+    public void test_piecesRemaining() {
+        // Case: initial board state, both players should have pieces remaining
+        assertTrue(CuT.piecesRemaining(Color.RED));
+        assertTrue(CuT.piecesRemaining(Color.WHITE));
+
+        // Case: neither player has any pieces left
+        // Set up board so neither player ahs any pieces left
+        Space[][] board = CuT.getBoard();
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        assertFalse(CuT.piecesRemaining(Color.RED));
+        assertFalse(CuT.piecesRemaining(Color.WHITE));
+    }
+
+    /**
+     * Test that isGameOver() works correctly.
+     */
+    @Test
+    public void test_isGameOver() {
+        // Case: initial board state, the game should not be over
+        assertFalse(CuT.isGameOver());
+
+        // Case: game has ended
+        // Create a board where the game ends in one move
+        Space[][] board = CuT.getBoard();
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        board[7][0].setPiece(new Single(Piece.Color.RED));
+        board[6][1].setPiece(new Single(Piece.Color.WHITE));
+        // Make the move to end the game
+        CuT.makeMove(new Move(new Position(7, 0), new Position(5, 2)));
+        assertTrue(CuT.isGameOver());
     }
 
     /**

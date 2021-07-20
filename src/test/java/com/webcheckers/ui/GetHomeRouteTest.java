@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.CheckersGame;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
@@ -125,6 +126,7 @@ public class GetHomeRouteTest {
         CheckersGame game = mock(CheckersGame.class);
         when(gameCenter.getGame(anyString())).thenReturn(game);
         doNothing().when(game).clearTurnMoves();
+        lobby.addPlayer("player");
 
         // Invoke the test
         CuT.handle(request, response);
@@ -277,5 +279,27 @@ public class GetHomeRouteTest {
 
         // Analyze the results:
         testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, GetHomeRoute.WELCOME_MSG);
+    }
+
+    /**
+     * Test that CuT has the player exit the current game when they access the home page while in a game that has ended.
+     */
+    @Test
+    public void test_makePlayerExitGame() {
+        // Arrange the test scenario: There is an existing session with a player who is in a game that has ended
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(true);
+        CheckersGame game = mock(CheckersGame.class);
+        when(gameCenter.getGame(anyString())).thenReturn(game);
+        doNothing().when(game).clearTurnMoves();
+        lobby.addPlayer("player");
+        when(gameCenter.inEndGame("player")).thenReturn(true);
+        doNothing().when(gameCenter).exitGame("player");
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        verify(gameCenter, times(1)).exitGame("player");
     }
 }

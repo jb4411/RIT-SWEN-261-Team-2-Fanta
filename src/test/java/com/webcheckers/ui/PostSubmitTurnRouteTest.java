@@ -73,6 +73,8 @@ public class PostSubmitTurnRouteTest{
         gameCenter.createGame(player.getName(), player2.getName());
         CheckersGame game = gameCenter.getGame(player.getName());
         Message gsonToJson = game.submitTurn();
+        game.endGame(null, null);
+
 
         when(request.session().attribute("name")).thenReturn(player.getName());
 
