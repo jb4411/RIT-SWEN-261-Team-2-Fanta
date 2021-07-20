@@ -50,7 +50,6 @@ public class PostCheckTurnRoute implements Route {
         String json; 
         if(player.getColor() == gameCenter.getGame(player.getName()).getCurrentColor()){
             json = gson.toJson(Message.info("true"));
-            System.out.println("true");
         }
         else {
             json = gson.toJson(Message.info("false"));
