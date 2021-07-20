@@ -204,10 +204,8 @@ public class GameCenter {
     public synchronized Map<String, String> getAllActiveGames() {
         HashMap<String, String> activeGames = new HashMap<>();
         for(int id : games.keySet()) {
-            if (!games.get(id).isGameOver()) {
-                String gameStr = games.get(id).toString();
-                activeGames.put(gameStr, Integer.toString(id));
-            }
+            String gameStr = games.get(id).toString();
+            activeGames.put(gameStr, Integer.toString(id));
         }
         return activeGames;
     }
@@ -278,7 +276,7 @@ public class GameCenter {
     }
 
     /**
-     * Ties to end the game the player is in by them resigning.
+     * Tries to end the game the player is in by them resigning.
      *
      * @param name the name of the player trying to resign
      * @return a message determining if a they successfully resigned
