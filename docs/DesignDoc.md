@@ -193,7 +193,9 @@ BoardView:
 > This class handles how the player views the board throughout the game. It does this by constructing the board out of an
 > iterable structure of Row objects, by providing methods to check if a potential move is valid, and by providing error
 > messages for invalid moves.
->
+
+![The BoardView UML Diagram](BoardView.png)
+
 CheckersGame:
 > This class represents a game that a player can participate in, and ensures that the players take their turns properly.
 
