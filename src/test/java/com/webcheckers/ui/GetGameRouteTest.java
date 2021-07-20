@@ -184,6 +184,34 @@ public class GetGameRouteTest {
     }
 
     /**
+     * Test that when given a null player who is in a game that has ended, CuT redirects to home page
+     */
+    @Test
+    public void test_(){
+        // Arrange the test scenario: null player
+        when(gameCenter.getOpponent("name")).thenReturn(null);
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(true);
+        HashSet<String> set = new HashSet<>();
+        set.add("not empty");
+        when(request.queryParams()).thenReturn(set);
+        when(gameCenter.inEndGame("player")).thenReturn(true);
+        when(gameCenter.getOpponent("player")).thenReturn(new Player("opponent"));
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL);
+    }
+
+    /**
      * Test that when given a player who is spectating a game, CuT redirects to home page
      */
     @Test

@@ -272,3 +272,4 @@ We started by testing the classes in the application tier so that when it came t
 We aimed for and were able to achieve 100% code coverage in all classes besides the given classes (WebServer, Application, and Message).
 
 We believed that by having 100% coverage, we could be absolutely sure that there were no code smells or bugs.
+
