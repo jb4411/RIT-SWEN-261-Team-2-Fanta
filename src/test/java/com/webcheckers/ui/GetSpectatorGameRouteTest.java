@@ -55,7 +55,50 @@ public class GetSpectatorGameRouteTest {
         // create a unique CuT for each test
         playerLobby = new PlayerLobby();
         CuT = new GetSpectatorGameRoute(engine, gameCenter, playerLobby);
+    }
 
+    /**
+     * Test that when given a null player, redirects to home page
+     */
+    @Test
+    public void test_nullPlayerName() {
+        // Arrange the test scenario: null player
+        when(request.session().attribute("name")).thenReturn(null);
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL);
+    }
+
+    /**
+     * Test that when given empty query params, redirects to home page
+     */
+    @Test
+    public void test_emptyQueryParams() {
+        // Arrange the test scenario: empty params
+        Set<String> mockSet = new HashSet<>();
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.session().attribute("name")).thenReturn("player");
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the results
+        verify(response).redirect(WebServer.HOME_URL);
     }
 
     /**
@@ -71,9 +114,12 @@ public class GetSpectatorGameRouteTest {
         Player player2 = playerLobby.getPlayer("player2");
         when(session.attribute("name")).thenReturn("spectator");
         Player spectator = playerLobby.getPlayer("spectator");
-        gameCenter.createGame("player1","player2");
-        CheckersGame game = gameCenter.getGame("player1");
+        CheckersGame game = new CheckersGame(player1, player2, CheckersGame.Mode.PLAY);
         when(gameCenter.getGameByID(anyInt())).thenReturn(game);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("12345");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams(anyString())).thenReturn("12345");
 
 
         // To analyze what the Route created in the View-Model map you need
@@ -92,52 +138,9 @@ public class GetSpectatorGameRouteTest {
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.VIEW_MODE_ATTR, CheckersGame.Mode.SPECTATOR);
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.RED_PLAYER_ATTR, player1);
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.WHITE_PLAYER_ATTR, player2);
-        testHelper.assertViewModelAttribute(GetSpectatorGameRoute.ACTIVE_COLOR_ATTR, "RED");
-        verify(response).redirect(WebServer.GAME_URL);
+        testHelper.assertViewModelAttribute(GetSpectatorGameRoute.ACTIVE_COLOR_ATTR, Piece.Color.RED);
 
         //   * test view name
         testHelper.assertViewName("game.ftl");
-    }
-
-    /**
-     * Test that when given a null player, redirects to home page
-     */
-    @Test
-    public void test_nullPlayer_error() {
-        // Arrange the test scenario: null player
-        when(request.session().attribute("name")).thenReturn(null);
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
-        // Invoke the test (ignore the output)
-        CuT.handle(request, response);
-
-        // Analyze the results
-        verify(response).redirect(WebServer.HOME_URL);
-    }
-
-    /**
-     * Test that when given empty params, redirects to home page
-     */
-    @Test
-    public void test_emptyParams() {
-        // Arrange the test scenario: empty params
-        when(request.queryParams().isEmpty()).thenReturn(true);
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
-        // Invoke the test (ignore the output)
-        CuT.handle(request, response);
-
-        // Analyze the results
-        verify(response).redirect(WebServer.HOME_URL);
     }
 }

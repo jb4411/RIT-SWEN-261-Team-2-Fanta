@@ -162,6 +162,20 @@ public class GameCenterTest {
     }
 
     /**
+     * Test the "SPECTATING" error when creating a game.
+     */
+    @Test
+    public void test_createGame_SPECTATING_error() {
+        CuT.addPlayer("Player1");
+        CuT.addPlayer("Player2");
+        CuT.addPlayer("Player3");
+        CuT.createGame("Player1","Player2");
+        CuT.addPlayer("spectating");
+        CuT.addSpectator(Objects.hash("Player1", "Player2"), playerLobby.getPlayer("spectating"));
+        assertEquals(GameCenter.GameStatus.SPECTATING, CuT.createGame("player3","spectating"));
+    }
+
+    /**
      * Test ending an active game.
      */
     @Test

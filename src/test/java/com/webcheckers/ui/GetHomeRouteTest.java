@@ -185,6 +185,31 @@ public class GetHomeRouteTest {
     }
 
     /**
+     * Test that CuT shows the Home view with the spectating error message when the player is logged in and the request
+     * URL contains "SPECTATING" as an error parameter.
+     */
+    @Test
+    public void test_spectatingError() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        // Arrange the test scenario: The player is logged in and the request
+        //     * URL contains "SPECTATING" as an error parameter
+        when(session.attribute("name")).thenReturn("player");
+        when(gameCenter.inGame("player")).thenReturn(false);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("Not empty.");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams("error")).thenReturn("SPECTATING");
+        when(request.queryParams("user")).thenReturn("other");
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE_ATTR, Message.error(String.format(GetHomeRoute.SPECTATING_PLAYER_ERROR_MSG, "other")));
+    }
+
+    /**
      * Test that CuT shows the Home view with the null player error message when the player is logged in and the request
      * URL contains "NULL_PLAYER" as an error parameter.
      */

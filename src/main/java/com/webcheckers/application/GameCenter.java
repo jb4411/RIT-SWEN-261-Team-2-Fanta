@@ -26,6 +26,7 @@ public class GameCenter {
         IN_GAME,
         NULL_PLAYER,
         SAME_PLAYER,
+        SPECTATING,
         CREATED
     }
 
@@ -112,6 +113,8 @@ public class GameCenter {
 
         if(inGame.containsKey(red) || inGame.containsKey(white)) {
             return GameStatus.IN_GAME;
+        } else if(spectators.containsKey(red) || spectators.containsKey(white)) {
+            return GameStatus.SPECTATING;
         } else if(red == null || white == null) {
             return GameStatus.NULL_PLAYER;
         } else if(red.equals(white)) {
