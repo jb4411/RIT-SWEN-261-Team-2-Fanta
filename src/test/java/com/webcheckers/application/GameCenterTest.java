@@ -346,4 +346,22 @@ public class GameCenterTest {
         CuT.addSpectator(gameID, spectator);
         assertEquals(game, CuT.getGameBySpectator(spectator));
     }
+
+    /**
+     * Test resigning from a game.
+     */
+    @Test
+    public void test_resign() {
+        // Case: null player
+        assertEquals(GameCenter.COULD_NOT_RESIGN_MESSAGE, CuT.resign(null));
+
+        // Case: null game
+        CuT.addPlayer("Player1");
+        assertEquals(GameCenter.COULD_NOT_RESIGN_MESSAGE, CuT.resign("Player1"));
+
+        // Case: resign successfully
+        CuT.addPlayer("Player2");
+        CuT.createGame("Player1","Player2");
+        assertEquals(GameCenter.RESIGNED_MESSAGE, CuT.resign("Player1"));
+    }
 }
