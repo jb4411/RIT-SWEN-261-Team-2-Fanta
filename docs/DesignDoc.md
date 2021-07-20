@@ -197,6 +197,8 @@ BoardView:
 CheckersGame:
 > This class represents a game that a player can participate in, and ensures that the players take their turns properly.
 
+![The CheckersGame UML Diagram](CheckersGame.png)
+
 Player:
 > Holds player information such as color and name.
 
@@ -213,6 +215,8 @@ Space:
 Move:
 > A value object that represents a player’s move. It is immutable and determines if a player is making a jump move or a
 > single move.
+
+![The Move UML Diagram](Move.png)
 
 Piece:
 > An abstract class representing a checkers piece.
