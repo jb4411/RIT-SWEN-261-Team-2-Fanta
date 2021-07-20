@@ -273,3 +273,11 @@ We aimed for and were able to achieve 100% code coverage in all classes besides 
 
 We believed that by having 100% coverage, we could be absolutely sure that there were no code smells or bugs.
 
+###Application Tier Coverage
+![Application Tier Coverage](Application_Tier_Coverage.png)
+
+###Model Tier Coverage
+![Model Tier Coverage](Model_Tier_Coverage.png)
+
+###UI Tier Coverage
+![UI Tier Coverage](UI_Tier_Coverage.png)
