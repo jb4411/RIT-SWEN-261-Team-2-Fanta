@@ -75,10 +75,7 @@ This section describes the features of the application.
 > 1. Spectate an Ongoing Game
 > 2. Have the option for a player not in a game to click on the username of a different player that is in a game. 
      That player will be rerouted to that CheckersGame and will be able to watch the players move their pieces in real time.
-> 3. Saving and Reviewing a Replay
-> 4. Have the option for a player that is currently playing to record that gameplay, and access it later to view.
 
-We are still deciding which enhancement we want to implement.
 
 
 
