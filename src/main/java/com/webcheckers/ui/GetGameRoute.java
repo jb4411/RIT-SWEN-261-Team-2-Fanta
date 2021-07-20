@@ -94,6 +94,10 @@ public class GetGameRoute implements Route {
                 case NULL_PLAYER:
                     response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.NULL_PLAYER);
                     return null;
+                case SPECTATING:
+                    response.redirect(WebServer.HOME_URL + "?error=" + GameCenter.GameStatus.SPECTATING + "&user="
+                            + whitePlayerName);
+                    return null;
                 case CREATED:
                     response.redirect(WebServer.GAME_URL);
                     break;

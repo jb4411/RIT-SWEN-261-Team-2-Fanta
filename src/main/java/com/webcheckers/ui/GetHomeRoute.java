@@ -28,6 +28,7 @@ public class GetHomeRoute implements Route {
   static final String IN_GAME_ERROR_MSG = "Sorry, %s is already in a game.";
   static final Message SAME_PLAYER_ERROR_MSG = Message.error("Sorry, you cannot start a game against yourself.");
   static final Message NULL_PLAYER_ERROR_MSG = Message.error("Sorry, the selected player does not exist.");
+  static final String SPECTATING_PLAYER_ERROR_MSG = "Sorry, %s is currently spectating a game.";
 
   //Attributes in the view used when displaying the game page
   static final String CURRENT_USER_ATTR = "currentUser";
@@ -86,6 +87,10 @@ public class GetHomeRoute implements Route {
 
         case "SAME_PLAYER":
           vm.put(MESSAGE_ATTR, SAME_PLAYER_ERROR_MSG);
+          break;
+
+        case "SPECTATING":
+          vm.put(MESSAGE_ATTR, Message.error(String.format(SPECTATING_PLAYER_ERROR_MSG, request.queryParams("user"))));
           break;
 
         case "NULL_PLAYER":
