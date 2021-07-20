@@ -186,13 +186,7 @@ public class BoardView implements Iterable<Row>{
         } else {
             opponentColor = Piece.Color.RED;
         }
-        boolean redKing = (playerColor == Piece.Color.RED) && (end.getRow() == 0);
-        boolean whiteKing = (playerColor == Piece.Color.WHITE) && (end.getRow() == 7);
-        if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
-            endSpace.setPiece(new King(piece.getColor()));
-        } else {
-            endSpace.setPiece(piece);
-        }
+        endSpace.setPiece(piece);
 
         if(move.isJump()) {
             getJumpedSquare(move).setPiece(null);

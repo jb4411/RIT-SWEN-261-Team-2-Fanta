@@ -112,13 +112,13 @@ public class CheckersGame {
      * @param white the player using white pieces
      * @param mode what mode the game is in
      */
-    public CheckersGame(Player red, Player white, Mode mode) {
+    public CheckersGame(Player red, Player white, Mode mode, BoardView board) {
         this.red = red;
         red.setColor(Piece.Color.RED);
         this.white = white;
         white.setColor(Piece.Color.WHITE);
         this.mode = mode;
-        this.board = new BoardView(red, white);
+        this.board = board;
         this.gameID = Objects.hash(red, white, mode);
         this.currentColor = Piece.Color.RED;
         this.turnMoves = new LinkedList<>();
@@ -141,7 +141,6 @@ public class CheckersGame {
      * @param endReason why the game ended
      */
     public void endGame(EndReason endReason, Piece.Color endingColor) {
-        System.out.println("ending game");
         this.endReason = endReason;
         this.endingColor = endingColor;
         this.isGameOver = true;
@@ -272,6 +271,20 @@ public class CheckersGame {
                 board.makeMove(turnMove.inverse());
             } else {
                 board.makeMove(turnMove);
+            }
+        }
+        if(turnMoves.getLast().isJump()) {
+            Move move = turnMoves.getLast();
+            if(currentColor == Piece.Color.WHITE) {
+                move = move.inverse();
+            }
+            Position end = move.getEnd();
+            Space endSpace = board.getSpace(end);
+            Piece piece = endSpace.getPiece();
+            boolean redKing = (currentColor == Piece.Color.RED) && (end.getRow() == 0);
+            boolean whiteKing = (currentColor == Piece.Color.WHITE) && (end.getRow() == 7);
+            if((piece.getType() == Piece.Type.SINGLE) && (redKing || whiteKing)) {
+                endSpace.setPiece(new King(piece.getColor()));
             }
         }
 

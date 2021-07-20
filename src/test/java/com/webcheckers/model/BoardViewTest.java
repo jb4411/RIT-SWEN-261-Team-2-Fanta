@@ -570,6 +570,16 @@ public class BoardViewTest {
     }
 
     /**
+     * Test that piecesRemaining() works correctly.
+     */
+    @Test
+    public void test_piecesRemaining() {
+        // Case: initial board state, both players should have pieces remaining
+        assertTrue(CuT.piecesRemaining(Color.RED));
+        assertTrue(CuT.piecesRemaining(Color.WHITE));
+    }
+
+    /**
      * Test that iterator() works correctly.
      */
     @Test

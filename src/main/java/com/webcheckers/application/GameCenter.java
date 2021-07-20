@@ -1,4 +1,5 @@
 package com.webcheckers.application;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
 
@@ -120,7 +121,7 @@ public class GameCenter {
             return GameStatus.SAME_PLAYER;
         }
 
-        CheckersGame game = new CheckersGame(red, white, CheckersGame.Mode.PLAY);
+        CheckersGame game = new CheckersGame(red, white, CheckersGame.Mode.PLAY, new BoardView(red, white));
         inGame.put(red, game);
         inGame.put(white, game);
         games.put(Objects.hash(redPlayerName, whitePlayerName), game);
