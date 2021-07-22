@@ -67,7 +67,30 @@ public class BoardView implements Iterable<Row>{
         this.red = red;
         this.white = white;
         this.board = new Space[NUM_ROWS][NUM_COLS];
-        initBoard();
+        initBoard1();
+    }
+
+    /**
+     * Initialize the board to a valid initial board state.
+     */
+    public void initBoard1() {
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for(int col = 0; col < NUM_COLS; col++) {
+                if((row + col) % 2 == 1) {
+                    if(row <= 2) {
+                        board[row][col] = new Space(col, null, true);
+                    } else if(row >= 5) {
+                        board[row][col] = new Space(col, null, true);
+                    } else {
+                        board[row][col] = new Space(col, null, true);
+                    }
+                } else {
+                    board[row][col] = new Space(col, null, false);
+                }
+            }
+        }
+        board[7][0].setPiece(new Single(Piece.Color.RED));
+        board[6][1].setPiece(new Single(Piece.Color.WHITE));
     }
 
     /**

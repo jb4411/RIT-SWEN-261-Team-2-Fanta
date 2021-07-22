@@ -154,7 +154,6 @@ public class GameCenter {
             inEndGame.put(player, inGame.get(player));
             if(opponent != null && inGame(opponent.getName())) {
                 inEndGame.put(opponent, inGame.get(opponent));
-                games.remove(Objects.hash(name, opponent.getName()));
             }
         }
     }
