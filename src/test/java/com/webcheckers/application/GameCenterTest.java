@@ -189,7 +189,6 @@ public class GameCenterTest {
         assertTrue(CuT.inGame("movie"));
         assertTrue(CuT.inEndGame("best"));
         assertTrue(CuT.inEndGame("movie"));
-        assertNull(CuT.getGameByID(Objects.hash("best","movie")));
     }
 
     /**
@@ -227,7 +226,6 @@ public class GameCenterTest {
         //Assert the game "Player1" was in has ended.
         assertFalse(CuT.inGame("Player1"));
         assertTrue(CuT.inGame("Player2"));
-        assertNull(CuT.getGameByID(Objects.hash("Player1","Player2")));
         //Assert "Player1" is still in the lobby
         assertNotNull(playerLobby.getPlayer("Player2"));
     }

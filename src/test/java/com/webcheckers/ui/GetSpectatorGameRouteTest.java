@@ -5,6 +5,7 @@ import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -140,6 +141,46 @@ public class GetSpectatorGameRouteTest {
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.RED_PLAYER_ATTR, player1);
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.WHITE_PLAYER_ATTR, player2);
         testHelper.assertViewModelAttribute(GetSpectatorGameRoute.ACTIVE_COLOR_ATTR, Piece.Color.RED);
+
+        //   * test view name
+        testHelper.assertViewName("game.ftl");
+    }
+
+    /**
+     * Test that a game over message is displayed when the game has ended..
+     */
+    @Test
+    public void test_endGameMessage(){
+        playerLobby.addPlayer("player1");
+        playerLobby.addPlayer("player2");
+        playerLobby.addPlayer("spectator");
+        Player player1 = playerLobby.getPlayer("player1");
+        player1.setColor(Piece.Color.RED);
+        Player player2 = playerLobby.getPlayer("player2");
+        when(session.attribute("name")).thenReturn("spectator");
+        Player spectator = playerLobby.getPlayer("spectator");
+        CheckersGame game = new CheckersGame(player1, player2, CheckersGame.Mode.PLAY, new BoardView(player1, player2));
+        when(gameCenter.getGameByID(anyInt())).thenReturn(game);
+        Set<String> mockSet = new HashSet<>();
+        mockSet.add("12345");
+        when(request.queryParams()).thenReturn(mockSet);
+        when(request.queryParams(anyString())).thenReturn("12345");
+        game.endGame(null, null);
+
+
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test (ignore the output)
+        CuT.handle(request, response);
+
+        // Analyze the content passed into the render method
+        //   * model contains all necessary View-Model data
+        testHelper.assertViewModelAttribute(GetSpectatorGameRoute.MESSAGE_ATTR, Message.info("The game has ended!"));
 
         //   * test view name
         testHelper.assertViewName("game.ftl");
