@@ -5,6 +5,7 @@ import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.CheckersGame;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -89,6 +90,9 @@ public class GetSpectatorGameRoute implements Route {
         Piece.Color activeColor = game.getCurrentColor();
         vm.put(ACTIVE_COLOR_ATTR, activeColor);
         vm.put(BOARD_ATTR, game.getBoard(activeColor != Piece.Color.RED));
+        if(game.isGameOver()) {
+            vm.put(MESSAGE_ATTR, Message.info(game.gameOverMessage()));
+        }
         vm.put("title", red.getName() + " VS " + white.getName());
 
         // render the View

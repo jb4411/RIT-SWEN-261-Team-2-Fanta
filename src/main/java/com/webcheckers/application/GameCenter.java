@@ -167,7 +167,6 @@ public class GameCenter {
         Player player = lobby.getPlayer(name);
         if(player != null) {
             CheckersGame game = getGame(name);
-            games.remove(game.getGameID());
             inEndGame.remove(player);
             inGame.remove(player);
         }
@@ -203,8 +202,10 @@ public class GameCenter {
     public synchronized Map<String, String> getAllActiveGames() {
         HashMap<String, String> activeGames = new HashMap<>();
         for(int id : games.keySet()) {
-            String gameStr = games.get(id).toString();
-            activeGames.put(gameStr, Integer.toString(id));
+            if(!games.get(id).isGameOver()) {
+                String gameStr = games.get(id).toString();
+                activeGames.put(gameStr, Integer.toString(id));
+            }
         }
         return activeGames;
     }
