@@ -79,9 +79,14 @@ public class CheckersGameTest {
      */
     @Test
     public void test_gameOverMessageAllPiecesCaptured() {
+        // Case: red wins
         assertNull(CuT.gameOverMessage());
         CuT.endGame(CheckersGame.EndReason.CAPTURED, Piece.Color.RED);
-        assertEquals(String.format(CheckersGame.ALL_PIECES_CAPTURED_MESSAGE, "red"), CuT.gameOverMessage());
+        assertEquals(String.format(CheckersGame.ALL_PIECES_CAPTURED_MESSAGE, "red", "white"), CuT.gameOverMessage());
+
+        // Case: white wins
+        CuT.endGame(CheckersGame.EndReason.CAPTURED, Piece.Color.WHITE);
+        assertEquals(String.format(CheckersGame.ALL_PIECES_CAPTURED_MESSAGE, "white", "red"), CuT.gameOverMessage());
     }
 
     /**

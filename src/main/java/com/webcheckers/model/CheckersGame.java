@@ -35,7 +35,7 @@ public class CheckersGame {
 
     // Message to alert the player the the game has ended
     static final String GAME_OVER_MESSAGE = "The game has ended!";
-    static final String ALL_PIECES_CAPTURED_MESSAGE = "%s has captured all pieces.";
+    static final String ALL_PIECES_CAPTURED_MESSAGE = "%s has captured all of %s's pieces.";
     static final String PLAYER_RESIGNED_MESSAGE = "%s has resigned.";
 
     /**
@@ -80,8 +80,14 @@ public class CheckersGame {
      */
     public String gameOverMessage() {
         if(isGameOver) {
+            Piece.Color losingColor;
+            if(endingColor == Piece.Color.RED) {
+                losingColor = Piece.Color.WHITE;
+            } else {
+                losingColor = Piece.Color.RED;
+            }
             if(this.endReason == EndReason.CAPTURED) {
-                return String.format(ALL_PIECES_CAPTURED_MESSAGE, getPlayer(endingColor));
+                return String.format(ALL_PIECES_CAPTURED_MESSAGE, getPlayer(endingColor), getPlayer(losingColor));
             } else if(endReason == EndReason.RESIGNED) {
                 return String.format(PLAYER_RESIGNED_MESSAGE, getPlayer(endingColor));
             } else {
