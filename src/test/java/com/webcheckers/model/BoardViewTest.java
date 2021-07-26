@@ -54,6 +54,8 @@ public class BoardViewTest {
      */
     @BeforeEach
     public void setup() {
+        when(red.getName()).thenReturn("");
+        when(white.getName()).thenReturn("");
         // create a unique CuT for each test
         CuT = new BoardView(red, white);
         board = CuT.getBoard();

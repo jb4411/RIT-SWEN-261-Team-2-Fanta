@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import com.webcheckers.Application;
 import com.webcheckers.util.Message;
 
 import java.util.*;
@@ -68,6 +69,76 @@ public class BoardView implements Iterable<Row>{
         this.white = white;
         this.board = new Space[NUM_ROWS][NUM_COLS];
         initBoard();
+        if(Application.isInDemoMode()) {
+            setupDemoBoard();
+        }
+    }
+
+    /**
+     * Called if the application is in demo mode to set up special boards use to demonstrate specific functionality.
+     */
+    private void setupDemoBoard() {
+        if(red.getName().equals("jump") || white.getName().equals("jump")) {
+            for (int i = 1; i < 7; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[5][2].setPiece(new Single(Piece.Color.RED));
+            board[4][1].setPiece(new Single(Piece.Color.RED));
+            board[5][6].setPiece(new Single(Piece.Color.RED));
+            board[4][3].setPiece(new Single(Piece.Color.WHITE));
+        } else if(red.getName().equals("mjump") || white.getName().equals("mjump")) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[6][1].setPiece(new Single(Piece.Color.RED));
+            board[5][4].setPiece(new Single(Piece.Color.RED));
+            board[4][5].setPiece(new Single(Piece.Color.WHITE));
+            board[3][4].setPiece(new Single(Piece.Color.WHITE));
+            board[5][2].setPiece(new Single(Piece.Color.WHITE));
+            board[5][2].setPiece(new Single(Piece.Color.WHITE));
+            board[3][2].setPiece(new Single(Piece.Color.WHITE));
+            board[2][5].setPiece(null);
+            board[2][1].setPiece(null);
+        } else if(red.getName().equals("king") || white.getName().equals("king")) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[0][1].setPiece(new Single(Piece.Color.WHITE));
+            board[1][4].setPiece(new Single(Piece.Color.RED));
+        } else if(red.getName().equals("mking") || white.getName().equals("mking")) {
+            for (int i = 1; i < 7; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[4][3].setPiece(new King(Piece.Color.RED));
+        } else if(red.getName().equals("jking") || white.getName().equals("jking")) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[4][3].setPiece(new King(Piece.Color.RED));
+            board[3][4].setPiece(new Single(Piece.Color.WHITE));
+            board[1][6].setPiece(new Single(Piece.Color.WHITE));
+            board[5][4].setPiece(new Single(Piece.Color.WHITE));
+            board[5][6].setPiece(new Single(Piece.Color.WHITE));
+            board[3][6].setPiece(new Single(Piece.Color.WHITE));
+        } else if(red.getName().equals("win") || white.getName().equals("win")) {
+            for (int i = 1; i < 7; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[4][1].setPiece(new Single(Piece.Color.WHITE));
+            board[5][0].setPiece(new Single(Piece.Color.RED));
+        }
     }
 
     /**
