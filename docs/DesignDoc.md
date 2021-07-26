@@ -283,3 +283,70 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 
 ###UI Tier Coverage
 ![UI Tier Coverage](UI_Tier_Coverage.png)
+
+
+#Code Metrics
+
+##Chidamber-Kemerer metrics:
+![Chidamber-Kemerer metrics](initial Chidamber-Kemerer metrics.png)
+
+
+##Complexity metrics:
+
+###Method metrics:
+![Method metrics](initial method complexity metrics.png)
+
+###Class metrics:
+![Class metrics](initial class complexity metrics.png)
+
+###Package metrics:
+![Package metrics](initial package complexity metrics.png)
+
+###Module metrics:
+![Module metrics](initial module complexity metrics.png)
+
+###Project metrics:
+![Project metrics](initial project complexity metrics.png)
+
+
+##Javadoc coverage metrics:
+
+###Method metrics:
+![Method metrics](initial method javadoc coverage metrics.png)
+
+###Class metrics:
+![Class metrics](initial class javadoc coverage metrics.png)
+
+###Package metrics:
+![Package metrics](initial package javadoc coverage metrics.png)
+
+###Module metrics:
+![Module metrics](initial module javadoc coverage metrics.png)
+
+###Project metrics:
+![Project metrics](initial project javadoc coverage metrics.png)
+
+
+##Lines of code metrics:
+
+###Method metrics:
+![Method metrics](initial method lines of code metrics.png)
+
+###Class metrics:
+![Class metrics](initial class lines of code metrics.png)
+
+###Package metrics:
+![Package metrics](initial package lines of code metrics.png)
+
+###Module metrics:
+![Module metrics](initial module lines of code metrics.png)
+
+###File type metrics:
+![File type metrics](initial file type lines of code metrics.png)
+
+###Project metrics:
+![Project metrics](initial project lines of code metrics.png)
+
+
+##Martin package metrics:
+![Martin package metrics](initial Martin package metrics.png)
