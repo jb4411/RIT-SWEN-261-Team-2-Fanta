@@ -78,7 +78,7 @@ public class BoardViewDemoModeTest {
         expected[5][2].setPiece(new Single(Piece.Color.RED));
         expected[4][1].setPiece(new Single(Piece.Color.RED));
         expected[5][6].setPiece(new Single(Piece.Color.RED));
-        expected[4][3].setPiece(new Single(Piece.Color.WHITE));
+        expected[4][5].setPiece(new Single(Piece.Color.WHITE));
 
         // Compare
         for(int row = 0; row < NUM_ROWS; row++) {
@@ -212,7 +212,7 @@ public class BoardViewDemoModeTest {
         CuT = new BoardView(red, white);
         actual = CuT.getBoard();
         // Set up expected board
-        for (int i = 1; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 expected[i][j].setPiece(null);
             }

@@ -87,7 +87,7 @@ public class BoardView implements Iterable<Row>{
             board[5][2].setPiece(new Single(Piece.Color.RED));
             board[4][1].setPiece(new Single(Piece.Color.RED));
             board[5][6].setPiece(new Single(Piece.Color.RED));
-            board[4][3].setPiece(new Single(Piece.Color.WHITE));
+            board[4][5].setPiece(new Single(Piece.Color.WHITE));
         } else if(red.getName().equals("mjump") || white.getName().equals("mjump")) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -131,7 +131,7 @@ public class BoardView implements Iterable<Row>{
             board[5][6].setPiece(new Single(Piece.Color.WHITE));
             board[3][6].setPiece(new Single(Piece.Color.WHITE));
         } else if(red.getName().equals("win") || white.getName().equals("win")) {
-            for (int i = 1; i < 7; i++) {
+            for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     board[i][j].setPiece(null);
                 }
