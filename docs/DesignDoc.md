@@ -287,33 +287,35 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 
 #Code Metrics
 ##Complexity metrics
-| Method metrics                                               |       |       |       |      |
+
+| Method metrics                                                   | CogC  | ev(G) | iv(G) | v(G) |
 | ---------------------------------------------------------------- | ----- | ----- | ----- | ---- |
-| **Method metrics**                                                   | CogC  | ev(G) | iv(G) | v(G) |
 | com.webcheckers.application.GameCenter.createGame(String,String) | 7     | <span style="color:red">5</span>     | 6     | 8    |
 | com.webcheckers.application.PlayerLobby.addPlayer(String)        | 3     | <span style="color:red">4</span>     | 2     | 4    |
 | com.webcheckers.model.BoardView.checkMove(Move,Color)            | <span style="color:red">26</span>    | <span style="color:red">15</span>    | 6     | <span style="color:red">18</span>   |
+| com.webcheckers.model.BoardView.movesRemaining(Color)            | 12    | <span style="color:red">5</span>     | 6     | 7    |
 | com.webcheckers.model.BoardView.piecesRemaining(Color)           | 7     | <span style="color:red">4</span>     | 4     | 5    |
 | com.webcheckers.model.BoardView.playerCanJump(Color)             | 7     | <span style="color:red">4</span>     | 5     | 6    |
-| com.webcheckers.model.BoardView.setupDemoBoard()                 | <span style="color:red">42</span>    | 1     | <span style="color:red">25</span>    | <span style="color:red">25</span>   |
-| com.webcheckers.model.CheckersGame.gameOverMessage()             | 8     | <span style="color:red">4</span>     | 4     | 5    |
-| com.webcheckers.model.CheckersGame.submitTurn()                  | <span style="color:red">23</span>    | <span style="color:red">4</span>     | <span style="color:red">13</span>    | <span style="color:red">17</span>   |
+| com.webcheckers.model.BoardView.setupDemoBoard()                 | <span style="color:red">49</span>    | 1     | <span style="color:red">29</span>    | <span style="color:red">29</span>   |
+| com.webcheckers.model.CheckersGame.gameOverMessage()             | 9     | <span style="color:red">5</span>     | 5     | 6    |
+| com.webcheckers.model.CheckersGame.submitTurn()                  | <span style="color:red">28</span>    | <span style="color:red">4</span>     | <span style="color:red">14</span>    | <span style="color:red">19</span>   |
 | com.webcheckers.ui.GetGameRoute.handle(Request,Response)         | 13    | <span style="color:red">5</span>     | <span style="color:red">10</span>    | <span style="color:red">15</span>   |
 | com.webcheckers.ui.GetHomeRoute.handle(Request,Response)         | 10    | 2     | 7     | <span style="color:red">11</span>   |
-| **Total**                                                            | **146**   | **48**    | **82**    | **114**  |
-| Average                                                          | 14.6  | 4.8   | 8.2   | 11.4 |
+| **Total**                                                            | **171**   | **54**    | **94**    | **128**  |
+| Average                                                          | 15.55  | 4.91   | 8.55   | 11.64 |
 
-| Class metrics                                               |       |       |       |
+
+| Class metrics                                                    | OCavg | OCmax | WMC   |
 | ---------------------------------------------------------------- | ----- | ----- | ----- |
-| **Class metrics**                                                    | OCavg | OCmax | WMC   |
 | com.webcheckers.application.GameCenter                           | 1.79  | 5     | <span style="color:red">34</span>    |
-| com.webcheckers.model.BoardView                                  | <span style="color:red">3.48</span>  | 19    | <span style="color:red">73</span>    |
-| com.webcheckers.model.CheckersGame                               | 2.05  | 11    | <span style="color:red">39</span>    |
-| com.webcheckers.ui.GetGameRoute                                  | <span style="color:red">7</span>     | 13    | 14    |
-| com.webcheckers.ui.GetHomeRoute                                  | <span style="color:red">5.5</span>   | 10    | 11    |
-| com.webcheckers.ui.PostSigninRoute                               | <span style="color:red">3.5</span>   | 6     | 7     |
-| **Total**                                                            |       |       | **178**   |
-| Average                                                          | 3.89  | 10.67 | 29.67 |
+| com.webcheckers.model.BoardView                                  | <span style="color:red">3.68</span>  | 22    | <span style="color:red">81</span>    |
+| com.webcheckers.model.CheckersGame                               | 2.21  | 13    | <span style="color:red">42</span>    |
+| com.webcheckers.ui.GetGameRoute                                  | <span style="color:red">7.00</span>     | 13    | 14    |
+| com.webcheckers.ui.GetHomeRoute                                  | <span style="color:red">5.50</span>   | 10    | 11    |
+| com.webcheckers.ui.PostSigninRoute                               | <span style="color:red">3.50</span>   | 6     | 7     |
+| **Total**                                                            |       |       | **189**   |
+| Average                                                          | 3.95  | 11.5 | 31.5 |
+
 
 ##Chidamber-Kemerer metrics:
 ![Chidamber-Kemerer metrics](initial Chidamber-Kemerer metrics.png)
