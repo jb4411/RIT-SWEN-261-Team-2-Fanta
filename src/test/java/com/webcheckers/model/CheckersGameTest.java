@@ -100,6 +100,16 @@ public class CheckersGameTest {
     }
 
     /**
+     * Test that gameOverMessage() works correctly when a player resigns.
+     */
+    @Test
+    public void test_gameOverMessageNoMovesLeft() {
+        assertNull(CuT.gameOverMessage());
+        CuT.endGame(CheckersGame.EndReason.NO_MOVES_LEFT, Piece.Color.RED);
+        assertEquals(String.format(CheckersGame.NO_MOVES_LEFT_MESSAGE, "white", "red"), CuT.gameOverMessage());
+    }
+
+    /**
      * Test that gameOverMessage() works correctly when the game ends in an unknown way.
      */
     @Test
@@ -279,7 +289,7 @@ public class CheckersGameTest {
         assertEquals(CheckersGame.TURN_SUBMITTED_MESSAGE, msg);
         assertEquals(new King(Piece.Color.RED), boardView.getBoard()[0][5].getPiece());
 
-        // Case: this move caused the game to end
+        // Case: this move caused the game to end by capturing all of the opponents pieces
         //Set up board so only two pieces remain
         Space[][] board = boardView.getBoard();
         for(Space[] row : board) {
@@ -292,6 +302,23 @@ public class CheckersGameTest {
         // Create a game with this special board
         CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY, boardView);
         CuT.testMove(new Move(new Position(7, 0), new Position(5, 2)));
+        assertEquals(CheckersGame.TURN_SUBMITTED_MESSAGE, CuT.submitTurn());
+        assertTrue(CuT.isGameOver());
+
+        // Case: this move caused the game to end because the opponent has no move left
+        //Set up board so the white player has no moves left
+        board = boardView.getBoard();
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        board[7][0].setPiece(new Single(Piece.Color.RED));
+        board[7][6].setPiece(new Single(Piece.Color.RED));
+        board[6][7].setPiece(new Single(Piece.Color.WHITE));
+        // Create a game with this special board
+        CuT = new CheckersGame(red, white, CheckersGame.Mode.PLAY, boardView);
+        CuT.testMove(new Move(new Position(7, 0), new Position(6, 1)));
         assertEquals(CheckersGame.TURN_SUBMITTED_MESSAGE, CuT.submitTurn());
         assertTrue(CuT.isGameOver());
     }
