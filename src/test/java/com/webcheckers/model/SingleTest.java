@@ -130,4 +130,23 @@ public class SingleTest {
         //Case: there is a jump to the left of the single piece
         assertTrue(CuT.hasJump(board, 4, 3));
     }
+
+    /**
+     * Test that hasMove() works correctly.
+     */
+    @Test
+    public void test_hasMove() {
+        Player red = new Player("red");
+        Player white = new Player("white");
+        BoardView board = new BoardView(red, white);
+
+        //Case: the board is in its initial state
+        assertTrue(CuT.hasMove(board, 5, 0));
+
+        //Case: no valid moves exist
+        Space[][] currentBoard = board.getBoard();
+        currentBoard[7][2].setPiece(new Single(Piece.Color.WHITE));
+        currentBoard[5][2].setPiece(new Single(Piece.Color.WHITE));
+        assertFalse(CuT.hasMove(board, 6, 1));
+    }
 }
