@@ -77,4 +77,29 @@ public class King extends Piece {
         }
         return false;
     }
+
+    /**
+     * Returns whether or not this piece has any possible valid moves.
+     *
+     * @param board     the current board
+     * @param startRow  the row this piece is on
+     * @param startCell the cell this piece is on
+     * @return whether or not this piece can move
+     */
+    @Override
+    public boolean hasMove(BoardView board, int startRow, int startCell) {
+        Move move;
+        Position start = new Position(startRow, startCell);
+
+        List<List<Integer>> signs = List.of(List.of(1, 1), List.of(-1, -1), List.of(-1, 1), List.of(1, -1));
+        for(List<Integer> pair : signs) {
+            Position end = new Position(startRow + pair.get(0), startCell + pair.get(1));
+            move = new Move(start, end);
+
+            if(end.isValid() && this.isMoveValid(move) && (board.getSquare(end).getPiece() == null)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

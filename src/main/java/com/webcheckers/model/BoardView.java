@@ -138,6 +138,15 @@ public class BoardView implements Iterable<Row>{
             }
             board[4][1].setPiece(new Single(Piece.Color.WHITE));
             board[5][0].setPiece(new Single(Piece.Color.RED));
+        } else if(red.getName().equals("nomoves") || white.getName().equals("nomoves")) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j].setPiece(null);
+                }
+            }
+            board[7][0].setPiece(new Single(Piece.Color.RED));
+            board[7][6].setPiece(new Single(Piece.Color.RED));
+            board[6][7].setPiece(new Single(Piece.Color.WHITE));
         }
     }
 
@@ -262,9 +271,10 @@ public class BoardView implements Iterable<Row>{
         if(move.isJump()) {
             getJumpedSquare(move).setPiece(null);
             lastMoveType = MoveType.JUMP;
-            isGameOver = !piecesRemaining(opponentColor);
+            isGameOver = (!piecesRemaining(opponentColor) || !movesRemaining(opponentColor));
             playerHasJump = endSpace.getPiece().hasJump(this, end.getRow(), end.getCell());
         } else {
+            isGameOver = !movesRemaining(opponentColor);
             lastMoveType = MoveType.SIMPLE;
         }
     }
@@ -427,6 +437,26 @@ public class BoardView implements Iterable<Row>{
             for (int col = 0; col < NUM_COLS; col++) {
                 if (board[row][col].getPiece() != null && board[row][col].getPiece().getColor() == playerColor){
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if the player with the color passed in has any available moves.
+     *
+     * @return true if they have at least one possible move
+     * */
+    public boolean movesRemaining(Piece.Color playerColor) {
+        BoardView currentBoard = new BoardView(this, playerColor == Piece.Color.WHITE);
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                Piece piece = currentBoard.getBoard()[row][col].getPiece();
+                if (piece != null && piece.getColor() == playerColor) {
+                    if(piece.hasMove(currentBoard, row, col) || piece.hasJump(currentBoard, row, col)) {
+                        return true;
+                    }
                 }
             }
         }

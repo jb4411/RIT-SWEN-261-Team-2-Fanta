@@ -37,6 +37,7 @@ public class CheckersGame {
     static final String GAME_OVER_MESSAGE = "The game has ended!";
     static final String ALL_PIECES_CAPTURED_MESSAGE = "%s has captured all of %s's pieces.";
     static final String PLAYER_RESIGNED_MESSAGE = "%s has resigned.";
+    static final String NO_MOVES_LEFT_MESSAGE = "%s has no moves left. %s wins.";
 
     /**
      * An enum for the different modes a user could view a game in (SPECTATOR and REPLAY are for enhancements).
@@ -51,7 +52,8 @@ public class CheckersGame {
      */
     public enum EndReason {
         CAPTURED,
-        RESIGNED
+        RESIGNED,
+        NO_MOVES_LEFT
     }
 
     /**
@@ -90,6 +92,8 @@ public class CheckersGame {
                 return String.format(ALL_PIECES_CAPTURED_MESSAGE, getPlayer(endingColor), getPlayer(losingColor));
             } else if(endReason == EndReason.RESIGNED) {
                 return String.format(PLAYER_RESIGNED_MESSAGE, getPlayer(endingColor));
+            } else if(endReason == EndReason.NO_MOVES_LEFT) {
+                return String.format(NO_MOVES_LEFT_MESSAGE, getPlayer(losingColor), getPlayer(endingColor));
             } else {
                 return GAME_OVER_MESSAGE;
             }
@@ -293,9 +297,20 @@ public class CheckersGame {
             endSpace.setPiece(new King(piece.getColor()));
         }
 
+        Piece.Color opponentColor;
+        if(currentColor == Piece.Color.RED) {
+            opponentColor = Piece.Color.WHITE;
+        } else {
+            opponentColor = Piece.Color.RED;
+        }
+
         isGameOver = board.isGameOver();
         if(isGameOver) {
-            endGame(EndReason.CAPTURED, currentColor);
+            if(!board.piecesRemaining(opponentColor)) {
+                endGame(EndReason.CAPTURED, currentColor);
+            } else {
+                endGame(EndReason.NO_MOVES_LEFT, currentColor);
+            }
         } else {
             board.resetJumpData();
         }

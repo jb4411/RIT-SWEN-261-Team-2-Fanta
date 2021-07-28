@@ -94,6 +94,16 @@ public abstract class Piece {
     public abstract boolean hasJump(BoardView board, int startRow, int startCell);
 
     /**
+     * Returns whether or not this piece has any possible valid moves.
+     *
+     * @param startRow the row this piece is on
+     * @param startCell the cell this piece is on
+     * @param board the current board
+     * @return whether or not this piece can move
+     */
+    public abstract boolean hasMove(BoardView board, int startRow, int startCell);
+
+    /**
      * Checks if two spaces are equal.
      *
      * @param obj the object to compare with
