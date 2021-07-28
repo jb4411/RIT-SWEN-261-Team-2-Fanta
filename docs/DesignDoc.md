@@ -317,6 +317,7 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 | Average                                                          | 3.95  | 11.5 | 31.5 |
 
 #Initial code metrics:
+These are the code metrics from when we first did metric analysis in Sprint 3 for the Code Metrics exercise. 
 ##Chidamber-Kemerer metrics:
 ![Chidamber-Kemerer metrics](initial Chidamber-Kemerer metrics.png)
 
