@@ -316,7 +316,7 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 | **Total**                                                            |       |       | **189**   |
 | Average                                                          | 3.95  | 11.5 | 31.5 |
 
-
+#Initial code metrics:
 ##Chidamber-Kemerer metrics:
 ![Chidamber-Kemerer metrics](initial Chidamber-Kemerer metrics.png)
 
