@@ -136,6 +136,8 @@ GetGameRoute:
 GetHomeRoute:
 > UI controller to GET the “/” route. If a player is signed in, the home page will display a list of all signed-in players.
 
+![The GetHomeRoute UI Controller Sequence Diagram](Team_2_GetHomeRoute_Sequence_Diagram.png)
+
 GetSignInRoute:
 > UI controller to GET the “/signin” route. Renders a page for the user to enter a username to sign in.
 
