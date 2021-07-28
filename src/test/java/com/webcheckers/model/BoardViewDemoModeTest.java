@@ -227,4 +227,31 @@ public class BoardViewDemoModeTest {
             }
         }
     }
+
+    /**
+     * Test that the no moves demo board is set up correctly.
+     */
+    @Test
+    public void test_noMovesDemoBoard() {
+        when(red.getName()).thenReturn("nomoves");
+        when(white.getName()).thenReturn("nomoves");
+        CuT = new BoardView(red, white);
+        actual = CuT.getBoard();
+        // Set up expected board
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                expected[i][j].setPiece(null);
+            }
+        }
+        expected[7][0].setPiece(new Single(Piece.Color.RED));
+        expected[7][6].setPiece(new Single(Piece.Color.RED));
+        expected[6][7].setPiece(new Single(Piece.Color.WHITE));
+
+        // Compare
+        for(int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < BoardView.NUM_COLS; col++) {
+                assertEquals(expected[row][col], actual[row][col]);
+            }
+        }
+    }
 }

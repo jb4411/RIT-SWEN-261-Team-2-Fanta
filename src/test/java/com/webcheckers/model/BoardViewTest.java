@@ -581,7 +581,7 @@ public class BoardViewTest {
         assertTrue(CuT.piecesRemaining(Color.WHITE));
 
         // Case: neither player has any pieces left
-        // Set up board so neither player ahs any pieces left
+        // Set up board so neither player has any pieces left
         Space[][] board = CuT.getBoard();
         for(Space[] row : board) {
             for(Space space : row) {
@@ -590,6 +590,41 @@ public class BoardViewTest {
         }
         assertFalse(CuT.piecesRemaining(Color.RED));
         assertFalse(CuT.piecesRemaining(Color.WHITE));
+    }
+
+    /**
+     * Test that movesRemaining() works correctly.
+     */
+    @Test
+    public void test_movesRemaining() {
+        // Case: initial board state, both players should have moves remaining
+        assertTrue(CuT.movesRemaining(Color.RED));
+        assertTrue(CuT.movesRemaining(Color.WHITE));
+
+        // Case: the red player has no moves left
+        // Set up board so the red player has no moves left
+        Space[][] board = CuT.getBoard();
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        board[0][1].setPiece(new Single(Color.WHITE));
+        board[1][0].setPiece(new Single(Color.RED));
+
+        assertFalse(CuT.movesRemaining(Color.RED));
+
+        // Case: the white player has no moves left
+        // Set up board so the red player has no moves left
+        for(Space[] row : board) {
+            for(Space space : row) {
+                space.setPiece(null);
+            }
+        }
+        board[7][6].setPiece(new Single(Piece.Color.RED));
+        board[6][7].setPiece(new Single(Piece.Color.WHITE));
+
+        assertFalse(CuT.movesRemaining(Color.WHITE));
     }
 
     /**
