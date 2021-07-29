@@ -302,7 +302,20 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 
 
 #Code Metrics
+##Chidamber-Kemerer metrics
+Our code is within the normal ranges for the Chidamber-Kemerer metrics.
+
+The only metrics where our code reaches outside the normal ranges are the Complexity metrics. Within the Complexity metrics, our Package, Module, and Project metrics are all within normal ranges, however in the Method and Class metrics, there are some notable outliers.
+
 ##Complexity metrics
+###Method Metrics
+Cyclomatic Complexity (v(G)) is one way of measuring the complexity of code. This is a count of individual execution paths through a method. This essentially measures how difficult a method is to test. A higher number of possible paths through a method will generally make testing more complex. Writing testable code is extremely important, and high Cyclomatic Complexity can be a good indicator that there is hard to test code that might benefit from refactoring.
+
+Essential Cyclomatic Complexity (ev(G)) and Cyclomatic Complexity are different, but closely related. If a method has low Essential Cyclomatic Complexity, that means the method can be broken up into smaller methods fairly easily. If we have a hard to test method that has high Cyclomatic Complexity, but low Essential Cyclomatic Complexity, that suggests we could, without much work, break said method into smaller parts that could each be tested individually.
+
+Design complexity (iv(G)) is related to how many links to other methods a method has during its execution. The Design Complexity can range from 1 to the Cyclomatic Complexity of the method. In essence, Design Complexity also represents the minimum number of tests needed to test the integration of the method with any other methods it calls during execution.
+
+Finally we have Cognitive Complexity (CogC). Cognitive Complexity is similar to Cyclomatic Complexity in many ways, however its purpose is different. Cognitive Complexity is intended to measure the understandability of code specifically, which can be quite different from the testability of code. Each control structure used in a method will increase Cognitive Complexity, and nested control structures will do the same.
 
 | Method metrics                                                   | CogC  | ev(G) | iv(G) | v(G) |
 | ---------------------------------------------------------------- | ----- | ----- | ----- | ---- |
@@ -320,6 +333,38 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 | **Total**                                                            | **171**   | **54**    | **94**    | **128**  |
 | Average                                                          | 15.55  | 4.91   | 8.55   | 11.64 |
 
+Within our application tier, the GameCenter.createGame() method has an ev(G) of 5, which falls slightly outside the normal range. This indicates that splitting the method up into smaller pieces could be slightly challenging, however given this method has a v(G) that is within the normal range, splitting up this method is not necessary as it is not hard to test as it is.
+
+The PlayerLobby.addPlayer() method has an ev(G) of 4, which again falls slightly outside the normal range. Similar to GameCenter.createGame(), PlayerLobby.addPlayer() has a v(G) that is within the normal range, so as before, splitting up this method is not necessary as it is not hard to test as it is.
+
+Next we move on to the model tier. The BoardView.checkMove() method has a CogC of 26, an ev(G) of 15, and a v(G) of 18. A CogC of 26 indicates that this method may be quite hard to understand, and might benefit from some refactoring to increase readability. The combination of both high ev(G) and v(G) indicates that this method is likely hard to test, and unfortunately, also hard to split up into smaller pieces. BoardView.checkMove() is one of the largest methods in our implementation of WebCheckers and could definitely be improved by splitting it up into smaller, less complicated pieces. However, as indicated by the high ev(G), finding good spots to split up this method would be challenging. The main approach we could see would be to have a method for the initial set of checks, a method that checks the move if it is a simple move, and a method that checks the move if it is a jump move. This would likely improve the understandability of the code, and make testing it easier.
+
+The BoardView.movesRemaining() method has an ev(G) of 5, which falls slightly outside the normal range. As this method has a v(G) that is within the normal range, splitting up this method is not necessary as it is not hard to test as it is.
+
+The BoardView.piecesRemaining() and BoardView.playerCanJump() methods both have an ev(G) of 4. As both methods have a v(G) that is within the normal range, splitting up these methods is not necessary as they are not hard to test in their current states.
+
+The BoardView.setupDemoBoard() method has a CogC of 49, an iv(G) of 29, and a v(G) of 29. These are all outside of the normal range for these metrics, however we believe that despite this, no changes need to be made. This method is only used for demonstrations of the product’s functionality, and therefore is never used under normal operation. As well, in spite of what these metrics imply, this method is fairly simple, consisting of a set of if else statements that checks if either player in this game is using a username that corresponds to a backdoor for a specific demo board, and if so, it will set up said demo board. For these reasons we believe no further work is necessary in this method. However, as indicated by its ev(G) of 1, splitting this method into smaller components would not be too challenging.
+
+The CheckersGame.gameOverMessage() method has an ev(G) of 5, which falls slightly outside the normal range. As this method has a v(G) that is within the normal range, splitting up this method is not necessary as it is not hard to test as it is.
+
+The CheckersGame.submitTurn() method has a CogC of 28, an ev(G) of 4, an iv(G) of 14, and a v(G) of 19. A CogC of 28 indicates that this method is almost certainly quite hard to understand, and would likely benefit from some refactoring to increase readability. A v(G) of 9 also indicates that this method could be tested more easily if it was split up into smaller pieces. An ev(G) of 4 is slightly outside of the normal range, meaning splitting this method up might be somewhat hard, but not impossible. The high iv(G) shows that this method calls many other methods during execution. This makes testing more challenging, however there is not much that can reasonably be done to change this; the nature of the method means that calling many other methods is essentially unavoidable. However splitting this method up into smaller pieces would help somewhat, as each smaller piece could be tested individually.
+
+Next we move on to the UI tier. The GetGameRoute.handle() method has an ev(G) of 5, an iv(G) of 10, and a v(G) of 15.These metrics indicate there is functionality in the UI tier that should be moved to another tier, likely the application tier, to reduce the complexity of the UI. This is confirmed by the high v(G). The UI tier should have to interact with other classes as little as possible to reduce the complexity of the UI. This method could definitely benefit from some refactoring to move functionality out of this method, and out of the UI tier. We can see from the ev(G) of 5 that splitting this method into smaller parts would be doable, but not trivial. Such refactoring would also help reduce the high v(G), and thus make testing this class easier.
+
+The GetHomeRoute.handle() method has a v(G) of 11. This high v(G) should not be present in a UI tier component. Some refactoring to move functionality out of this method, and out of the UI tier would make testing this class easier. Luckily, GetHomeRoute.handle() has an ev(G) of 2, meaning it would likely be quite easy to do such refactoring.
+
+The metrics for all of the other methods in our implementation of WebCheckers fall within the normal ranges.
+
+###Class Metrics
+
+Now we consider the class metrics that are outside of the normal range. However as before we will first explore what these metrics actually mean.
+
+Average Operation Complexity (OCavg) calculates the average Cyclomatic Complexity of all non-abstract methods in a class. Thus the Average Operation Complexity gives a decent estimate of how hard it will be to test the methods in a class.
+
+Maximum Operation Complexity (OCmax) is the Maximum Cyclomatic Complexity out of the non-abstract methods in a class. We do not have any classes with a Maximum Operation Complexity that exceeds the normal range. Although parts of our code have an Average Operation Complexity that is outside of the normal range, despite this, none of our code has a Maximum Operation Complexity that exceeds the normal range. This shows that at least when it comes to Cyclomatic Complexity, our code does not contain any outliers that could be skewing our Average Cyclomatic Complexity above where it should be.
+
+Finally, Weighted Method Complexity (WMC) calculates the total Cyclomatic Complexity of all methods in a class. This gives a decent idea of which classes are likely to be the hardest to test overall.
+
 
 | Class metrics                                                    | OCavg | OCmax | WMC   |
 | ---------------------------------------------------------------- | ----- | ----- | ----- |
@@ -331,6 +376,21 @@ We believed that by having 100% coverage, we could be absolutely sure that there
 | com.webcheckers.ui.PostSigninRoute                               | <span style="color:red">3.50</span>   | 6     | 7     |
 | **Total**                                                            |       |       | **189**   |
 | Average                                                          | 3.95  | 11.5 | 31.5 |
+
+Within the application tier, the GameCenter class has a WMC of 34. We can see from this that some refactoring in this class could improve testability, which should be examined. This is consistent with what we saw in the method metrics above.
+
+With respect to the model tier, the BoardView class has an OCavg of 3.68, and a WMC of 81. This class is the most problematic when it comes to our code metrics, and given what we saw in the method metrics above, these results are not surprising. As we discussed above, refactoring the BoardView class could improve both its testability and understandability.
+
+The CheckersGame class has a WMC of 42. We can see from this that some refactoring in this class could improve testability, and should be considered. This is consistent with what we saw in the method metrics above.
+
+With Respect to the  to the UI tier, theGetGameRoute class has an OCavg of 7. This is consistent with what we saw in the method metrics above. Refactoring the GetGameRoute.handle() method to move functionality out of the UI tier would both reduce GetGameRoute’s OCavg, and reduce the complexity of the UI.
+
+The GetHomeRoute class has an OCavg of 5.5. This is consistent with what we saw in the method metrics above. Refactoring the GetHomeRoute.handle() method to move functionality out of the UI tier would both reduce GetHomeRoute’s OCavg, and reduce the complexity of the UI.
+
+The PostSigninRoute class has an OCavg of 3.5. Some refactoring to move functionality out of this method, and out of the UI tier would make testing this class easier. None of the methods in the class exceed the normal range for the method metrics, meaning it would likely be easy to perform such refactoring.
+
+##Remaining Metrics
+Our code is within the normal ranges for all of the Javadoc coverage metrics, all of the Lines of code metrics, and all of the Martin package metrics.
 
 #Initial code metrics:
 These are the code metrics from when we first did metric analysis in Sprint 3 for the Code Metrics exercise. 
