@@ -122,7 +122,7 @@ Once on the game page, starting with the red player, players take turns making m
 making a move, their turn ends, and the other player's turn begins. This cycle continues until a player wins the game,
 or a player resigns.
 
-![The WebCheckers Web Interface Statechart](StateChart_WebCheckers.png)
+![The WebCheckers Web Interface Statechart](StateChart_WebCheckers_3.png)
 
 
 
@@ -253,7 +253,15 @@ Single:
 
 ### Design Improvements
 
-The main design improvements we see are in our UI routes. getGameRoute and getHomeRoute both have logic in them that might be better located in a different class to reduce the complexity of the UI elements.
+All of the methods discussed below in the code metrics section could potentially benefit from refactoring, however there are some that stand out as the highest priority hotspots.
+
+The three big design improvement possibilities we see are in our UI routes. To maintain architectural separation, and allow new user interfaces to be implemented easily, the UI tier should contain little to no actual logic. However, GetGameRoute, GetHomeRoute, and to a lesser degree, PostSigninRoute, all contain logic that could be moved out of the UI tier.
+
+CheckersGame has one method in particular that would greatly benefit from refactoring. CheckersGame.submitTurn() is one of the longest methods in our implementation of WebCheckers. On top of being extremely long, the method is also hard to follow and understand. Splitting this method into smaller, simpler pieces would likely prove to be quite challenging, however given the importance of this method in the overall operation of the application, refactoring this method to be more easily understood and tested would be crucial, especially if more functionality is added to the application in the future.
+
+Another hotspot is in BoardView, specifically its checkMove() method. Currently this method is quite long and confusing, in fact it is only 5 lines shorter than CheckersGame.submitTurn(). By refactoring this method and splitting it into smaller, less confusing parts, testing would be made much easier, as well as making it easier to change and update in the future.
+
+
 
 ## Testing
 
