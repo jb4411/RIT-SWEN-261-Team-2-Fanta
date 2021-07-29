@@ -26,7 +26,6 @@ The WebCheckers application allows users to play checkers anytime, anywhere. It 
 
 | Term | Definition |
 |------|------------|
-| VO | Value Object |
 | Cyclomatic Complexity | v(G) |
 | Essential Cyclomatic Complexity | ev(G) |
 | Design complexity | iv(G) |
@@ -72,7 +71,7 @@ This section describes the features of the application.
      That player will be rerouted to that CheckersGame and will be able to watch the game play out in real time.
 
 
-
+<br>
 
 ## Application Domain
 
